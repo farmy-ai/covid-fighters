@@ -1,0 +1,441 @@
+<mat-card class="content-card">
+  <mat-card-header>
+    <mat-card-title>DISPOSITIF DE SURVEILLANCE DE L’INFECTION </mat-card-title>
+    <mat-card-subtitle> Fiche de notification d’un cas suspect ou confirmé d’infection COVID-19</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-vertical-stepper selectedIndex="4" [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="InformationGeneral">
+        <ng-template matStepLabel>Information general</ng-template>
+        <span class="mat-body-strong">here you can put general information
+          <button mat-icon-button>
+            <mat-icon style="font-size: 18px;">info</mat-icon>
+          </button>
+        </span>
+        <form [formGroup]="InformationGeneral" class="form-container mt-3">
+          <div class="row-1">
+            <mat-form-field>
+              <input matInput type="text" autocomplete="bday" [matDatepicker]="picker"
+                placeholder="Date de notification">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="ml-3">
+              <input matInput type="text" placeholder="Identifiant du cas">
+            </mat-form-field>
+          </div>
+          <div class="row-2">
+            <mat-form-field class="">
+              <input matInput type="text" placeholder="Médecin déclarant">
+            </mat-form-field>
+          </div>
+          <div class="row-2">
+            <mat-form-field>
+              <mat-label>Etablissement déclarant</mat-label>
+              <mat-select required>
+                <mat-option value="CHU">CHU</mat-option>
+                <mat-option value="EHU">EHU</mat-option>
+                <mat-option value="EHS">EHS</mat-option>
+                <mat-option value="EPH">EPH</mat-option>
+                <mat-option value="EPSP">EPSP</mat-option>
+                <mat-option value="Clinique privée">Clinique privée</mat-option>
+                <mat-option value="Cabinet privé">Cabinet privé</mat-option>
+                <mat-option value="Autre">Autre</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row-1">
+            <mat-form-field class="">
+              <input matInput type="text" placeholder="Nom de l’établissement">
+            </mat-form-field>
+            <mat-form-field class="ml-3">
+              <mat-label>Wilaya</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let wilaya of wilayaList" [value]="wilaya.code">{{wilaya.nom}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row-1 mt-3">
+            <span>Détecté au point d’entrée :</span>
+            <mat-radio-group #optionR class="ml-3" aria-label="Select an option">
+              <mat-radio-button class="ml-2" value="oui">Oui</mat-radio-button>
+              <mat-radio-button class="ml-2" value="non">Non</mat-radio-button>
+              <mat-radio-button class="ml-2" value="inconnu">Inconnu</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div *ngIf="true" class="row-2 mt-2">
+            <mat-form-field>
+              <input matInput type="text" autocomplete="bday" [matDatepicker]="picker2" placeholder="date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="row-1 mt-2">
+            <button mat-raised-button color="primary" matStepperNext>Suivant</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="Identification">
+        <span class="mat-body-strong">here you can put general information
+          <button mat-icon-button>
+            <mat-icon style="font-size: 18px;">info</mat-icon>
+          </button>
+        </span>
+        <form [formGroup]="Identification" class="form-container mt-3">
+          <ng-template matStepLabel>Identification du patient</ng-template>
+          <div class="row-1">
+            <mat-form-field class="">
+              <input matInput type="text" placeholder="Nom">
+            </mat-form-field>
+            <mat-form-field class="ml-3">
+              <input matInput type="text" placeholder="Prénom">
+            </mat-form-field>
+          </div>
+          <mat-radio-group class="mt-3">
+            <mat-radio-button value="Date" class="mr-2">Date de naissance</mat-radio-button>
+            <mat-radio-button value="age">âge</mat-radio-button>
+          </mat-radio-group>
+          <div class="row-1">
+            <mat-form-field class="">
+              <input matInput [matDatepicker]="picker3" placeholder="Date de naissance">
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="ml-3" style="width: 60px;">
+              <input matInput type="number" placeholder="âge">
+            </mat-form-field>
+            <mat-select style="width: 60px;" class="ml-1" value="année" placeholder="...">
+              <mat-option value="jour">Jour</mat-option>
+              <mat-option value="mois">Mois</mat-option>
+              <mat-option value="année">Année</mat-option>
+            </mat-select>
+          </div>
+
+          <div class="row-1 mt-3">
+            <span>Sexe:</span>
+            <mat-radio-group>
+              <mat-radio-button class="ml-4" value="Masculin">Masculin</mat-radio-button>
+              <mat-radio-button class="ml-3" value="Féminin">Féminin</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <mat-form-field class="mt-3">
+            <textarea matInput rows="3" placeholder="Adresse exact du patient "></textarea>
+          </mat-form-field>
+          <div class="row-1 mt-4">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="ClinicalInformation">
+        <ng-template matStepLabel>Information clinique</ng-template>
+        <span class="mat-body-strong">here you can put general information
+          <button mat-icon-button>
+            <mat-icon style="font-size: 18px;">info</mat-icon>
+          </button>
+        </span>
+        <form [formGroup]="ClinicalInformation" class="form-container mt-4">
+
+          <mat-form-field style="width: 250px;">
+            <input matInput [matDatepicker]="picker4" style="font-size: 12px;"
+              placeholder="Date d’apparition des 1ers symptômes" required>
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <input matInput [matDatepicker]="picker5" style="font-size: 12px;"
+              placeholder="Date de consultation du patient" required>
+            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+            <mat-datepicker #picker5></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <mat-label>Lieu de prise en charge initiale</mat-label>
+            <mat-select placeholder="Lieu de prise en charge initiale" name="item">
+              <mat-option value="CHU">CHU</mat-option>
+              <mat-option value="EHU">EHU</mat-option>
+              <mat-option value="EHS">EHS</mat-option>
+              <mat-option value="EPH">EPH</mat-option>
+              <mat-option value="Polyclinique">Polyclinique</mat-option>
+              <mat-option value="Salle de soins">Salle de soins</mat-option>
+              <mat-option value="Clinique privée">Clinique privée</mat-option>
+              <mat-option value="Cabinet privé">Cabinet privé</mat-option>
+              <mat-option value="Autres"></mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <input matInput [matDatepicker]="picker6" style="font-size: 12px;" placeholder="Date d’hospitalisation"
+              required>
+            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+            <mat-datepicker #picker6></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <mat-label>Service d’hospitalisation</mat-label>
+            <mat-select placeholder="Service d’hospitalisation" name="item">
+              <mat-option value="UMC">UMC</mat-option>
+              <mat-option value="Soins intensifs">Soins intensifs</mat-option>
+              <mat-option value="Réanimation">Réanimation</mat-option>
+              <mat-option value="Autres">Autres</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <input matInput type="text" placeholder="Si Autres, préciser" required>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <mat-label>Mode d’admission</mat-label>
+            <mat-select placeholder="Mode d’admission" name="item">
+              <mat-option value="Evacuation">Evacuation</mat-option>
+              <mat-option value="Urgence">Urgence</mat-option>
+              <mat-option value="Consultation">Consultation</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <input matInput type="text" placeholder="Si Par évacuation, préciser" required>
+          </mat-form-field>
+
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <input matInput [matDatepicker]="picker7" style="font-size: 12px;" placeholder="Date d’isolement" required>
+            <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+            <mat-datepicker #picker7></mat-datepicker>
+          </mat-form-field>
+
+          <div class="row-1 mt-4">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="Symptoms">
+        <ng-template matStepLabel>Symptômes,Examen & Evolution clinique</ng-template>
+        <span class="mat-body-strong">here you can put general information
+          <button mat-icon-button>
+            <mat-icon style="font-size: 18px;">info</mat-icon>
+          </button>
+        </span>
+        <form [formGroup]="Symptoms" class="form-container mt-4">
+
+          <span class="mat-body-strong mb-3">Symptômes du patient </span>
+          <div class="choice-container d-flex">
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Fièvre</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Asthénie</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Toux</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Maux de gorge</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Ecoulement nasal</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Essoufflement</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Diarrhée</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Nausée/vomissement
+            </mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Céphalées</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Douleur musculaire
+            </mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Douleur articulaire
+            </mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Douleur abdominale
+            </mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Irritabilité</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Confusion mentale
+            </mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: 185px;" color="primary">Autres</mat-slide-toggle>
+          </div>
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <input matInput type="text" placeholder="Si Autres, préciser" required>
+          </mat-form-field>
+
+          <mat-divider class="my-4" [inset]="true"></mat-divider>
+
+          <span class="mat-body-strong mb-3">Symptômes du patient </span>
+          <div class="choice-container d-flex">
+            <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Grossesse</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Post-partum (< 6
+                semaines)</mat-slide-toggle>
+                <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Maladie cardiovasculaire
+                </mat-slide-toggle>
+                <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">HTA</mat-slide-toggle>
+                <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Diabète</mat-slide-toggle>
+                <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Maladie du foie
+                </mat-slide-toggle>
+                <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Diarrhée</mat-slide-toggle>
+                <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Maladie neurologique ou <br>
+                  neuromusculaire chronique</mat-slide-toggle>
+                <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Post-partum (< 6
+                    semaines)</mat-slide-toggle>
+                    <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Immunodépression (VIH
+                      inclus) </mat-slide-toggle>
+                    <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Maladie rénale
+                    </mat-slide-toggle>
+                    <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Maladie chronique des
+                      poumons</mat-slide-toggle>
+                    <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Cancer</mat-slide-toggle>
+                    <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Autres</mat-slide-toggle>
+          </div>
+          <mat-form-field class="mt-3" style="width: 250px;">
+            <input matInput type="text" placeholder="Si Autres, préciser" required>
+          </mat-form-field>
+
+          <mat-divider class="my-4" [inset]="true"></mat-divider>
+
+          <span class="mat-body-strong mb-3">Evolution clinique du patient</span>
+
+          <div class="d-flex flex-column align-items-start mt-3">
+            <span>Le patient a-t-il été ventilé</span>
+            <mat-radio-group color="primary" class="mt-3">
+              <mat-radio-button class="ml-2" value="OUI">OUI</mat-radio-button>
+              <mat-radio-button class="ml-3" value="NON">NON</mat-radio-button>
+              <mat-radio-button class="ml-3" value="Inconnu">Inconnu</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="mt-3" style="width: 250px;">
+              <input matInput type="text" placeholder="précisez le type de ventilation" required>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex flex-column align-items-start mt-3">
+            <span>Evolution</span>
+            <mat-radio-group color="primary" class="mt-3">
+              <mat-radio-button class="ml-1" value="en cours">en cours</mat-radio-button>
+              <mat-radio-button class="ml-2" value="guérison">guérison</mat-radio-button>
+              <mat-radio-button class="ml-2" value="décès">décès</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="mt-3" style="width: 250px;">
+              <input matInput type="text" placeholder="Date de décès ou de sortie de l’hôpital" required>
+            </mat-form-field>
+            <mat-form-field class="mt-3" style="width: 250px;">
+              <input matInput type="text" autocomplete="bday" [matDatepicker]="picker8"
+                placeholder="Date de décès ou de sortie de l’hôpital">
+              <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
+              <mat-datepicker #picker8></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+
+          <div class="row-1 mt-4">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="Mobility">
+        <ng-template matStepLabel>Notion d’exposition</ng-template>
+        <span class="mat-body-strong">Notion d’exposition et /ou voyages dans les 14 jours précédant l’apparition des
+          symptômes
+          <button mat-icon-button>
+            <mat-icon style="font-size: 18px;">info</mat-icon>
+          </button>
+        </span>
+        <form class="form-container mt-4" [formGroup]="Mobility">
+
+          <span class="mat-body-strong mb-3">Profession </span>
+          <div class="choice-container d-flex">
+            <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Etudiant</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Professionnel de santé
+            </mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Travailleur en contact avec les
+              animaux</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Professionnel de laboratoire
+            </mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-3" style="width: auto;" color="primary">Autres</mat-slide-toggle>
+          </div>
+          <mat-form-field class="mt-2 ml-2" style="width: 250px;">
+            <input matInput type="text" placeholder="Si Autres, préciser" required>
+          </mat-form-field>
+
+          <mat-divider class="my-4" [inset]="true"></mat-divider>
+
+          <div class="d-flex flex-column align-items-start mt-3">
+            <span>Le patient a-t-il <strong>voyagé</strong> au cours des 14 jours précédant l’apparition des symptômes
+              ?</span>
+            <mat-radio-group color="primary" class="mt-2 ml-2">
+              <mat-radio-button class="ml-1" value="OUI">OUI</mat-radio-button>
+              <mat-radio-button class="ml-2" value="NON">NON</mat-radio-button>
+              <mat-radio-button class="ml-2" value="Inconnu">Inconnu</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <span class="mt-3"> préciser les endroits où le patient a voyagé</span>
+
+          <div class="flex-form-input-container mat-elevation-z2 my-3 p-1 px-3">
+            <mat-select class="mr-2" style="width: 100px;" placeholder="Pays" name="pays">
+              <mat-option *ngFor="let item of pays" [value]="item">{{item}}</mat-option>
+            </mat-select>
+            <mat-form-field class="mr-3" style="width: 100px;">
+              <input matInput placeholder="Ville" value="">
+            </mat-form-field>
+            <mat-form-field style="width: 220px;" class="mr-3">
+              <input matInput [matDatepicker]="picker9" placeholder="Date de départ de la localité">
+              <mat-datepicker-toggle matSuffix [for]="picker9"></mat-datepicker-toggle>
+              <mat-datepicker #picker9></mat-datepicker>
+            </mat-form-field>
+
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <button mat-raised-button color="primary">Ajouter un endroit</button>
+
+          <mat-divider [inset]="true" class="my-4"></mat-divider>
+
+          <div class="d-flex flex-column align-items-start mt-3">
+            <span>Le patient a-t-il visité des <strong>établissements de soins de santé</strong> au cours des 14 jours
+              précédant l’apparition des symptômes?</span>
+            <mat-radio-group color="primary" class="mt-2 ml-2">
+              <mat-radio-button class="ml-1" value="OUI">OUI</mat-radio-button>
+              <mat-radio-button class="ml-2" value="NON">NON</mat-radio-button>
+              <mat-radio-button class="ml-2" value="Inconnu">Inconnu</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="d-flex flex-column align-items-start mt-3">
+            <span>Le patient a-t-il eu <strong>un contact étroit</strong> avec une personne atteinte d’une infection
+              respiratoire aiguë au cours des 14 jours précédant l’apparition des symptômes ?</span>
+            <mat-radio-group color="primary" class="mt-2 ml-2">
+              <mat-radio-button class="ml-1" value="OUI">OUI</mat-radio-button>
+              <mat-radio-button class="ml-2" value="NON">NON</mat-radio-button>
+              <mat-radio-button class="ml-2" value="Inconnu">Inconnu</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <span class="mat-body-strong mt-3">précisez le lieu de contact (cochez tous ceux qui sont applicables)</span>
+          <div class="choice-container d-flex">
+            <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary">Structure de santé</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary"> Cadre familial</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary">Lieu de travail</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary">Autres</mat-slide-toggle>
+          </div>
+          <mat-form-field class="ml-2" style="width: 250px;">
+            <input matInput type="text" placeholder="Si Autres, préciser" required>
+          </mat-form-field>
+
+          <div class="d-flex flex-column align-items-start mt-3">
+            <span>Le patient a-t-il été en contact avec <strong>un cas suspect ou confirmé</strong> au cours des 14 jours précédant l’apparition des symptômes?</span>
+            <mat-radio-group color="primary" class="mt-2 ml-2">
+              <mat-radio-button class="ml-1" value="OUI">OUI</mat-radio-button>
+              <mat-radio-button class="ml-2" value="NON">NON</mat-radio-button>
+              <mat-radio-button class="ml-2" value="Inconnu">Inconnu</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="mt-4">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Ok</button>
+  </mat-card-actions>
+</mat-card>
