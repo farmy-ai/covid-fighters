@@ -7,7 +7,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Add '.env' file 
 
 ###.env
-'''
+
+```
 MONGODB_URI= <YOUR_MAONGO_URI>
 MONGODB_TEST_URI= <YOUR_MONGODB_TEST_URI>
 SECRET_TOKEN= <YOUR_SECRET_TOKEN>
@@ -19,7 +20,7 @@ CLIENT_URL= <YOUR_CLIENT_URL>
 MAILGUN_DOMAIN=<YOUR_MAILGUN_DOMAIN>
 MAILGUN_API_KEY= <YOUR_MAILGUN_API_KEY> 
 TOKEN_EXPIRY=<YOUR_TOKEN_EXPIRY>
-'''
+```
 
 Run `npm run dev` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
