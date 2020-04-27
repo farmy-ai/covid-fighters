@@ -4,7 +4,7 @@
     <mat-card-subtitle> Fiche de notification d’un cas suspect ou confirmé d’infection COVID-19</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-vertical-stepper selectedIndex="4" [linear]="isLinear" #stepper>
+    <mat-vertical-stepper selectedIndex="5" [linear]="isLinear" #stepper>
       <mat-step [stepControl]="InformationGeneral">
         <ng-template matStepLabel>Information general</ng-template>
         <span class="mat-body-strong">here you can put general information
@@ -401,7 +401,8 @@
 
           <span class="mat-body-strong mt-3">précisez le lieu de contact (cochez tous ceux qui sont applicables)</span>
           <div class="choice-container d-flex">
-            <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary">Structure de santé</mat-slide-toggle>
+            <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary">Structure de santé
+            </mat-slide-toggle>
             <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary"> Cadre familial</mat-slide-toggle>
             <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary">Lieu de travail</mat-slide-toggle>
             <mat-slide-toggle class="m-2 my-2" style="width: auto;" color="primary">Autres</mat-slide-toggle>
@@ -410,14 +411,68 @@
             <input matInput type="text" placeholder="Si Autres, préciser" required>
           </mat-form-field>
 
+          <mat-divider [inset]="true" class="my-3"></mat-divider>
+
+          <span class="mat-body-strong mt-3">lieu/ville/pays d’exposition</span>
+
+          <mat-form-field class="my-3" style="min-width: 240px;">
+            <mat-chip-list #chipList aria-label="lieu/ville/pays d’exposition">
+              <mat-chip *ngFor="let fruit of Places" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(fruit)">
+                {{fruit}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="New lieu..." #placeInput [formControl]="placesCtrl" [matAutocomplete]="auto"
+                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let item of filteredPlaces | async" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
           <div class="d-flex flex-column align-items-start mt-3">
-            <span>Le patient a-t-il été en contact avec <strong>un cas suspect ou confirmé</strong> au cours des 14 jours précédant l’apparition des symptômes?</span>
+            <span>Le patient a-t-il été en contact avec <strong>un cas suspect ou confirmé</strong> au cours des 14
+              jours précédant l’apparition des symptômes?</span>
             <mat-radio-group color="primary" class="mt-2 ml-2">
               <mat-radio-button class="ml-1" value="OUI">OUI</mat-radio-button>
               <mat-radio-button class="ml-2" value="NON">NON</mat-radio-button>
               <mat-radio-button class="ml-2" value="Inconnu">Inconnu</mat-radio-button>
             </mat-radio-group>
           </div>
+
+          <span class="mt-4">énumérez tous les cas suspects ou confirmés</span>
+
+          <div class="flex-form-input-container mat-elevation-z2 my-3 p-1 px-3">
+            <mat-form-field class="mr-2 my-2" style="width: 200px;">
+              <input matInput placeholder="Nom" value="bourouh">
+            </mat-form-field>
+            <mat-form-field class="mr-2 my-2" style="width: 200px;">
+              <input matInput placeholder="Prenom" value="ilies">
+            </mat-form-field>
+            <mat-form-field class="mr-3 my-2" style="width: 60px;">
+              <input matInput type="number" placeholder="age" value="20">
+            </mat-form-field>
+
+            <mat-select class="mr-2 my-2" style="width: 100px;" placeholder="Sexe" name="sexe">
+              <mat-option value="Masculin">Masculin</mat-option>
+              <mat-option value="Féminin">Féminin</mat-option>
+            </mat-select>
+
+            <mat-form-field style="width: 100%;">
+              <mat-label>Adresse exact</mat-label>
+              <textarea matInput rows="3" placeholder="Adresse exact"></textarea>
+            </mat-form-field>
+
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <button mat-raised-button color="primary">Ajouter un endroit</button>
+
+          <mat-divider [inset]="true" class="my-4"></mat-divider>
 
           <div class="mt-4">
             <button mat-button matStepperPrevious>Back</button>
@@ -426,8 +481,37 @@
         </form>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        You are now done.
+        <ng-template matStepLabel>Information de laboratoire</ng-template>
+        <span class="mat-body-strong">here you can put general information
+          <button mat-icon-button>
+            <mat-icon style="font-size: 18px;">info</mat-icon>
+          </button>
+        </span>
+        <form class="form-container mt-4" [formGroup]="Laboratory">
+
+          <mat-form-field class="mt-3" style="width: 240px;">
+            <input matInput placeholder="Nom du laboratoire de confirmation" value="">
+          </mat-form-field>
+          <mat-form-field class="mt-3" style="width: 100px;">
+            <input matInput placeholder="Le test utilisé" value="">
+          </mat-form-field>
+
+          <div class="d-flex flex-column align-items-start mt-3">
+            <span>Classification du cas</span>
+            <mat-radio-group color="primary" class="mt-3">
+              <mat-radio-button class="ml-2 " value="Cas suspect">Cas suspect</mat-radio-button>
+              <mat-radio-button class="ml-2 mt-3" value="Cas confirmé">Cas confirmé</mat-radio-button>
+              <mat-radio-button class="ml-2 mt-3 " value="Cas exclu">Cas exclu</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="mt-3" style="width: 250px;">
+              <input matInput [matDatepicker]="picker11" placeholder="Date de confirmation par le laboratoire">
+              <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+              <mat-datepicker #picker11></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+        </form>
+
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>

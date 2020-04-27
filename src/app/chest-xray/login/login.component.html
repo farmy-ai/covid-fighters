@@ -1,0 +1,26 @@
+<form [formGroup]="loginForm" class="content-card mat-elevation-z2 ">
+
+  <span class="mat-title mb-5">LOGIN</span>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>email</mat-label>
+    <input matInput placeholder="your email..." formControlName="email">
+    <mat-icon matSuffix>alternate_email</mat-icon>
+    <mat-hint *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.touched" style="color: red;">use
+      valid email</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="your last password..." type="password" formControlName="password">
+    <mat-icon matSuffix>vpn_key</mat-icon>
+    <mat-hint *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.touched"
+      style="color: red;">use at least 8 characters</mat-hint>
+  </mat-form-field>
+  <div class="form-field d-flex justify-content-between align-items-center mt-1 ">
+    <button mat-raised-button color="primary" style="width:124px">Login</button>
+    <button mat-button color="warn" [routerLink]="[ '/landing' ]">Back</button>
+  </div>
+  <div class="form-field d-flex justify-content-start align-items-center mt-5">
+    <span>don't you have an account yet ? <a [routerLink]="[ '/register' ]">Login</a> </span>
+  </div>
+</form>

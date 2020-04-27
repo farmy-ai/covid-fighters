@@ -17,7 +17,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatFormFieldModule, MatInputModule,MatSlideToggleModule,MatDividerModule, MatDatepickerModule, MatSelectModule,MatRadioModule } from '@angular/material/';
+import { MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule } from '@angular/material/';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,9 @@ import { MatFormFieldModule, MatInputModule,MatSlideToggleModule,MatDividerModul
     MatSelectModule,
     MatRadioModule,
     MatSlideToggleModule,
-    MatDividerModule
+    MatDividerModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

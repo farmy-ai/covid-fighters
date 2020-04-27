@@ -1,0 +1,299 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="mat-elevation-z4 sidenav" mode="over">
+    <div class=" mat-display-3 logo">
+      Covid19
+    </div>
+    <mat-nav-list class="d-flex flex-column" style="height: calc(100vh - 150px);">
+      <mat-list-item style="background-color: #2666b9;color: white;">
+        <mat-icon matListIcon>cloud_upload</mat-icon>
+        <h3 matLine>Upload Data</h3>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>home</mat-icon>
+        <h3 matLine>home</h3>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListIcon>live_help</mat-icon>
+        <h3 matLine>about</h3>
+      </mat-list-item>
+      <mat-list-item class="mt-auto">
+        <mat-icon matListIcon>directions_run</mat-icon>
+        <h3 matLine>Disconnect</h3>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div class="container">
+    <div class="filter" [formGroup]="form">
+      <button mat-icon-button class="search-icon search" (click)="searchInput.focus()">
+        <mat-icon aria-label="label">search</mat-icon>
+      </button>
+      <button mat-icon-button class="search-icon menu" (click)="sidenav.open()">
+        <mat-icon aria-label="label">menu</mat-icon>
+      </button>
+      <input #searchInput placeholder="Search..." type="text" class="mat-body-strong" formControlName="search">
+      <mat-select placeholder="Filter By" formControlName="filter">
+        <mat-option *ngFor="let item of filterList;let i = index;" [value]="i">
+          {{item}}
+        </mat-option>
+      </mat-select>
+      <button mat-icon-button class="settings" [matMenuTriggerFor]="rootMenu">
+        <mat-icon><i class="material-icons ">sort</i></mat-icon>
+      </button>
+    </div>
+    <div class="content">
+      <div class="info">
+        <div class="text">
+          <span class="title">Dataset <button mat-icon-button color="warn">
+              <mat-icon>info_outline</mat-icon>
+            </button></span>
+          <p class="description">A total of <span class="number">{{totalDataSize}}</span> dataset</p>
+        </div>
+        <div class="toggle">
+          <button mat-raised-button color="primary" class="sortButton" style="width: 124px;">Upload</button>
+        </div>
+      </div>
+      <ng-container *ngIf="!loading; else elseTemplate">
+        <div class="separation"></div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <mat-progress-bar [mode]="type" [value]="progress" style="width: 100%"></mat-progress-bar>
+      </ng-template>
+
+      <div class="medicaments">
+        <!--  -->
+        <mat-card *ngFor="let item of filterData | load : end ; trackBy:tracbyfn;let i = index; "
+          [@fade]="{value: '*', params: { delay: (i*300)%2700}}" class="medic-card">
+          <!-- <div class="remboursement" [ngClass]="{'isremb': item.REMBOURSEMENT}"></div> -->
+          <mat-card-header>
+            <mat-card-title>{{item.NOM_DE_MARQUE}}</mat-card-title>
+            <mat-card-subtitle class="DCI">{{item.DENOMINATION_COMMUNE_INTERNATIONALE | lowercase }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="therapy"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Thérapeutique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="input_way"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Pharmacologique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="labo"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Laboratoire</mat-label>
+                <input matInput class="input" [value]="item.LABORATOIRES_DETENTEUR_DE_LA_DECISION_DENREGISTREMENT"
+                  disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="price"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Prix</mat-label>
+                <input matInput class="input" [value]="item.PRIX_PORTE_SUR_LA_DECISION_DENREGISTREMENT" disabled>
+              </mat-form-field>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary"><i class="material-icons ">visibility</i> see more</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card">
+          <!-- <div class="remboursement" [ngClass]="{'isremb': item.REMBOURSEMENT}"></div> -->
+          <mat-card-header>
+            <mat-card-title>Title</mat-card-title>
+            <mat-card-subtitle class="DCI">{{'subtitle' | lowercase }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="therapy"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Thérapeutique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="input_way"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Pharmacologique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="labo"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Laboratoire</mat-label>
+                <input matInput class="input" [value]="'laboratior'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="price"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>size</mat-label>
+                <input matInput class="input" [value]="'size'" disabled>
+              </mat-form-field>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary"><i class="material-icons mr-2">visibility</i>Take a look</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card">
+          <!-- <div class="remboursement" [ngClass]="{'isremb': item.REMBOURSEMENT}"></div> -->
+          <mat-card-header>
+            <mat-card-title>Title</mat-card-title>
+            <mat-card-subtitle class="DCI">{{'subtitle' | lowercase }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="therapy"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Thérapeutique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="input_way"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Pharmacologique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="labo"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Laboratoire</mat-label>
+                <input matInput class="input" [value]="'laboratior'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="price"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>size</mat-label>
+                <input matInput class="input" [value]="'size'" disabled>
+              </mat-form-field>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary"><i class="material-icons mr-2">visibility</i>Take a look</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card">
+          <!-- <div class="remboursement" [ngClass]="{'isremb': item.REMBOURSEMENT}"></div> -->
+          <mat-card-header>
+            <mat-card-title>Title</mat-card-title>
+            <mat-card-subtitle class="DCI">{{'subtitle' | lowercase }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="therapy"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Thérapeutique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="input_way"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Pharmacologique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="labo"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Laboratoire</mat-label>
+                <input matInput class="input" [value]="'laboratior'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="price"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>size</mat-label>
+                <input matInput class="input" [value]="'size'" disabled>
+              </mat-form-field>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary"><i class="material-icons mr-2">visibility</i>Take a look</button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card">
+          <!-- <div class="remboursement" [ngClass]="{'isremb': item.REMBOURSEMENT}"></div> -->
+          <mat-card-header>
+            <mat-card-title>Title</mat-card-title>
+            <mat-card-subtitle class="DCI">{{'subtitle' | lowercase }}
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="card-content">
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="therapy"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Thérapeutique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="input_way"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Class Pharmacologique</mat-label>
+                <input matInput class="input" [value]="'inconue'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="labo"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>Laboratoire</mat-label>
+                <input matInput class="input" [value]="'laboratior'" disabled>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-icon class="prefix" svgIcon="price"></mat-icon>
+              <mat-form-field class="field" appearance="legacy" floatLabel="always">
+                <mat-label>size</mat-label>
+                <input matInput class="input" [value]="'size'" disabled>
+              </mat-form-field>
+            </div>
+
+          </mat-card-content>
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary"><i class="material-icons mr-2">visibility</i>Take a look</button>
+          </mat-card-actions>
+        </mat-card>
+
+      </div>
+      <div class="pagination">
+        <button mat-raised-button color="primary" class="load" (click)="setLoad(end+9)" [disabled]="rest === 0">
+          <mat-icon>keyboard_arrow_down</mat-icon>Load more
+          ({{rest}})
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-menu #rootMenu="matMenu">
+    <button mat-menu-item (click)="reverseSort(true)">
+      <mat-icon>arrow_upward</mat-icon>ascending
+    </button>
+    <button mat-menu-item (click)="reverseSort(false)">
+      <mat-icon>arrow_downward</mat-icon>Descending
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item [matMenuTriggerFor]="subMenu">attribute</button>
+  </mat-menu>
+  <mat-menu #subMenu="matMenu" class="submenu">
+    <button *ngFor="let item of filterList; let i=index" mat-menu-item (click)="sortBy(i)">{{item}}</button>
+  </mat-menu>
+</mat-sidenav-container>

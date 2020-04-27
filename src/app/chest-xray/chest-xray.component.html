@@ -1,0 +1,14 @@
+<div class="content-container">
+  <mat-toolbar [color]="'primary'" class="mat-elevation-z2 toolbar">
+      <div class="toolbar-container">
+          <span>Covid-19</span>
+          <div class="navs">
+              <button mat-button [routerLink]="[ '/home' ]">Home</button>
+              <button mat-button [routerLink]="[ '/about' ]">About</button>
+              <button mat-button [routerLink]="[ '/login' ]">Login</button>
+              <button mat-raised-button class="action" [routerLink]="[ '/register']"> register</button>
+          </div>
+      </div>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</div>
