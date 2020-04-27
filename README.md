@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Add '.env' file 
 
-###.env
+### .env
 
 ```
 MONGODB_URI= <YOUR_MAONGO_URI>
