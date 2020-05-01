@@ -9,6 +9,8 @@ info:
     altText: Covid19 fighter Ai logo
 servers:
   - url: 'https://localhost:4200/api'
+security:
+  - bearerAuth: []
 paths:
   /submissions/:
     get:
@@ -23,6 +25,19 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Submission'
+  /submissions/stat:
+    get:
+      description: The Submissions Statistics
+      operationId: Statistics Submissions
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
   /submission:
     post:
       description: The Create Submission api
@@ -34,6 +49,7 @@ paths:
               required:
                 - data_type
                 - disease_type
+                - affiliation
                 - files
               type: object
               properties:
@@ -65,7 +81,6 @@ paths:
             application/json:
               schema:
                 type: object
-      x-codegen-request-body-name: data
   '/submission/{id}':
     get:
       description: The Get Submission Details api allows to visualize the details
@@ -132,7 +147,7 @@ paths:
                   token:
                     type: string
       x-codegen-request-body-name: data
-  /user/:
+  /user:
     post:
       description: Register user and send confirmation email.
       operationId: Register User
@@ -152,7 +167,107 @@ paths:
                 properties:
                   token:
                     type: string
-      x-codegen-request-body-name: data
+  '/user/{id}':
+    get:
+      description: The Get User Details api allows to visualize the details
+      operationId: Get User Data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+    put:
+      description: Modify user data
+      operationId: Modify user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  '/confirmation/{token}':
+    get:
+      description: confirmation link
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+  /resetpasswrd:
+    post:
+      description: reset forgeten password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+  /storepasswrd:
+    post:
+      description: Store new password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                token:
+                  type: string
+                password:
+                  type: string
+              
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+                
 components:
   securitySchemes:
     bearerAuth:

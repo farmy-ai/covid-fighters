@@ -93,6 +93,7 @@ export default function setRoutes(app) {
   router.route('/submission/:id').get(submissionCtrl.get);
   router.route('/submission/:id').put(authenticateJWT, submissionCtrl.update);
   router.route('/submission/:id').delete(authenticateJWT, submissionCtrl.delete);
+  router.route('/submissions/download').get(submissionCtrl.downloadMultiple)
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
 

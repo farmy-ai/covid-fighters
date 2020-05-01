@@ -135,7 +135,7 @@ export default class UserCtrl extends BaseCtrl {
                 mailgun.send(mailOptions.to, mailOptions.subject, mailOptions.text).then((result) => {
                   console.log("email sent");
                   console.log(result);
-                  return res.json({ success: true, message: 'Check your mail to reset your password.', result: result });
+                  return res.json({ success: true, message: 'Check your mail to reset your password.'});
                 }).catch((error) => {
                   console.log(error);
                   res.status(500).json({ success: false, message: 'Unable to send email.' });
