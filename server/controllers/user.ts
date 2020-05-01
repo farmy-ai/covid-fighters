@@ -45,7 +45,7 @@ export default class UserCtrl extends BaseCtrl {
           from: 'covidfighter@tibyane.com',
           to: user.email,
           subject: 'Account Verification Token',
-          text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n'
+          text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/api\/confirmation\/' + token.token + '.\n'
         };
         var mailgun = new NodeMailgun()
         mailgun.apiKey = process.env.MAILGUN_API_KEY;
@@ -149,7 +149,7 @@ export default class UserCtrl extends BaseCtrl {
   }
 
   storePassword = (req, res) => {
-    //handles the new password 
+    //handles the new password
     const userId = req.body.userId
     const token = req.body.token
     const password = req.body.password
@@ -201,7 +201,7 @@ export default class UserCtrl extends BaseCtrl {
     //req.assert('token', 'Token cannot be blank').notEmpty();
     //req.sanitize('email').normalizeEmail({ remove_dots: false });
 
-    // Check for validation errors    
+    // Check for validation errors
     //var errors = req.validationErrors();
     //if (errors) return res.status(400).send(errors);
 

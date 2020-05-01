@@ -6,6 +6,7 @@ import { ChestXrayComponent } from './chest-xray.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
@@ -16,15 +17,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import {MatProgressBarModule,MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule } from '@angular/material/';
+import { MatProgressBarModule, MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule } from '@angular/material/';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { LoadPipe } from './user-home/load.pipe';
 
 @NgModule({
-  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent,LoadPipe],
+  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe],
   imports: [
     CommonModule,
+    HttpClientModule,
     ChestXrayRoutingModule,
     LayoutModule,
     MatToolbarModule,
@@ -47,6 +49,8 @@ import { LoadPipe } from './user-home/load.pipe';
     MatAutocompleteModule,
     MatMenuModule,
     MatProgressBarModule
-  ]
+  ],
+  exports:[],
+  entryComponents: []
 })
 export class ChestXrayModule { }

@@ -5,6 +5,7 @@ import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
 import setRoutes from './routes';
+import * as cors from 'cors';
 
 const app = express();
 dotenv.config({ path: '.env' });
@@ -13,6 +14,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 
 
