@@ -1,0 +1,234 @@
+openapi: 3.0.1
+info:
+  title: Covid19 fighter API
+  description: Covid19 fighter API description and specs
+  version: 0.0.0
+  x-logo:
+    url: icon.png
+    backgroundColor: '#FFFFFF'
+    altText: Covid19 fighter Ai logo
+servers:
+  - url: 'https://localhost:4200/api'
+paths:
+  /submissions/:
+    get:
+      description: The List Submissions api allows to visualize the details in list view
+      operationId: List of Submissions
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Submission'
+  /submission:
+    post:
+      description: The Create Submission api
+      operationId: Create Submission
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - data_type
+                - disease_type
+                - files
+              type: object
+              properties:
+                data_type:
+                  type: string
+                disease_type:
+                  type: string
+                description:
+                  type: string
+                affiliation:
+                  type: string
+                annotation:
+                  type: object
+                  properties: {}
+                tags:
+                  type: array
+                  items:
+                    type: string
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      x-codegen-request-body-name: data
+  '/submission/{id}':
+    get:
+      description: The Get Submission Details api allows to visualize the details
+      operationId: Get Submission Details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+    put:
+      description: updateSubmission api
+      operationId: Update Submission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Submission'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content: {}
+      x-codegen-request-body-name: data
+  /login/:
+    post:
+      description: login user and Generate User Token api d
+      operationId: login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+      x-codegen-request-body-name: data
+  /user/:
+    post:
+      description: Register user and send confirmation email.
+      operationId: Register User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+      x-codegen-request-body-name: data
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Submission:
+      required:
+        - affiliation
+        - data_type
+        - description
+        - disease_type
+      type: object
+      properties:
+        id:
+          title: _id
+          type: integer
+          readOnly: true
+        data_type:
+          title: Data Type
+          type: string
+        disease_type:
+          title: Disease Yype
+          type: string
+        description:
+          title: Description
+          type: string
+        createdAt:
+          title: Created timestamp
+          type: number
+        updatedAt:
+          title: Updated timestamp
+          type: number
+        affiliation:
+          title: Data Affiliation
+          type: string
+        upload_name:
+          title: Upload Filename
+          type: string
+        annotation:
+          title: image Annotation
+          type: object
+          properties: {}
+          readOnly: true
+        s3_path:
+          title: Image path in AWS S3
+          type: string
+        tags:
+          title: Data hashtags
+          type: array
+          items:
+            type: string
+        id_user:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/User'
+    User:
+      required:
+        - email
+        - username
+      type: object
+      properties:
+        email:
+          title: Email
+          type: string
+          format: email
+        username:
+          title: username
+          type: string
+        role:
+          title: role
+          type: string
+        first_name:
+          title: First name
+          type: string
+        last_name:
+          title: Last name
+          type: string
