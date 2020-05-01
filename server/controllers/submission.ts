@@ -10,6 +10,7 @@ import * as extractZip from "extract-zip"
 import Submission from '../models/submission';
 import BaseCtrl from './base';
 import { EnvironmentCredentials } from 'aws-sdk';
+import User from '../models/user';
 
 
 export default class SubmissionCtrl extends BaseCtrl {
@@ -22,8 +23,8 @@ export default class SubmissionCtrl extends BaseCtrl {
     var match = {}
     const sort = {}
 
-    if (!req.params.search) {
-      match = { $text: { $search: req.params.search } }
+    if (req.params.search) {
+      match = { "$text": { "$search": req.params.search } }
     }
 
     if (req.query.sortBy && req.query.OrderBy) {
@@ -36,7 +37,7 @@ export default class SubmissionCtrl extends BaseCtrl {
       sort
     };
 
-    this.model.find(match ,null, options ,(err, docs) => {
+    this.model.find(match, null, options, (err, docs) => {
       if (err) { return console.error(err); }
       res.status(200).json(docs);
     });
@@ -127,7 +128,8 @@ export default class SubmissionCtrl extends BaseCtrl {
   }
 
   multipleUpload = (req, res) => {
-    const file = req.files;
+    const files = req.files;
+    req.body.id_user = mongoose.Types.ObjectId(req.user._id);
     let s3bucket = new AWS.S3({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -135,33 +137,34 @@ export default class SubmissionCtrl extends BaseCtrl {
       apiVersion: 'latest',
     });
     var ResponseData = [];
-    file.map((item) => {
+    files.map((item) => {
       var uuid_name = uuidv4();
       var params = {
         Bucket: process.env.AWS_BUCKET_NAME,
-        Key: "datasets/" + req.body.class + "/" + uuid_name + path.extname(item.originalname),
+        Key: "datasets/" + req.body.disease_type + "/" + uuid_name + path.extname(item.originalname),
         Body: item.buffer,
         ACL: 'public-read'
       };
-      const instanceData = {
+      const submissionData = {
         data_type: req.body.data_type,
         upload_name: item.originalname,
         description: req.body.description,
         disease_type: req.body.disease_type,
         annotation: req.body.annotation,
         tags: req.body.tags,
-        s3_path: "datasets/" + req.body.class + "/" + uuid_name + path.extname(item.originalname),
-        id_user: req.user.id
+        s3_path: "datasets/" + req.body.disease_type + "/" + uuid_name + path.extname(item.originalname),
+        id_user: req.body.id_user
       }
       s3bucket.upload(params, function (err, data) {
         if (err) {
           res.json({ "error": true, "Message": err });
         } else {
 
-          const obj = new Submission(instanceData);
+          const obj = new Submission(submissionData);
           obj.save((err, item) => {
+            if (err) { res.status("500").json(err) };
             ResponseData.push(data);
-            if (ResponseData.length == file.length) {
+            if (ResponseData.length == files.length) {
               res.json({ "error": false, "Message": "File Uploaded    SuceesFully", Data: ResponseData });
             }
           });
@@ -184,6 +187,17 @@ export default class SubmissionCtrl extends BaseCtrl {
       res.write(data.Body, 'binary');
       res.end(null, 'binary');
     });
+  }
+
+  mine = async (req, res) => {
+    //console.log(req.user.populate);
+
+
+    const user = new User(req.user);
+    user.populate('Submission').exec((err, submission) => {
+      console.log(submission);
+    })
+
   }
 }
 

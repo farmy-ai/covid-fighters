@@ -45,20 +45,11 @@ export default function setRoutes(app) {
   const instanceCtrl = new InstanceCtrl();
   const submissionCtrl=new SubmissionCtrl();
 
-  var zipStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, './tmp')
-    },
-    filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now() + ".zip")
-    }
-  });
-  var zipUpload = multer({ storage: zipStorage }).single('file');
   var storage = multer.memoryStorage();
   var upload = multer({ storage: storage });
 
   var singleUpload = upload.single('file');
-  var multipleUpload = upload.array('file');
+  var multipleUpload = upload.array('files');
 
 
   // Users
@@ -96,6 +87,7 @@ export default function setRoutes(app) {
 
   // Submissions
   router.route('/submissions').get(submissionCtrl.getAll);
+  //router.route('/submissions/mine').get(authenticateJWT,submissionCtrl.mine);
   router.route('/submissions/stat').get(submissionCtrl.stat);
   router.route('/submission').post(authenticateJWT, multipleUpload, submissionCtrl.multipleUpload);
   router.route('/submission/:id').get(submissionCtrl.get);
