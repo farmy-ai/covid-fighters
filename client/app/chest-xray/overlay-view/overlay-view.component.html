@@ -1,0 +1,28 @@
+<div mat-dialog-content class="content-container">
+    <ng-container *ngIf="data.src != 'waiting'; then thenTemplate; else elseTemplate"></ng-container>
+    <ng-template #thenTemplate>
+        <img [src]="data.src" width="130px" height="87px" alt="" class="send">
+        <span class="description">{{data.description}}</span>
+        <div class="actions">
+            <button mat-button class="close" (click)="close(false)">
+                <mat-icon>{{data.secondary.icon}}</mat-icon>{{data.secondary.text}}
+            </button>
+            <button mat-raised-button class="next" (click)="close(true)">
+                <mat-icon>{{data.primary.icon}}</mat-icon>{{data.primary.text}}
+            </button>
+        </div>
+    </ng-template>
+    <ng-template #elseTemplate>
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </ng-template>
+
+</div>

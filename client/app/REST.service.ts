@@ -4,8 +4,8 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from 'client/environments/environment';
 
 const ROOT = environment.API_URL;
-const signUpLink = `${ROOT}auth/signup/`;
-const signInLink = `${ROOT}auth/signin/`;
+const signUpLink = `${ROOT}user`;
+const signInLink = `${ROOT}login`;
 const signOutLink = `${ROOT}auth/signout/`;
 const UserLink = `${ROOT}auth/user/`;
 const AllAnomalies = `${ROOT}anomalies/`;

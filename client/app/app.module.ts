@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,16 +21,19 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule } from '@angular/material/';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './token-interceptor';
+import { overlayViewComponent } from './chest-xray/overlay-view/overlay-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NewPatientComponent
+    NewPatientComponent,
+    overlayViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
@@ -58,6 +62,7 @@ import { TokenInterceptor } from './token-interceptor';
       multi: true
     }
   ],
+  entryComponents:[overlayViewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
