@@ -1,0 +1,248 @@
+swagger: '2.0'
+
+info:
+  title: Covid19 fighter API
+  description: Covid19 fighter API description and specs
+  version: 0.0.0
+  x-logo:
+    url: "icon.png"
+    backgroundColor: "#FFFFFF"
+    altText: "Covid19 fighter Ai logo"
+
+host: localhost:4200
+basePath: /api
+schemes:
+  - https
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    UserTokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token 153c6c7a4acc77045eb627664fa4d4d1f6f2203b  
+security:
+  - ApiKeyAuth: []
+    UserTokenAuth: []
+
+paths:
+  /submissions/:
+    get:
+      operationId: List of Submissions
+      description: The List Submissions api allows to visualize the details in list view
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Submission'
+  /submission:
+    post:
+      operationId: Create Submission
+      description: The Create Submission api
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Submission'
+        - name: files
+          in: body
+          required: true
+          type: array
+
+      responses:
+        '201':
+          description: ''
+          schema:
+            items:
+              $ref: '#/definitions/Submission'
+
+    parameters: []
+  /submission/{id}:
+    get:
+      operationId: Get Submission Details
+      description: The Get Submission Details api allows to visualize the details 
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Submission'
+
+    put:
+      operationId: Update Submission 
+      description: updateSubmission api
+      parameters: []
+      responses:
+        '200':
+          description: ''
+
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - name: data
+        in: body
+        required: true
+        schema:
+            $ref: '#/definitions/Submission'
+  /auth/generate-token/:
+    post:
+      operationId: Generate User Token
+      description: The Generate User Token api generates an id for each user (farmer) used by the other APIs as identification key
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserKey'
+      responses:
+        '201':
+          description: ''
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+  /login/:
+    post:
+      operationId: login User
+      description: login user and Generate User Token api d
+      parameters:
+        - name: email
+          in: body
+          required: true
+          schema:
+              $ref: '#/definitions/User/email'
+        - name: password
+          in: body
+          required: true
+          schema:
+              $ref: '#/definitions/User/password'
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+  /user/:
+    post:
+      operationId: Register User
+      description: Register user and send confirmation email.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+        
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+    parameters: []
+definitions:
+  Submission:
+    required:
+      - _id
+      - data_type
+      - disease_type
+      - description
+      - affiliation
+      - upload_name
+      - s3_path
+      - annotation
+      - tags
+      - id_user
+    type: object
+    properties:
+      id:
+        title: _id
+        type: integer
+        readOnly: true
+      data_type:
+        title: Data Type
+        type: string
+      disease_type:
+        title: Disease Yype
+        type: string
+      description:
+        title: Description
+        type: string
+      createdAt:
+        title: Created timestamp
+        type: number
+      updatedAt:
+        title: Updated timestamp
+        type: number
+      affiliation:
+        title: Data Affiliation
+        type: string
+      upload_name:
+        title: Upload Filename
+        type: string
+      images:
+        type: array
+        items:
+          $ref: '#/definitions/AnomalyImage'
+        readOnly: true
+      annotation:
+        title: image Annotation
+        type: object
+        readOnly: true
+      s3_path:
+        title: Image path in AWS S3
+        type: string
+      tags:
+        title: Data hashtags
+        type: array
+      id_user:
+        allOf:
+          - $ref: '#/definitions/User'
+        readOnly: true
+  User:
+    required:
+      - email
+      - username
+      - role
+      - first_name
+      - last_name
+    type: object
+    properties:
+      email:
+        title: Email
+        type: string
+        format: email
+      username:
+        title: username
+        type: string
+      role:
+        title: role
+        type: string
+      first_name:
+        title: First name
+        type: string
+      last_name:
+        title: Last name
+        type: string
