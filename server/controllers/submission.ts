@@ -5,12 +5,14 @@ import * as AWS from 'aws-sdk';
 import * as fs from "fs";
 import * as path from "path";
 import { v4 as uuidv4 } from 'uuid';
-import * as extractZip from "extract-zip"
+import * as extractZip from "extract-zip";
+import * as zipFolder from 'zip-a-folder';
+import * as json2csv from 'json2csv';
 
 import Submission from '../models/submission';
 import BaseCtrl from './base';
-import { EnvironmentCredentials } from 'aws-sdk';
 import User from '../models/user';
+import * as fileApi from './file.api';
 
 
 export default class SubmissionCtrl extends BaseCtrl {
@@ -123,9 +125,7 @@ export default class SubmissionCtrl extends BaseCtrl {
   }
 
 
-  downloadMultiple = (req, res) => {
-    res.sendStatus(200);
-  }
+
 
   multipleUpload = (req, res) => {
     const files = req.files;
@@ -182,7 +182,6 @@ export default class SubmissionCtrl extends BaseCtrl {
     });
     var params = { Bucket: process.env.AWS_BUCKET_NAME, Key: req.body.path };
     s3bucket.getObject(params, function (err, data) {
-
       res.writeHead(200, { 'Content-Type': 'image/' + path.extname(req.body.path).substr(1) });
       res.write(data.Body, 'binary');
       res.end(null, 'binary');
@@ -192,12 +191,105 @@ export default class SubmissionCtrl extends BaseCtrl {
   mine = async (req, res) => {
     //console.log(req.user.populate);
 
+    const options = [
+      { $match: { "id_used": req.user._id } },
+      ,
+      {
+        $group: {
+          _id: {
+            month: { "$month": "$created_at" },
+            day: { "$dayOfMonth": "$created_at" },
+            year: { "$year": "$created_at" }
+          }
+        }
+      }
+    ]
 
-    const user = new User(req.user);
-    user.populate('Submission').exec((err, submission) => {
-      console.log(submission);
-    })
+    /*,
+          Submissions: {
+            $push: {
+              _id: "$_id",
+              data_type: "$data_typedata_type",
+              disease_type: "$disease_type",
+              description: "$description",
+              affiliation: "$affiliation",
+              upload_name: "$upload_name",
+              s3_path: "$s3_path",
+              annotation: "$annotation",
+              tags: "$tags",
+              created_at:"$created_at",
+              updated_at:"$updated_at"
+            }
+          }*/
+    this.model.aggregate(options, (err, submissionData) => {
+      if (err) {
+        return res.status(500);
+      }
+      res.status(200).json(submissionData);
+    });
 
   }
+
+
+  downloadMultiple = (req, res) => {
+
+    const dir = path.join("tmp", uuidv4());
+    var match = {}
+
+    if (req.params.search) {
+      match = { "$text": { "$search": req.params.search } }
+    }
+
+    if (fs.existsSync(dir)) {
+      fileApi.default.deleteFolder(dir);
+    }
+    fs.mkdirSync(dir);
+    const imagesDir = path.join(dir, "images");
+    fs.mkdirSync(imagesDir);
+    this.model.find(match, (err, docs) => {
+      if (err) { return console.error(err); }
+
+      var S3_paths = [];
+      const filtredSubmissions = docs.map((item) => {
+        S3_paths.push(item.s3_path);
+        item.filename = path.basename(item.s3_path);
+        return item;
+      });
+
+      const fields = ["filename", "data_type", "disease_type", "description", "affiliation", "tags", "annotation"];
+      let csv
+      try {
+        csv = json2csv.parse(filtredSubmissions, { fields });
+        fs.writeFileSync(path.join(dir, "metadata.csv"), csv);
+        fileApi.default.getFiles(S3_paths, imagesDir).then(function (result) {
+          if (!result) {
+            return res.status(500);
+          }
+          const zipFile = dir + ".zip";
+          zipFolder.zipFolder(dir, zipFile, function (err) {
+            if (err) {
+              console.log('Something went wrong!', err);
+            }
+
+            res.attachment("dataset.zip");
+            var stream = fs.createReadStream(zipFile);
+            stream.pipe(res).once("close", function () {
+              stream.destroy(); // makesure stream closed, not close if download aborted.
+              //deleteFile;
+              //fs.unlinkSync(zipFile);
+              //fileApi.default.deleteFolder(dir);
+            });
+          });
+        })
+      } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+      }
+    });
+
+    // res.sendStatus(200);
+  }
+
+
 }
 

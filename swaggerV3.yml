@@ -38,6 +38,27 @@ paths:
                 type: array
                 items:
                   type: object
+  /submissions/mine:
+    get:
+      description: My Submissions api allows to visualize the details in list view
+      operationId: My Submissions
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    type: string
+                    properties:
+                      date:
+                        type: string
+                      submissions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Submission'
+    
   /submission:
     post:
       description: The Create Submission api
@@ -312,7 +333,6 @@ components:
           title: image Annotation
           type: object
           properties: {}
-          readOnly: true
         s3_path:
           title: Image path in AWS S3
           type: string
@@ -322,9 +342,7 @@ components:
           items:
             type: string
         id_user:
-          type: object
-          allOf:
-            - $ref: '#/components/schemas/User'
+            type: string
     User:
       required:
         - email
