@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true, trim: true },
   password: String,
   isVerified: { type: Boolean, default: false },
-  role: String
+  role: { type: String, default: 'user' }
 });
 
 // Before saving the user, hash the password

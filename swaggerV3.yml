@@ -8,7 +8,7 @@ info:
     backgroundColor: '#FFFFFF'
     altText: Covid19 fighter Ai logo
 servers:
-  - url: 'https://localhost:4200/api'
+  - url: 'http://localhost:4200/api'
 security:
   - bearerAuth: []
 paths:
@@ -25,6 +25,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Submission'
+  /submissions/download:
+    get:
+      description: The List Submissions api allows to visualize the details in list view
+      operationId: download a List of Submissions
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
   /submissions/stat:
     get:
       description: The Submissions Statistics
@@ -138,7 +150,6 @@ paths:
         '200':
           description: ''
           content: {}
-      x-codegen-request-body-name: data
   /login/:
     post:
       description: login user and Generate User Token api d
@@ -167,7 +178,6 @@ paths:
                 properties:
                   token:
                     type: string
-      x-codegen-request-body-name: data
   /user:
     post:
       description: Register user and send confirmation email.

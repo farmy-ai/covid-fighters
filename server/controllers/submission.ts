@@ -276,8 +276,8 @@ export default class SubmissionCtrl extends BaseCtrl {
             stream.pipe(res).once("close", function () {
               stream.destroy(); // makesure stream closed, not close if download aborted.
               //deleteFile;
-              //fs.unlinkSync(zipFile);
-              //fileApi.default.deleteFolder(dir);
+              fs.unlinkSync(zipFile);
+              fileApi.default.deleteFolder(dir);
             });
           });
         })
