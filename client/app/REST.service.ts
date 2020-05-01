@@ -8,8 +8,8 @@ const signUpLink = `${ROOT}user`;
 const signInLink = `${ROOT}login`;
 const signOutLink = `${ROOT}auth/signout/`;
 const UserLink = `${ROOT}auth/user/`;
-const AllAnomalies = `${ROOT}anomalies/`;
-const AddSolution = `${ROOT}anomalies/`;
+const AllData = `${ROOT}/submission/`;
+const addDataLink = `${ROOT}/submission/`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
 
 @Injectable({
@@ -50,21 +50,30 @@ export class RestService {
   getAnomalies() {
     console.log('[GET HISTORY QUERY]');
 
-    return this.http.get(AllAnomalies).pipe(map((v: any) => {
+    return this.http.get(AllData).pipe(map((v: any) => {
       console.log(v);
 
-      v.forEach(element => {
-        element.created = new Date(element.created).getTime();
-        element.updated = new Date(element.updated).getTime();
-      });
       return v;
 
     }));
   }
-  addSolution(id, data) {
-    console.log('[ADDANOMALY QUERY]');
+  addAnomaly(Data) {
+    console.log('[ADD ANOMALY QUERY]');
+    console.log(Data);
 
-    return this.http.post(AddSolution + id + '/solutions/', data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
+    const formData: FormData = new FormData();
+
+    Data.files.forEach((file: File) => {
+      formData.append(file.name, file);
+    });
+
+    for (const key in Data) {
+      if (key !== 'files') {
+        formData.append(key, Data[key]);
+      }
+    }
+
+    return this.http.post(addDataLink, Data, { reportProgress: true, observe: 'events' });
   }
 }
 

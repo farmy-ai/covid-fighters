@@ -17,17 +17,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatProgressBarModule, MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule } from '@angular/material/';
+import { MatProgressSpinnerModule,MatProgressBarModule, MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule } from '@angular/material/';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { LoadPipe } from './user-home/load.pipe';
+import { LandingComponent } from './landing/landing.component';
+import { UploadOverlayComponent } from './upload-overlay/upload-overlay.component';
 
 @NgModule({
-  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe],
+  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe, LandingComponent, UploadOverlayComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     ChestXrayRoutingModule,
+    MatProgressSpinnerModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -51,6 +54,6 @@ import { LoadPipe } from './user-home/load.pipe';
     MatProgressBarModule
   ],
   exports:[],
-  entryComponents: []
+  entryComponents: [UploadOverlayComponent]
 })
 export class ChestXrayModule { }

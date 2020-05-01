@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { FormGroup, FormControl } from '@angular/forms';
 import { debounceTime, map, delay } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { UploadOverlayComponent } from '../upload-overlay/upload-overlay.component';
 
 export const fade = trigger('fade', [
   transition('void => *', [
@@ -36,7 +38,7 @@ export class UserHomeComponent implements OnInit {
   searchObj = new FormControl('');
   filterList: Array<string>;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     /* form init */
     this.form = new FormGroup({
       search: this.searchObj,
@@ -49,6 +51,10 @@ export class UserHomeComponent implements OnInit {
     this.searchObj.valueChanges
       .pipe(map(v => { this.loading = true; this.type = 'query'; return v; }))
       .pipe(debounceTime(1700)).subscribe(v => this.filter());
+  }
+
+  openUploadOverlay() {
+    const dialog = this.dialog.open(UploadOverlayComponent, { width: '95vw', maxHeight: '98vh', panelClass: 'custom-dialog-container' });
   }
 
   filter() {
