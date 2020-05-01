@@ -49,7 +49,7 @@
           <p class="description">A total of <span class="number">{{totalDataSize}}</span> dataset</p>
         </div>
         <div class="toggle">
-          <button mat-raised-button color="primary" class="sortButton" style="width: 124px;">Upload</button>
+          <button mat-raised-button color="primary" class="sortButton" style="width: 124px;" (click)="openUploadOverlay()">Upload</button>
         </div>
       </div>
       <ng-container *ngIf="!loading; else elseTemplate">

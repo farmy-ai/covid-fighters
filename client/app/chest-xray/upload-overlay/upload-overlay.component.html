@@ -1,0 +1,41 @@
+<ng-container *ngIf="!sending; else elseTemplate">
+  <input type="file" name="file" id="file" #fileInput (change)='add($event)' style="display: none;" multiple />
+  <form [formGroup]="uploadForm" class="content-card ">
+    <span class="mat-display-3 mb-3">Upload</span>
+
+    <mat-form-field>
+      <mat-label>Data type</mat-label>
+      <mat-select formControlName="data_type">
+        <mat-option value="ct">CT scan</mat-option>
+        <mat-option value="x-ray">X-ray</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="mb-3">
+      <mat-label>Disease type</mat-label>
+      <mat-select formControlName="disease_type">
+        <mat-option value="covid">Covid 19</mat-option>
+        <mat-option value="pneumonia">Pneumonia</mat-option>
+        <mat-option value="other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button class="mb-4" color="primary" style="width: 100%;" (click)="fileInput.click()">Add files
+      &nbsp;&nbsp;{{files.length}}</button>
+    <mat-form-field appearance="outline">
+      <mat-label>Affiliation</mat-label>
+      <input matInput placeholder="Affiliation...">
+      <mat-icon matSuffix>position</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <textarea matInput placeholder="Description..."></textarea>
+    </mat-form-field>
+    <div class="d-flex align-items-center"><button mat-raised-button color="accent" (click)="Upload()">Send</button>
+    </div>
+
+  </form>
+
+</ng-container>
+<ng-template #elseTemplate>
+    <mat-spinner class="my-5"
+      mode="indeterminate">
+    </mat-spinner>
+</ng-template>
