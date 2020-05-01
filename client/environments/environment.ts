@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_KEY: '',
-  API_URL: 'https://farmy-backend.herokuapp.com/api/v1/'
+  API_URL: 'http://localhost:3000/api/'
 };
 
 /*
