@@ -50,7 +50,7 @@ export default class SubmissionCtrl extends BaseCtrl {
           "disease_type": "$disease_type",
           "data_type": "$data_type",
           "affiliation": "$affiliation",
-          "created_at":"$created_at",
+          "created_at": "$created_at",
           "id_user": "$id_user"
         },
         "image_count": { "$sum": 1 }
@@ -174,8 +174,11 @@ export default class SubmissionCtrl extends BaseCtrl {
     const aggregatorOpts = [
       {
         $group: {
-          _id: "$disease_type",
-          count: { $sum: 1 }
+          _id: {
+            disease_type: "$disease_type",
+            data_type: "$data_type"
+          },
+          imagesCount: { $sum: 1 }
         }
       }
     ]

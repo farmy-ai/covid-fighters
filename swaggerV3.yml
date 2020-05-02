@@ -15,7 +15,48 @@ paths:
   /submissions:
     get:
       description: The Submissions details api allows to visualize the details in list view
-      operationId: details of Submissions 
+      operationId: details of Submissions
+      parameters:
+        - in: query
+          name: disease_type
+          schema:
+            type: string
+          description: Disease Type
+        - in: query
+          name: data_type
+          schema:
+            type: string
+          description: Data type
+        - in: query
+          name: affiliation
+          schema:
+            type: string
+          description: Affiliation
+        - in: query
+          name: created_at
+          schema:
+            type: string
+          description: Creation date
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+          description: Sort field
+        - in: query
+          name: orderBy
+          schema:
+            type: string
+          description: Order desc or asc
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Submision per page
+        - in: query
+          name: skip
+          schema:
+            type: integer
+          description: start index
       responses:
         '200':
           description: ''
@@ -29,6 +70,27 @@ paths:
     get:
       description: The List Submissions api allows to visualize the details in list view
       operationId: List of Submissions
+      parameters:
+        - in: query
+          name: disease_type
+          schema:
+            type: string
+          description: Disease Type
+        - in: query
+          name: data_type
+          schema:
+            type: string
+          description: Data type
+        - in: query
+          name: affiliation
+          schema:
+            type: string
+          description: Affiliation
+        - in: query
+          name: created_at
+          schema:
+            type: string
+          description: Creation date
       responses:
         '200':
           description: ''
@@ -43,6 +105,27 @@ paths:
     get:
       description: The List Submissions api allows to visualize the details in list view
       operationId: download a List of Submissions
+      parameters:
+        - in: query
+          name: disease_type
+          schema:
+            type: string
+          description: Disease Type
+        - in: query
+          name: data_type
+          schema:
+            type: string
+          description: Data type
+        - in: query
+          name: affiliation
+          schema:
+            type: string
+          description: Affiliation
+        - in: query
+          name: created_at
+          schema:
+            type: string
+          description: Creation date
       responses:
         '200':
           description: ''
