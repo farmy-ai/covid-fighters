@@ -1,9 +1,9 @@
 <ng-container *ngIf="!sending; else elseTemplate">
   <input type="file" name="file" id="file" #fileInput (change)='add($event)' style="display: none;" multiple />
-  <form [formGroup]="uploadForm" class="content-card ">
-    <span class="mat-display-3 mb-3">Upload</span>
+  <form [formGroup]="uploadForm" class="content-card mat-elevation-z2 p-4">
+    <span class="mat-display-3 mb-4 mt-2">Upload</span>
 
-    <mat-form-field>
+    <mat-form-field class="mt-5">
       <mat-label>Data type</mat-label>
       <mat-select formControlName="data_type">
         <mat-option value="ct">CT scan</mat-option>
@@ -18,24 +18,25 @@
         <mat-option value="other">Other</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button class="mb-4" color="primary" style="width: 100%;" (click)="fileInput.click()">Add files
-      &nbsp;&nbsp;{{files.length}}</button>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" >
       <mat-label>Affiliation</mat-label>
-      <input matInput placeholder="Affiliation...">
-      <mat-icon matSuffix>position</mat-icon>
+      <input matInput placeholder="Affiliation..." formControlName="affiliation">
+      <mat-icon matSuffix>flag</mat-icon>
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <textarea matInput placeholder="Description..."></textarea>
+      <textarea matInput placeholder="Description..." formControlName="description"></textarea>
     </mat-form-field>
-    <div class="d-flex align-items-center"><button mat-raised-button color="accent" (click)="Upload()">Send</button>
+    <button mat-raised-button class="mb-4" color="accent" style="width: 95%;" (click)="fileInput.click()">Add files
+      &nbsp;({{files.length}})</button>
+    <div class="navigation" style="width: 95%;">
+      <button mat-raised-button color="primary" style="width: 30%;" class="mr-2" (click)="Upload()">Send</button>
+      <button mat-button color="warn" [routerLink]="[ '/home']">back</button>
     </div>
 
   </form>
 
 </ng-container>
 <ng-template #elseTemplate>
-    <mat-spinner class="my-5"
-      mode="indeterminate">
-    </mat-spinner>
+  <mat-spinner class="my-5" mode="indeterminate">
+  </mat-spinner>
 </ng-template>

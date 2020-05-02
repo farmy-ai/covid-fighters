@@ -22,10 +22,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { LoadPipe } from './user-home/load.pipe';
 import { LandingComponent } from './landing/landing.component';
-import { UploadOverlayComponent } from './upload-overlay/upload-overlay.component';
+import { UploadComponent } from './upload-overlay/upload-overlay.component';
 
 @NgModule({
-  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe, LandingComponent, UploadOverlayComponent],
+  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe, LandingComponent, UploadComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -54,6 +54,6 @@ import { UploadOverlayComponent } from './upload-overlay/upload-overlay.componen
     MatProgressBarModule
   ],
   exports:[],
-  entryComponents: [UploadOverlayComponent]
+  entryComponents: []
 })
 export class ChestXrayModule { }

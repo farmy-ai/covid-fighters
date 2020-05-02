@@ -4,21 +4,31 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: 100vh;
   .content-card {
-    padding: 12px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: column;
     background-color: white;
-    overflow-x: hidden;
-    overflow-y: auto;
     width: 100%;
-    max-height: 80vh;
-    min-height: 80vh;
-
-    mat-form-field {
-      width: 100%;
+    min-height: 100vh;
+    @media (min-width: 960px) {
+      width: 50%;
+      min-height: 60vh;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+    mat-form-field{
+      width: 95%;
+    }
+    .navigation{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .form-field {
+      width: 340px;
     }
   }
   .form-container {

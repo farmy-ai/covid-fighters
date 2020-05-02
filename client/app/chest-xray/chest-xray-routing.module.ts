@@ -5,6 +5,8 @@ import { ChestXrayComponent } from './chest-xray.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserHomeComponent } from './user-home/user-home.component';
+import { UploadComponent } from './upload-overlay/upload-overlay.component';
+import { UploadOverlayGuard } from './upload-overlay.guard';
 
 const routes: Routes = [
   {
@@ -12,6 +14,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'home', component: UserHomeComponent },
+      { path: 'upload', component: UploadComponent, canActivate: [UploadOverlayGuard] },
     ]
   }
 ];

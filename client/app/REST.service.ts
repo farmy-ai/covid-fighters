@@ -7,9 +7,9 @@ const ROOT = environment.API_URL;
 const signUpLink = `${ROOT}user`;
 const signInLink = `${ROOT}login`;
 const signOutLink = `${ROOT}auth/signout/`;
-const UserLink = `${ROOT}auth/user/`;
-const AllData = `${ROOT}/submission/`;
-const addDataLink = `${ROOT}/submission/`;
+const UserLink = `${ROOT}user/`;
+const AllData = `${ROOT}submission/`;
+const addDataLink = `${ROOT}submission/`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
 
 @Injectable({
@@ -57,15 +57,14 @@ export class RestService {
 
     }));
   }
-  addAnomaly(Data) {
+  addData(Data) {
     console.log('[ADD ANOMALY QUERY]');
     console.log(Data);
 
     const formData: FormData = new FormData();
 
-    Data.files.forEach((file: File) => {
-      formData.append(file.name, file);
-    });
+    formData.append('files', Data.files);
+
 
     for (const key in Data) {
       if (key !== 'files') {

@@ -37,16 +37,19 @@ export class LoginComponent implements OnInit {
     dialog.close();
 
     if (result.success) {
+      this.route.navigate(['home']);
+      /*
       this.http.getUser().then((v: any) => {
 
-        if (v.role !== 'expert') {
-          this.fail('Please enter with expert account');
+        if (v.role !== 'user') {
+          this.fail('Please enter with correct account');
         } else {
           console.log('redirecting..');
+          this.route.navigate(['Home']);
           // location.href = '/webApp';
-          this.route.navigate(['/webApp/false']);
         }
       });
+      */
 
     } else {
       dialog = this.fail(result.message);
