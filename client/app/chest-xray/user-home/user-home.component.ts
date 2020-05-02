@@ -3,7 +3,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { FormGroup, FormControl } from '@angular/forms';
 import { debounceTime, map, delay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
-import { UploadOverlayComponent } from '../upload-overlay/upload-overlay.component';
+import { UploadComponent } from '../upload-overlay/upload-overlay.component';
 
 export const fade = trigger('fade', [
   transition('void => *', [
@@ -53,8 +53,8 @@ export class UserHomeComponent implements OnInit {
       .pipe(debounceTime(1700)).subscribe(v => this.filter());
   }
 
-  openUploadOverlay() {
-    const dialog = this.dialog.open(UploadOverlayComponent, { width: '95vw', maxHeight: '98vh', panelClass: 'custom-dialog-container' });
+  openUpload() {
+
   }
 
   filter() {

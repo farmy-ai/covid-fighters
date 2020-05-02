@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RestService } from 'client/app/REST.service';
 
 @Component({
   selector: 'app-upload-overlay',
   templateUrl: './upload-overlay.component.html',
   styleUrls: ['./upload-overlay.component.scss']
 })
-export class UploadOverlayComponent implements OnInit {
+export class UploadComponent implements OnInit {
 
   uploadForm: FormGroup;
 
   tags = '';
   files = [];
   sending = false;
-  constructor(public dialogRef: MatDialogRef<UploadOverlayComponent>, private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private http: RestService) { }
 
   ngOnInit() {
     this.uploadForm = this._formBuilder.group({
       data_type: ['x-ray', [Validators.required]],
       disease_type: ['covid', [Validators.required]],
-      description: ['', [Validators.required]],
       affiliation: ['', [Validators.required]],
+      description: [''],
     });
   }
 
@@ -33,12 +34,11 @@ export class UploadOverlayComponent implements OnInit {
 
   }
   Upload() {
+    const data = { ...this.uploadForm.value, files: this.files, tags: ['test', 'ilies', 'covid'] }
+    console.log(data);
+
+    this.http.addData(data).subscribe(v => console.log(v));
     this.sending = true;
   }
-
-  close(res): void {
-    this.dialogRef.close(res);
-  }
-
 
 }
