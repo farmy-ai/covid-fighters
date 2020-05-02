@@ -10,7 +10,7 @@ const submisionSchema = new mongoose.Schema({
   annotation: mongoose.Schema.Types.Mixed,
   tags: [String],
   id_user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
-}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
+}, { timestamps: { updatedAt: 'updated_at' } });
 
 submisionSchema.pre('save', function (next,req) {
   const submision = this;

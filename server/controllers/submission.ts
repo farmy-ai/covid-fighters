@@ -19,14 +19,69 @@ export default class SubmissionCtrl extends BaseCtrl {
   model = Submission;
 
   // Get all Instances in Datasets
+
+  getSubmissionHead = (req, res) => {
+    var match = {};
+    const sort = {}
+
+    if (req.query.sortBy && req.query.OrderBy) {
+      sort[req.query.sortBy] = req.query.OrderBy === 'desc' ? -1 : 1
+    }
+
+    if (req.query.disease_type) {
+      match['disease_type'] = req.query.disease_type;
+    }
+    if (req.query.data_type) {
+      match['data_type'] = req.query.data_type;
+    }
+    if (req.query.affiliation) {
+      match['affiliation'] = req.query.affiliation;
+    }
+    if (req.query.id_user) {
+      match['id_user'] = req.query.id_user;
+    }
+
+    const options = [{ '$match': match }, {
+      "$group": {
+        "_id": {
+          "disease_type": "$disease_type",
+          "data_type": "$data_type",
+          "affiliation": "affiliation",
+          "id_user": "id_user"
+        },
+        "image_count": { "$sum": 1 }
+      }
+    }]
+    this.model.aggregate(options).sort(sort).exec((err, submissionHead) => {
+      if (err) { return console.error(err); }
+      res.status(200).json(submissionHead);
+    });
+
+  }
   getAll = (req, res) => {
 
 
     var match = {}
     const sort = {}
 
-    if (req.params.search) {
-      match = { "$text": { "$search": req.params.search } }
+    if (req.query.search) {
+      match = { "$text": { "$search": req.query.search } }
+    }
+    if (req.query.disease_type) {
+      match['disease_type'] = req.query.disease_type;
+    }
+    if (req.query.data_type) {
+      match['data_type'] = req.query.data_type;
+    }
+    if (req.query.affiliation) {
+      match['affiliation'] = req.query.affiliation;
+    }
+    if (req.query.id_user) {
+      match['affiliation'] = req.query.id_user;
+    }
+
+    if (req.query.create_at) {
+      match['create_at'] = req.query.create_at;
     }
 
     if (req.query.sortBy && req.query.OrderBy) {
@@ -137,6 +192,7 @@ export default class SubmissionCtrl extends BaseCtrl {
       apiVersion: 'latest',
     });
     var ResponseData = [];
+    const time = Date.now();
     files.map((item) => {
       var uuid_name = uuidv4();
       var params = {
@@ -153,7 +209,8 @@ export default class SubmissionCtrl extends BaseCtrl {
         annotation: req.body.annotation,
         tags: req.body.tags,
         s3_path: "datasets/" + req.body.disease_type + "/" + uuid_name + path.extname(item.originalname),
-        id_user: req.body.id_user
+        id_user: req.body.id_user,
+        create_at: time
       }
       s3bucket.upload(params, function (err, data) {
         if (err) {
@@ -190,7 +247,7 @@ export default class SubmissionCtrl extends BaseCtrl {
 
   mine = async (req, res) => {
     //console.log(req.user.populate);
-    this.model.find({id_user:req.user._id}).sort([['updated_at', -1]]).exec((err, submissionData) => {
+    this.model.find({ id_user: req.user._id }).sort([['updated_at', -1]]).exec((err, submissionData) => {
       if (err) {
         return res.status(500);
       }
@@ -204,8 +261,27 @@ export default class SubmissionCtrl extends BaseCtrl {
     const dir = path.join("tmp", uuidv4());
     var match = {}
 
-    if (req.params.search) {
-      match = { "$text": { "$search": req.params.search } }
+    var match = {}
+    const sort = {}
+
+    if (req.query.search) {
+      match = { "$text": { "$search": req.query.search } }
+    }
+    if (req.query.disease_type) {
+      match['disease_type'] = req.query.disease_type;
+    }
+    if (req.query.data_type) {
+      match['data_type'] = req.query.data_type;
+    }
+    if (req.query.affiliation) {
+      match['affiliation'] = req.query.affiliation;
+    }
+    if (req.query.id_user) {
+      match['affiliation'] = req.query.id_user;
+    }
+
+    if (req.query.create_at) {
+      match['create_at'] = req.query.create_at;
     }
 
     if (fs.existsSync(dir)) {
