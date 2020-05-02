@@ -40,19 +40,24 @@ export default class SubmissionCtrl extends BaseCtrl {
     if (req.query.id_user) {
       match['id_user'] = req.query.id_user;
     }
+    if (req.query.created_at) {
+      match['created_at'] = req.query.created_at;
+    }
 
     const options = [{ '$match': match }, {
       "$group": {
         "_id": {
           "disease_type": "$disease_type",
           "data_type": "$data_type",
-          "affiliation": "affiliation",
-          "id_user": "id_user"
+          "affiliation": "$affiliation",
+          "created_at":"$created_at",
+          "id_user": "$id_user"
         },
         "image_count": { "$sum": 1 }
       }
     }]
-    this.model.aggregate(options).sort(sort).exec((err, submissionHead) => {
+    //
+    this.model.aggregate(options).exec((err, submissionHead) => {
       if (err) { return console.error(err); }
       res.status(200).json(submissionHead);
     });
@@ -80,8 +85,8 @@ export default class SubmissionCtrl extends BaseCtrl {
       match['affiliation'] = req.query.id_user;
     }
 
-    if (req.query.create_at) {
-      match['create_at'] = req.query.create_at;
+    if (req.query.created_at) {
+      match['created_at'] = req.query.created_at;
     }
 
     if (req.query.sortBy && req.query.OrderBy) {

@@ -12,7 +12,20 @@ servers:
 security:
   - bearerAuth: []
 paths:
-  /submissions/:
+  /submissions:
+    get:
+      description: The Submissions details api allows to visualize the details in list view
+      operationId: details of Submissions 
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Submission'
+  /submissions/list:
     get:
       description: The List Submissions api allows to visualize the details in list view
       operationId: List of Submissions
@@ -24,7 +37,8 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Submission'
+                  type: object
+
   /submissions/download:
     get:
       description: The List Submissions api allows to visualize the details in list view

@@ -92,6 +92,7 @@ export default function setRoutes(app) {
 
   // Submissions
   router.route('/submissions').get(submissionCtrl.getAll);
+  router.route('/submissions/list').get(submissionCtrl.getSubmissionHead);
   router.route('/submissions/mine').get(authenticateJWT,submissionCtrl.mine);
   router.route('/submissions/stat').get(submissionCtrl.stat);
   router.route('/submission').post(authenticateJWT, multipleUpload, submissionCtrl.multipleUpload);
