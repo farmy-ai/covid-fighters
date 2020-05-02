@@ -184,6 +184,7 @@ export default class SubmissionCtrl extends BaseCtrl {
 
   multipleUpload = (req, res) => {
     const files = req.files;
+    console.log(req.body);
     req.body.id_user = mongoose.Types.ObjectId(req.user._id);
     let s3bucket = new AWS.S3({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,

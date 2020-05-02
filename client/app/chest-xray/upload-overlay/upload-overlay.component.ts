@@ -28,9 +28,9 @@ export class UploadComponent implements OnInit {
 
   add(event) {
 
-    console.log(event.target.files);
-
-    this.files = [...this.files, ...event.target.files];
+    if (event.target.files.length > 0) {
+      this.files = event.target.files;
+    }
 
   }
   Upload() {

@@ -61,10 +61,7 @@ export class RestService {
     console.log('[ADD ANOMALY QUERY]');
     console.log(Data);
 
-    const formData: FormData = new FormData();
-
-    formData.append('files', Data.files);
-
+    const formData = new FormData();
 
     for (const key in Data) {
       if (key !== 'files') {
@@ -72,7 +69,12 @@ export class RestService {
       }
     }
 
-    return this.http.post(addDataLink, Data, { reportProgress: true, observe: 'events' });
+    //formData.append('files', Data.files);
+    for(let img of Data.files){
+      formData.append('files', img);
+    }
+
+    return this.http.post(addDataLink, formData, { reportProgress: true, observe: 'events' });
   }
 }
 
