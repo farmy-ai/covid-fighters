@@ -190,44 +190,12 @@ export default class SubmissionCtrl extends BaseCtrl {
 
   mine = async (req, res) => {
     //console.log(req.user.populate);
-
-    const options = [
-      { $match: { "id_used": req.user._id } },
-      ,
-      {
-        $group: {
-          _id: {
-            month: { "$month": "$created_at" },
-            day: { "$dayOfMonth": "$created_at" },
-            year: { "$year": "$created_at" }
-          }
-        }
-      }
-    ]
-
-    /*,
-          Submissions: {
-            $push: {
-              _id: "$_id",
-              data_type: "$data_typedata_type",
-              disease_type: "$disease_type",
-              description: "$description",
-              affiliation: "$affiliation",
-              upload_name: "$upload_name",
-              s3_path: "$s3_path",
-              annotation: "$annotation",
-              tags: "$tags",
-              created_at:"$created_at",
-              updated_at:"$updated_at"
-            }
-          }*/
-    this.model.aggregate(options, (err, submissionData) => {
+    this.model.find({id_user:req.user._id}).sort([['updated_at', -1]]).exec((err, submissionData) => {
       if (err) {
         return res.status(500);
       }
       res.status(200).json(submissionData);
     });
-
   }
 
 
@@ -289,7 +257,6 @@ export default class SubmissionCtrl extends BaseCtrl {
 
     // res.sendStatus(200);
   }
-
 
 }
 

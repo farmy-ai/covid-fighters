@@ -15,6 +15,8 @@ import SubmissionCtrl from './controllers/submission';
 import * as multer from 'multer';
 
 import * as jwt from 'jsonwebtoken';
+import MetadataCtrl from './controllers/metadata';
+import PredictionCtrl from './controllers/prediction';
 
 
 const authenticateJWT = (req, res, next) => {
@@ -44,6 +46,9 @@ export default function setRoutes(app) {
   const datasetCtrl = new DatasetCtrl();
   const instanceCtrl = new InstanceCtrl();
   const submissionCtrl=new SubmissionCtrl();
+  const metadataCtrl=new MetadataCtrl();
+  const predictionCtrl= new PredictionCtrl();
+
 
   var storage = multer.memoryStorage();
   var upload = multer({ storage: storage });
@@ -94,6 +99,13 @@ export default function setRoutes(app) {
   router.route('/submission/:id').put(authenticateJWT, submissionCtrl.update);
   router.route('/submission/:id').delete(authenticateJWT, submissionCtrl.delete);
   router.route('/submissions/download').get(submissionCtrl.downloadMultiple)
+
+  //Metadata
+  router.route('/tags').get(metadataCtrl.getTags);
+  router.route('/affiliations').get(metadataCtrl.getAffiliations);
+
+  //prediction
+  router.route('/predict').post(singleUpload, predictionCtrl.getPrediction);
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
 

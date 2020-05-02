@@ -62,14 +62,7 @@ paths:
               schema:
                 type: array
                 items:
-                    type: string
-                    properties:
-                      date:
-                        type: string
-                      submissions:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Submission'
+                  $ref: '#/components/schemas/Submission'
     
   /submission:
     post:
@@ -150,7 +143,7 @@ paths:
         '200':
           description: ''
           content: {}
-  /login/:
+  /login:
     post:
       description: login user and Generate User Token api d
       operationId: login User
@@ -178,6 +171,19 @@ paths:
                 properties:
                   token:
                     type: string
+  /users:
+    get:
+      description: The User List api allows to visualize the details in list view
+      operationId: List of Users
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
   /user:
     post:
       description: Register user and send confirmation email.
@@ -298,7 +304,63 @@ paths:
             application/json:
               schema:
                 type: string
-                
+  /tags:
+    get:
+      description: Get all tags
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /affiliations:
+    get:
+      description: Get all affiliations
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /predict:
+    post:
+      description: Store new password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: string
+                file:
+                  type: string
+                  format: binary
+                id_user:
+                  type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                  Data:
+                    $ref: '#/components/schemas/Prediction'
+                  
 components:
   securitySchemes:
     bearerAuth:
@@ -352,6 +414,7 @@ components:
           items:
             type: string
         id_user:
+            title: User Identifier
             type: string
     User:
       required:
@@ -375,3 +438,37 @@ components:
         last_name:
           title: Last name
           type: string
+        affiliation:
+          title: Data Affiliation
+          type: string
+    Prediction:
+      type: object
+      properties:
+        id:
+          title: _id
+          type: integer
+          readOnly: true
+        predicted_class:
+          title: Predicted Class
+          type: string
+        upload_name:
+          title: Upload Filename
+          type: string
+        prediction_array:
+          title: Prediction Array
+          type: object
+          properties: {}
+        s3_path:
+          title: Image path in AWS S3
+          type: string
+        tags:
+          title: Data hashtags
+          type: array
+          items:
+            type: string
+        id_user:
+            title: User Identifier
+            type: string
+        createdAt:
+          title: Created timestamp
+          type: number
