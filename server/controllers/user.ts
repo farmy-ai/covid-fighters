@@ -45,7 +45,7 @@ export default class UserCtrl extends BaseCtrl {
           from: 'covidfighter@tibyane.com',
           to: user.email,
           subject: 'Account Verification Token',
-          text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/api\/confirmation\/' + token.token + '.\n'
+          text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n'
         };
         var mailgun = new NodeMailgun()
         mailgun.apiKey = process.env.MAILGUN_API_KEY;
@@ -135,7 +135,7 @@ export default class UserCtrl extends BaseCtrl {
                 mailgun.send(mailOptions.to, mailOptions.subject, mailOptions.text).then((result) => {
                   console.log("email sent");
                   console.log(result);
-                  return res.json({ success: true, message: 'Check your mail to reset your password.'});
+                  return res.json({ success: true, message: 'Check your mail to reset your password.' });
                 }).catch((error) => {
                   console.log(error);
                   res.status(500).json({ success: false, message: 'Unable to send email.' });
@@ -218,7 +218,26 @@ export default class UserCtrl extends BaseCtrl {
         user.isVerified = true;
         user.save(function (err) {
           if (err) { return res.status(500).send({ msg: err.message }); }
-          res.status(200).send("The account has been verified. Please log in.");
+
+          var mailgun = new NodeMailgun();
+          mailgun.apiKey = process.env.MAILGUN_API_KEY;
+          mailgun.domain = process.env.MAILGUN_DOMAIN;
+          // Setting Mailgun options
+          mailgun.options = {
+            host: 'api.eu.mailgun.net'
+          };
+          mailgun.fromEmail = 'covidfighter@tibyane.com';
+          mailgun.fromTitle = 'My Sample App';
+          mailgun.init();
+          mailgun.initMailingList(process.env.MAILGUN_LIST_ALIAS);
+          mailgun.listAdd(user.email, user.first_name + " " + user.last_name, { role: user.role })
+            .then(() => {
+              res.status(200).send("The account has been verified. Please log in.");
+            })
+            .catch((error) => {
+              console.log(error);
+              res.status(200).send("The account has been verified but not adding to mailing list. Please log in.")
+            });
         });
       });
     });
