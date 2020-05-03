@@ -11,14 +11,25 @@ const UserLink = `${ROOT}user/`;
 const AllData = `${ROOT}submission/`;
 const addDataLink = `${ROOT}submission/`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
+const demoLink = `${ROOT}predict`;
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-
   constructor(private http: HttpClient) {
+  }
+
+  demo(file, user) {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (user) {
+      formData.append('id_user', user.id);
+    }
+    return this.http.post(demoLink, formData);
   }
 
   register(user) {
@@ -70,7 +81,7 @@ export class RestService {
     }
 
     //formData.append('files', Data.files);
-    for(let img of Data.files){
+    for (let img of Data.files) {
       formData.append('files', img);
     }
 

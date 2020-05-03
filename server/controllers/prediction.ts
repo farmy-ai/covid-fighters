@@ -17,6 +17,9 @@ export default class PredictionCtrl {
     if (!req.body.id_user) {
       req.body.id_user = 0;
     }
+    const duplexStream = new Duplex();
+    duplexStream.push(file.buffer);
+    duplexStream.push(null);
     var options = {
       'method': 'POST',
       'url': 'http://178.62.219.187:6100',
@@ -25,19 +28,16 @@ export default class PredictionCtrl {
       },
       formData: {
         'image': {
-          'value': fs.createReadStream('/Users/ahmed/Downloads/download.jpeg'),
+          'value': duplexStream,
           'options': {
-            'filename': 'download.jpeg',
+            'filename': file.originalname,
             'contentType': null
           }
         },
-        'info': 'ahmed'
+        'info': 'CovidFighter'
       }
     };
 
-    const duplexStream = new Duplex();
-    duplexStream.push(file.buffer);
-    duplexStream.push(null);
     request(options, function (error, response) {
       if (error) throw new Error(error);
 

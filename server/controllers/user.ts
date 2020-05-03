@@ -85,6 +85,18 @@ export default class UserCtrl extends BaseCtrl {
 
   }
 
+  getMyInfo=(req,res)=>{
+
+    User.findOne({ _id: req.user.id },  //checking if the email address sent by client is present in the db(valid)
+      (error, user) => {
+
+        if(error){
+          return res.status(403);
+        }
+        res.sendStatus(200).json(user);
+      });
+  }
+
 
   resetPassword = (req, res) => {
     const email = req.body.email

@@ -24,9 +24,10 @@ import { LoadPipe } from './user-home/load.pipe';
 import { LandingComponent } from './landing/landing.component';
 import { UploadComponent } from './upload-overlay/upload-overlay.component';
 import { SvgViewerModule } from './landing/svg-viewer/svg-viewer.component';
+import { DemoPageComponent } from './demo-page/demo-page.component';
 
 @NgModule({
-  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe, LandingComponent, UploadComponent],
+  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe, LandingComponent, UploadComponent, DemoPageComponent],
   imports: [
     CommonModule,
     HttpClientModule,

@@ -10,9 +10,16 @@ export class AuthManagerService {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
+  private readonly USER = 'USER';
 
   constructor(private http: RestService) { }
 
+  setUser(v: any) {
+    localStorage.setItem(this.USER, v);
+  }
+  user() {
+    return localStorage.getItem(this.USER);
+  }
   login(email: string, password: string) {
     return this.http.login(email, password).pipe(
       tap(result => this.doLoginUser(result)),
