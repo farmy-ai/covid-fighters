@@ -13,13 +13,13 @@ import { Duplex } from 'stream';
 export default class PredictionCtrl {
   getPrediction = (req, res) => {
     const file = req.file
-
+    const stageFilePath = path.join("./tmp",uuidv4()+path.extname(file.originalname));
     if (!req.body.id_user) {
       req.body.id_user = 0;
     }
-    const duplexStream = new Duplex();
-    duplexStream.push(file.buffer);
-    duplexStream.push(null);
+    
+    fs.writeFileSync(stageFilePath,file.buffer)
+
     var options = {
       'method': 'POST',
       'url': 'http://178.62.219.187:6100',
@@ -27,13 +27,14 @@ export default class PredictionCtrl {
         'key': 'T\\xcaf\\xbe\\x95\\xdd3\\xf6\\x19,\\x83\\xa6\\xf2\\xb0;=\\x0b\\x19\\xec7|\\xbd\\x87\\x86'
       },
       formData: {
-        'image': {
-          'value': duplexStream,
+        'image':  {
+          'value': fs.createReadStream(stageFilePath),
           'options': {
             'filename': file.originalname,
             'contentType': null
           }
-        },
+        }
+        ,
         'info': 'CovidFighter'
       }
     };
@@ -54,7 +55,7 @@ export default class PredictionCtrl {
         Body: file.buffer,
         ACL: 'public-read'
       };
-      console.log(JSON.parse(response.body));
+      console.log(response.body);
       response.body=JSON.parse(response.body);
       const PredictionData = {
         tags: req.body.tags,
@@ -73,6 +74,7 @@ export default class PredictionCtrl {
           obj.save((err, item) => {
             if (err) { res.status("500").json(err) };
             res.json({ "error": false, "Message": "File Uploaded SuceesFully", Data: PredictionData });
+            fs.unlinkSync(stageFilePath);
           });
         }
       });

@@ -282,6 +282,16 @@ paths:
                 items:
                   $ref: '#/components/schemas/User'
   /user:
+    get:
+      description: The connected User api allows to visualize the connected user details
+      operationId: Connected Users
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
     post:
       description: Register user and send confirmation email.
       operationId: Register User
