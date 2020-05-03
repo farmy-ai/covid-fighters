@@ -1,7 +1,6 @@
-<form [formGroup]="registerForm" class="content-card mat-elevation-z2 py-5">
+<form [formGroup]="registerForm" class="content-card">
 
-  <span class="mat-title mb-2">REGISTER</span>
-  <span class="mat-sub mb-4">register to upload data and help fighting covid-19</span>
+  <span class="mat-h1 mb-3" style="width: 420px;text-align: start;">Register</span>
 
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>First name</mat-label>
@@ -24,7 +23,7 @@
     <mat-hint *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.touched" style="color: red;">use
       valid email</mat-hint>
   </mat-form-field>
-  <mat-form-field appearance="outline" class="form-field">
+  <mat-form-field appearance="outline" class="form-field d-none">
     <mat-label>Affiliation</mat-label>
     <input matInput placeholder="Affiliation..." formControlName="affiliation">
     <mat-icon matSuffix>flag</mat-icon>
@@ -32,16 +31,14 @@
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>Password</mat-label>
     <input matInput placeholder="your last password..." formControlName="password">
-    <mat-icon matSuffix>vpn_key</mat-icon>
+    <mat-icon matSuffix>visibility</mat-icon>
     <mat-hint *ngIf="!registerForm.controls.password.valid && registerForm.controls.password.touched"
       style="color: red;">use at least 8 characters</mat-hint>
   </mat-form-field>
   <div class="form-field d-flex justify-content-between align-items-center mt-1 ">
     <button mat-raised-button color="primary" style="width:124px"
-      [disabled]="!registerForm.dirty || !registerForm.valid" (click)="register()">Register</button>
-    <button mat-button color="warn" [routerLink]="[ '/home' ]">Back</button>
-  </div>
-  <div class="form-field d-flex justify-content-start align-items-center mt-5">
-    <span>already register ? <a [routerLink]="[ '/login' ]">Login</a> </span>
+    [disabled]="!registerForm.dirty || !registerForm.valid" (click)="register()">Register</button>
+    <span class="mat-h2">or&nbsp;&nbsp;<a [routerLink]="[ '/login']">Login</a></span>
   </div>
 </form>
+<img src="/assets/svg/illustration.svg" style="width: 100%;" alt="">

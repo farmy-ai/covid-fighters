@@ -1,7 +1,9 @@
-<form [formGroup]="loginForm" class="content-card mat-elevation-z2 ">
+<form [formGroup]="loginForm" class="content-card mb-3">
 
-  <span class="mat-title mb-5">LOGIN</span>
-
+  <div class="d-flex align-items-center justify-content-between mb-4 mat-h2" style="width: 340px;">
+    <span class=" mb-0">Login</span>
+    <span class=" mb-0">or &nbsp;<a [routerLink]="[ '/registration']">create account</a></span>
+  </div>
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>email</mat-label>
     <input matInput placeholder="your email..." formControlName="email">
@@ -11,16 +13,16 @@
   </mat-form-field>
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>Password</mat-label>
-    <input matInput placeholder="your last password..." type="password" formControlName="password">
-    <mat-icon matSuffix>vpn_key</mat-icon>
-    <mat-hint *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.touched"
-      style="color: red;">use at least 8 characters</mat-hint>
+    <input #pass matInput placeholder="your last password..." type="password" formControlName="password">
+    <mat-icon matSuffix (click)="pass.type === 'text' ? pass.type = 'password':pass.type = 'text'">visibility
+    </mat-icon>
+    <mat-hint *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.touched" style="color: red;">use
+      at least 8 characters</mat-hint>
   </mat-form-field>
-  <div class="form-field d-flex justify-content-between align-items-center mt-1 ">
+  <div class="form-field d-flex justify-content-between align-items-center mt-1">
+    <a [routerLink]="[ '/forget-password']">Forget password ?</a>
     <button mat-raised-button color="primary" style="width:124px" (click)="login()">Login</button>
-    <button mat-button color="warn" [routerLink]="[ '/home' ]">Back</button>
   </div>
-  <div class="form-field d-flex justify-content-start align-items-center mt-5">
-    <span>don't you have an account yet ? <a [routerLink]="[ '/register' ]">Register</a> </span>
-  </div>
+
 </form>
+<img src="/assets/svg/illustration.svg" style="width: 100%;" alt="">

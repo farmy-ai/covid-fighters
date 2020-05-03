@@ -65,6 +65,7 @@ export default function setRoutes(app) {
   router.route('/users').get(authenticateJWT, userCtrl.getAll);
   router.route('/users/count').get(authenticateJWT, userCtrl.count);
   router.route('/user').post(userCtrl.insert);
+  router.route('/user').get(authenticateJWT,userCtrl.getMyInfo);
   router.route('/user/:id').get(authenticateJWT, userCtrl.get);
   router.route('/user/:id').put(authenticateJWT, userCtrl.update);
   router.route('/user/:id').delete(authenticateJWT, userCtrl.delete);

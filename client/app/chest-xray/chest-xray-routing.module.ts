@@ -8,6 +8,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { UploadComponent } from './upload-overlay/upload-overlay.component';
 import { UploadOverlayGuard } from './upload-overlay.guard';
 import { LandingComponent } from './landing/landing.component';
+import { DemoPageComponent } from './demo-page/demo-page.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'home', component: UserHomeComponent },
       { path: 'upload', component: UploadComponent, canActivate: [UploadOverlayGuard] },
       { path: 'landing', component: LandingComponent },
+      { path: 'demo', component: DemoPageComponent },
     ]
   }
 ];

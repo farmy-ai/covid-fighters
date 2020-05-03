@@ -38,18 +38,9 @@ export class LoginComponent implements OnInit {
 
     if (result.success) {
       this.route.navigate(['home']);
-      /*
       this.http.getUser().then((v: any) => {
-
-        if (v.role !== 'user') {
-          this.fail('Please enter with correct account');
-        } else {
-          console.log('redirecting..');
-          this.route.navigate(['Home']);
-          // location.href = '/webApp';
-        }
+        this.auth.setUser(v);
       });
-      */
 
     } else {
       dialog = this.fail(result.message);
