@@ -73,7 +73,7 @@ export default class PredictionCtrl {
           const obj = new Prediction(PredictionData);
           obj.save((err, item) => {
             if (err) { res.status("500").json(err) };
-            res.json({ "error": false, "Message": "File Uploaded SuceesFully", Data: PredictionData });
+            res.json({ "success": true, "predictions": response.body.predictions });
             fs.unlinkSync(stageFilePath);
           });
         }
