@@ -54,7 +54,8 @@ import { DemoPageComponent } from './demo-page/demo-page.component';
     MatAutocompleteModule,
     MatMenuModule,
     MatProgressBarModule,
-    SvgViewerModule
+    SvgViewerModule,
+    
   ],
   exports:[],
   entryComponents: []

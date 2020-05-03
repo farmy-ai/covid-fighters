@@ -1,0 +1,225 @@
+.content-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 3px 4px 0 rgba(10, 31, 68, 0.1), 0 0 1px 0 rgba(10, 31, 68, 0.08);
+    background-color: #ffffff;
+
+    .image-container {
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        max-height: 674px;
+
+        .image {
+            width: 730px;
+            height: 100%;
+            max-height: 674px;
+            object-fit: contain;
+        }
+
+        .back {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .next {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            height: 100%;
+            border-radius: 0;
+        }
+    }
+
+    .content-container {
+        display: flex;
+        flex-direction: column;
+
+        .header {
+            display: flex;
+            height: 48px;
+            width: 348px;
+            margin: 16px;
+
+            .profile-img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .infos-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-left: 16px;
+
+                .user-name {
+                    font-size: 16px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: -0.23px;
+                    color: #444444;
+                }
+
+                .infos {
+                    display: flex;
+                    align-items: center;
+
+                    .info-icon {
+                        margin-right: 8px;
+                        font-size: 16px;
+                        font-weight: normal;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        color: #4a4a4a;
+                    }
+
+                    .info-text {
+                        font-size: 12px;
+                        font-weight: normal;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        color: #4a4a4a;
+                    }
+
+                    .h-separation {
+                        margin: 0px 15.5px;
+                        width: 1px;
+                        height: 14px;
+                        border: solid 0.9px #e8e8e8;
+                    }
+                }
+
+
+            }
+        }
+
+        .separation {
+            width: 100%;
+            height: 1px;
+            background-color: #e1e4e8;
+        }
+
+        .problem-container {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 16px;
+            height: 226px;
+
+            .title {
+                font-size: 20px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.4;
+                letter-spacing: 0.5px;
+                color: #3b3b3b;
+            }
+
+            .description {
+                margin-top: 8px;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.71;
+                letter-spacing: normal;
+                color: #3b3b3b;
+            }
+        }
+
+        .diagnose-container {
+
+            display: flex;
+            flex-direction: column;
+            width: 380px;
+            height: 416px;
+            padding: 16px;
+            box-shadow: 0 -4px 4px 0 rgba(0, 0, 0, 0.02);
+            border: solid 1px #e9eff4;
+            background-color: #ffffff;
+
+            .input-name {
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                color: #121212;
+                margin-bottom: 8px;
+            }
+
+            .disease-input-container {
+                width: 348px;
+                height: 46px;
+                border-radius: 4px;
+                border: solid 1px #e1e4e8;
+                background-color: #ffffff;
+                padding: 11px 14px;
+                margin-bottom: 16px;
+
+                mat-select {
+                    width: 100%;
+                }
+            }
+
+            textarea {
+                width: 348px;
+                height: 80px;
+                border-radius: 4px;
+                border: solid 1px #e1e4e8;
+                background-color: #ffffff;
+                margin-bottom: 16px;
+            }
+
+            .action-container {
+                display: flex;
+                margin: 8px;
+
+                .more {
+                    margin-right: 42px;
+                    color: #7dc40c;
+                    &:disabled{
+                        color: gray;
+                    }
+                }
+
+                .cancel {
+                    margin-right: 16px;
+                }
+
+                .send {
+                    background-color: #7dc40c;
+                    color: white;
+                    &:disabled{
+                        background-color: gray;
+                    }
+                }
+
+                .material-icons {
+                    font-size: 16px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: 0.62px;
+                    text-align: center;
+                    margin-right: 4px;
+                }
+            }
+        }
+    }
+}

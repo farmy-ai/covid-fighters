@@ -19,6 +19,7 @@ const routes: Routes = [
       { path: 'upload', component: UploadComponent, canActivate: [UploadOverlayGuard] },
       { path: 'landing', component: LandingComponent },
       { path: 'demo', component: DemoPageComponent },
+      { path: 'expert', loadChildren: () => import('./expert/expert.module').then(m => m.ExpertModule) }
     ]
   }
 ];

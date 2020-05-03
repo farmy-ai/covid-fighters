@@ -1,0 +1,92 @@
+<div class="content-container">
+    <button class="close" mat-icon-button (click)="close(false)">
+        <mat-icon>close</mat-icon>
+    </button>
+    <div class="edit-profile-title">Edit Profile</div>
+    <img src="/assets/svg/expert.svg" alt="" class="avatar">
+    <div class="edit-container">
+        <div class="input-row">
+            <div class="input">
+                <div class="label">First name
+                    <div class="circle"></div>
+                </div>
+                <div class="input-div full">
+                    <input placeholder="Enter your first name here ..." type="text" [(ngModel)]="data.first_name">
+                </div>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input">
+                <div class="label">Last name
+                    <div class="circle"></div>
+                </div>
+                <div class="input-div full">
+                    <input placeholder="Enter your last name here ..." type="text" [(ngModel)]="data.last_name">
+                </div>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input">
+                <div class="label">Profession
+                </div>
+                <div class="input-div full">
+                    <input placeholder="Enter your title" type="text" [(ngModel)]="data.domain">
+                </div>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input first">
+                <div class="label">Email
+                    <div class="circle"></div>
+                </div>
+                <div class="input-div half">
+                    <input placeholder="Enter your email here" type="text" [(ngModel)]="data.email" disabled>
+                </div>
+            </div>
+            <div class="input">
+                <div class="label">Phone number</div>
+                <div class="input-div half">
+                    <input placeholder="Enter your Last name" type="text" [(ngModel)]="data.phone">
+                </div>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input">
+                <div class="label">Address
+                </div>
+                <div class="input-div full">
+                    <input placeholder="Enter your address" type="text" [(ngModel)]="data.address">
+                </div>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="expertise">
+                <div class="label">Expertise</div>
+                <div *ngFor="let item of data.expertise;let i = index;trackBy: trackByFn;" class="line">
+                    <button mat-icon-button>
+                        <mat-icon>apps</mat-icon>
+                    </button>
+                    <div class="input-div">
+                        <input placeholder="Enter new expertise" type="text" [(ngModel)]="data.expertise[i]">
+                    </div>
+                    <button mat-icon-button (click)="delete(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+                <button mat-button class="add-btn" (click)="data.expertise.push('')">
+                    <mat-icon>add_box</mat-icon> Add an expertise
+                </button>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="d-flex justify-content-between" style="width: 100%">
+                <button mat-button>
+                    <mat-icon>close</mat-icon> Cancel
+                </button>
+                <button (click)="close(data)" mat-raised-button style="color: white;background-color: #7dc40c">
+                    <mat-icon>save</mat-icon> Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

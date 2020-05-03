@@ -1,0 +1,176 @@
+.content-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+
+    .close {
+        position: absolute;
+        right: -14px;
+        top: -14px;
+    }
+
+    .edit-profile-title {
+        font-size: 22px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.2px;
+        color: #121212;
+    }
+
+    .avatar {
+        width: 124px;
+        height: 124px;
+        object-fit: contain;
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+        align-self: center;
+        border-radius: 50%;
+        margin-top: 27px;
+    }
+
+    .edit-container {
+        display: flex;
+        flex-direction: column;
+        padding: 0 8px;
+        width: 100%;
+
+        .input-row {
+            margin-top: 23px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            .input {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+
+                &.first {
+                    margin-right: 20px;
+                }
+
+                .label {
+                    position: relative;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    color: #121212;
+                    margin-bottom: 8px;
+
+                    .circle {
+                        position: absolute;
+                        top: 0px;
+                        right: -7px;
+                        width: 4px;
+                        height: 4px;
+                        background-color: #ff8181;
+                        border-radius: 50%;
+                    }
+                }
+
+                .input-div {
+                    display: flex;
+                    justify-content: flex-start;
+                    padding-left: 14px;
+                    align-items: center;
+
+                    &.half {
+                        width: 224px;
+                    }
+
+                    &.full {
+                        width: 468px;
+                    }
+
+                    height: 45px;
+                    border-radius: 4px;
+                    border: solid 1px #e1e4e8;
+                    background-color: #ffffff;
+
+                    input {
+                        font-size: 14px;
+                        outline: none;
+                        border: none;
+                    }
+                }
+
+            }
+
+            .expertise {
+
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+
+                .label {
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    color: #121212;
+                    margin-bottom: 8px;
+                }
+
+                .line {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 8px;
+
+                    .input-div {
+                        display: flex;
+                        justify-content: flex-start;
+                        padding-left: 14px;
+                        align-items: center;
+                        width: 387px;
+                        height: 45px;
+                        border-radius: 4px;
+                        border: solid 1px #e1e4e8;
+                        background-color: #ffffff;
+
+                        input {
+                            font-size: 14px;
+                            outline: none;
+                            border: none;
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .add-btn {
+                    margin-top: 8px;
+                    height: 48px;
+                    width: 100%;
+                    border-radius: 3px;
+                    align-items: center;
+                    background-color: rgba(125, 196, 12, 0.1);
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    color: #7dc40c;
+
+                    mat-icon {
+                        font-size: 14px;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+
+            }
+        }
+    }
+}

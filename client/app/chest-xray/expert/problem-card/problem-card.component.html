@@ -1,0 +1,109 @@
+<ng-container *ngIf="isGrid; then gridView; else listView"></ng-container>
+<ng-template #gridView>
+    <div class="list">
+        <div class="card-content">
+            <div class="tags">
+                <!-- <div class="tag"><i class="material-icons">send</i>send</div> -->
+            </div>
+            <div class="title">{{metadata.title}}</div>
+            <div class="description">{{metadata.description}}</div>
+            <div class="images">
+                <img *ngFor="let item of metadata.images | slice:0:3; let i=index" [src]="item.image.thumbnail" alt="">
+            </div>
+        </div>
+        <div class="separation"></div>
+        <ng-container *ngIf="!isArchive; else elseTemplate">
+            <div class="card-footer">
+                <div class="info">
+                    <img class="logo" src="assets/svg/expert.svg" alt="">
+                    <span class="text">{{metadata.farmer.first_name + ' ' + metadata.farmer.last_name}}</span>
+                    <div class="separation"></div>
+                    <i class="logo material-icons">access_time</i>
+                    <span class="text">{{metadata.created | timeSpan}}</span>
+                    <div class="separation"></div>
+                    <i class="logo material-icons">location_on</i>
+                    <span class="text">{{metadata.farmer.address}}</span>
+                </div>
+                <button mat-raised-button class="diagnose" (click)="open()">{{ isArchive?'Open':'Diagnose'}}</button>
+            </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <div class="card-footer-archive">
+                <div class="info">
+                    <img class="logo" src="assets/svg/expert.svg" alt="">
+                    <span class="text">{{metadata.farmer.first_name + ' ' + metadata.farmer.last_name}}</span>
+                    <div class="separation"></div>
+                    <i class="logo material-icons">access_time</i>
+                    <span class="text">{{metadata.created | timeSpan}}</span>
+                    <div class="separation"></div>
+                    <i class="logo material-icons">location_on</i>
+                    <span class="text">{{metadata.farmer.address}}</span>
+                </div>
+                <div class="ai-container">
+                    <div class="ai-diagnose">
+                        <div class="diagnose-info">
+                            <i class="material-icons icon">android</i>
+                            <div class="text">
+                                <div style="margin-right: 3px;">AI Diagnosis:</div>
+                                <div class="bold">{{metadata?.model_diag}}</div>
+                            </div>
+                        </div>
+                        <div class="diagnose-info">
+                            <i class="material-icons icon">account_circle</i>
+                            <div class="text">
+                                <div style="margin-right: 3px;">Your Diagnosis:</div>
+                                <div class="bold">{{metadata.expert_solutions[0]?.diag}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button mat-raised-button class="diagnose" (click)="open()">{{ isArchive?'Open':'Diagnose'}}</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>
+<ng-template #listView>
+    <div class="grid">
+        <div class="tags">
+            <!-- <div class="tag"><i class="material-icons">send</i>send</div> -->
+        </div>
+        <img class="problem-img" [src]="metadata.images[0].image.thumbnail" alt="">
+        <div class="content">
+            <div class="title">{{metadata.title}}</div>
+            <div class="description">{{metadata.description}}</div>
+            <div class="user-container">
+                <img class="logo" src="assets/svg/expert.svg" alt="">
+                <span class="text">{{metadata.farmer.first_name + ' ' + metadata.farmer.last_name}}</span>
+            </div>
+            <div class="info-container">
+                <div class="info">
+                    <i class="logo material-icons">access_time</i>
+                    <span class="text">{{metadata.created | timeSpan}}</span>
+                </div>
+                <div class="info">
+                    <i class="logo material-icons">location_on</i>
+                    <span class="text">{{metadata.farmer.address}}</span>
+                </div>
+            </div>
+            <div *ngIf="isArchive" class="ai-container">
+                <div class="ai-diagnose">
+                    <div class="diagnose-info">
+                        <i class="material-icons icon">android</i>
+                        <div class="text">
+                            <div style="margin-right: 3px;">AI Diagnosis:</div>
+                            <div class="bold">{{metadata.model_diag}}</div>
+                        </div>
+                    </div>
+                    <div class="diagnose-info">
+                        <i class="material-icons icon">account_circle</i>
+                        <div class="text">
+                            <div style="margin-right: 3px;">Your Diagnosis:</div>
+                            <div class="bold">{{metadata.expert_solutions[0]?.diag}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button mat-raised-button (click)="open()">{{ isArchive?'Open':'Diagnose'}}</button>
+        </div>
+    </div>
+</ng-template>

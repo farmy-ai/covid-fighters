@@ -12,6 +12,8 @@ const AllData = `${ROOT}submission/`;
 const addDataLink = `${ROOT}submission/`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
 const demoLink = `${ROOT}predict`;
+const AllHistory =` `;
+const AddSolution =` `;
 
 
 
@@ -86,6 +88,41 @@ export class RestService {
     }
 
     return this.http.post(addDataLink, formData, { reportProgress: true, observe: 'events' });
+  }
+
+
+  /////////////////////////
+  // expert Rest service //
+  /////////////////////////
+
+  getHistory() {
+    console.log('[GET ANOMALIES QUERY]');
+
+    return this.http.get(AllHistory).pipe(map((v: any) => {
+      console.log(v);
+
+      v.forEach(element => {
+        element.created = new Date(element.created).getTime();
+        element.updated = new Date(element.updated).getTime();
+      });
+      return v;
+
+    }));
+
+  }
+
+  markAsSeen(id) {
+
+    console.log('[MARKASSEEN QUERY]');
+
+    return null;
+  }
+
+  addSolution(id, data) {
+
+    console.log('[ADDANOMALY QUERY]');
+
+    return this.http.post(AddSolution + id + '/solutions/', data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
   }
 }
 
