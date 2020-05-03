@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RestService } from 'client/app/REST.service';
-
+import { HttpEventType } from "@angular/common/http";
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-upload-overlay',
   templateUrl: './upload-overlay.component.html',
@@ -14,7 +15,8 @@ export class UploadComponent implements OnInit {
 
   tags = '';
   files = [];
-  sending = false;
+  public state = 'before';
+  progress = '0%';
   constructor(private _formBuilder: FormBuilder, private http: RestService) { }
 
   ngOnInit() {
@@ -36,9 +38,14 @@ export class UploadComponent implements OnInit {
   Upload() {
     const data = { ...this.uploadForm.value, files: this.files, tags: ['test', 'ilies', 'covid'] }
     console.log(data);
-
-    this.http.addData(data).subscribe(v => console.log(v));
-    this.sending = true;
+    this.state = 'sending';
+    this.http.addData(data).pipe(catchError(e => { this.state = 'error'; console.log(e); return of(e); })).subscribe(v => {
+      if (v.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(v.loaded / v.total * 100) + '%';
+      } else {
+        this.state = 'success';
+      }
+    });
   }
 
 }

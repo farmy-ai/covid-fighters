@@ -1,42 +1,58 @@
-<ng-container *ngIf="!sending; else elseTemplate">
-  <input type="file" name="file" id="file" #fileInput (change)='add($event)' style="display: none;" multiple />
-  <form [formGroup]="uploadForm" class="content-card mat-elevation-z2 p-4">
-    <span class="mat-display-3 mb-4 mt-2">Upload</span>
+<input type="file" name="file" id="file" #fileInput (change)='add($event)' style="display: none;" multiple />
+<form *ngIf="state === 'before'" [formGroup]="uploadForm" class="content-card mat-elevation-z2 p-4">
+  <span class="mat-display-3 mb-4 mt-2">Upload</span>
 
-    <mat-form-field class="mt-5">
-      <mat-label>Data type</mat-label>
-      <mat-select formControlName="data_type">
-        <mat-option value="ct">CT scan</mat-option>
-        <mat-option value="x-ray">X-ray</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="mb-3">
-      <mat-label>Disease type</mat-label>
-      <mat-select formControlName="disease_type">
-        <mat-option value="covid">Covid 19</mat-option>
-        <mat-option value="pneumonia">Pneumonia</mat-option>
-        <mat-option value="other">Other</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline" >
-      <mat-label>Affiliation</mat-label>
-      <input matInput placeholder="Affiliation..." formControlName="affiliation">
-      <mat-icon matSuffix>flag</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <textarea matInput placeholder="Description..." formControlName="description"></textarea>
-    </mat-form-field>
-    <button mat-raised-button class="mb-4" color="accent" style="width: 95%;" (click)="fileInput.click()">Add files
-      &nbsp;({{files.length}})</button>
-    <div class="navigation" style="width: 95%;">
-      <button mat-raised-button color="primary" style="width: 30%;" class="mr-2" (click)="Upload()">Send</button>
-      <button mat-button color="warn" [routerLink]="[ '/home']">back</button>
-    </div>
+  <mat-form-field class="mt-5">
+    <mat-label>Data type</mat-label>
+    <mat-select formControlName="data_type">
+      <mat-option value="ct">CT scan</mat-option>
+      <mat-option value="x-ray">X-ray</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="mb-3">
+    <mat-label>Disease type</mat-label>
+    <mat-select formControlName="disease_type">
+      <mat-option value="covid">Covid 19</mat-option>
+      <mat-option value="pneumonia">Pneumonia</mat-option>
+      <mat-option value="other">Other</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Affiliation</mat-label>
+    <input matInput placeholder="Affiliation..." formControlName="affiliation">
+    <mat-icon matSuffix>flag</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <textarea matInput placeholder="Description..." formControlName="description"></textarea>
+  </mat-form-field>
+  <button mat-raised-button class="mb-4" color="accent" style="width: 95%;background-color: #A6A6A6;" (click)="fileInput.click()">Add files
+    &nbsp;({{files.length}})</button>
+  <div class="navigation" style="width: 95%;">
+    <button mat-raised-button color="primary" style="width: 30%;" class="mr-2" (click)="Upload()">Send</button>
+    <button mat-button color="warn" [routerLink]="[ '/home']">back</button>
+  </div>
 
-  </form>
+</form>
 
-</ng-container>
-<ng-template #elseTemplate>
+<div *ngIf="state === 'sending'" class="content-card mat-elevation-z2 p-4">
   <mat-spinner class="my-5" mode="indeterminate">
   </mat-spinner>
-</ng-template>
+  <h1>{{progress}}</h1>
+</div>
+
+<div *ngIf="state === 'error'" class="content-card mat-elevation-z2 p-4">
+  <div class="mat-display-3">Error</div>
+  <docs-svg-viewer src="../assets/svg/cancel.svg" [scaleToContainer]="true"></docs-svg-viewer>
+  <div class="d-flex justify-content-center mt-5" style="width: 95%;">
+    <button mat-raised-button color="primary" style="width: 30%;" class="mr-2" (click)="Upload()">try Again</button>
+    <button mat-button color="warn" [routerLink]="[ '/home']">back</button>
+  </div>
+</div>
+
+<div *ngIf="state === 'success'" class="content-card mat-elevation-z2 p-4">
+  <div class="mat-display-3">Sent successfully</div>
+  <docs-svg-viewer src="../assets/svg/send.svg" [scaleToContainer]="true"></docs-svg-viewer>
+  <div class="d-flex justify-content-center mt-5" style="width: 95%;">
+    <button mat-raised-button color="primary" style="width: 30%;" class="mr-2" [routerLink]="[ '/home']">Back</button>
+  </div>
+</div>

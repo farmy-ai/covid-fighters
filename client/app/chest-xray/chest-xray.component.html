@@ -1,14 +1,23 @@
 <div class="content-container">
-  <mat-toolbar [color]="'primary'" class="mat-elevation-z2 toolbar">
-      <div class="toolbar-container">
-          <span>Covid-19</span>
-          <div class="navs">
-              <button mat-button [routerLink]="[ '/home' ]">Home</button>
-              <button mat-button [routerLink]="[ '/about' ]">About</button>
-              <button mat-button [routerLink]="[ '/login' ]">Login</button>
-              <button mat-raised-button class="action" [routerLink]="[ '/register']"> register</button>
-          </div>
+  <mat-toolbar color="primary" class="mat-elevation-z2 toolbar">
+    <div class="toolbar-container">
+      <span>Covid-19</span>
+      <div class="navs">
+        <ng-container *ngIf="auth.isLoggedIn(); else elseTemplate">
+          <button mat-button [routerLink]="[ '/home' ]">Data</button>
+          <button mat-button [routerLink]="[ '/login' ]">Expert</button>
+          <button mat-button [routerLink]="[ '/demo' ]">Demo</button>
+          <button mat-raised-button color="accent" class="action" [routerLink]="[ '/upload']"> Upload</button>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <button mat-button [routerLink]="[ '/landing' ]">Landing</button>
+          <button mat-button [routerLink]="[ '/home' ]">Data</button>
+          <button mat-button [routerLink]="[ '/Demo' ]">Demo</button>
+          <button mat-raised-button color="accent" class="action" [routerLink]="[ '/register']">register</button>
+        </ng-template>
+
       </div>
+    </div>
   </mat-toolbar>
   <router-outlet></router-outlet>
 </div>

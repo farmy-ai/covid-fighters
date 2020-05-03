@@ -23,6 +23,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { LoadPipe } from './user-home/load.pipe';
 import { LandingComponent } from './landing/landing.component';
 import { UploadComponent } from './upload-overlay/upload-overlay.component';
+import { SvgViewerModule } from './landing/svg-viewer/svg-viewer.component';
 
 @NgModule({
   declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe, LandingComponent, UploadComponent],
@@ -51,7 +52,8 @@ import { UploadComponent } from './upload-overlay/upload-overlay.component';
     MatChipsModule,
     MatAutocompleteModule,
     MatMenuModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    SvgViewerModule
   ],
   exports:[],
   entryComponents: []
