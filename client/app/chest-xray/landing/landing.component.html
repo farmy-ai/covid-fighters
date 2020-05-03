@@ -1,0 +1,58 @@
+<header focusOnNavigation class="docs-header-background" aria-label="Get started" id="homepage-header">
+  <div class="docs-header-section">
+    <div class="docs-header-headline">
+      <h1 class="mat-h1">Covid Fighters</h1>
+      <h2>complete platform for Data crowd-sourcing and prediction for Covid-19 disease</h2>
+    </div>
+    <div class="docs-header-start">
+      <a mat-raised-button class="docs-button" routerLink="/guide/getting-started">Try Demo</a>
+    </div>
+  </div>
+</header>
+
+<main class="docs-homepage-promo">
+  <div class="docs-homepage-row">
+    <div class="docs-homepage-promo-img">
+      <docs-svg-viewer src="../assets/img/homepage/sprintzerotoapp.svg" [scaleToContainer]="true"></docs-svg-viewer>
+    </div>
+    <div class="docs-homepage-promo-desc">
+      <h2>Free and open</h2>
+      <p>we provide an open and free platform for anyone who want to download , upload or help annotate data to fight
+        covid-19 <br> <a [routerLink]="[ '/register']">do you want dataset ?</a></p>
+    </div>
+  </div>
+  <div class="docs-homepage-row docs-homepage-reverse-row">
+    <div class="docs-homepage-promo-img">
+      <docs-svg-viewer src="../assets/img/homepage/fastandconsistent.svg" [scaleToContainer]="true"></docs-svg-viewer>
+    </div>
+    <div class="docs-homepage-promo-desc">
+      <h2>Quality ensured</h2>
+      <p>all data uploaded in our app must go throw an expert to validate it. <br> <a href="expert.farmy.ai">Help
+          annotating data</a></p>
+    </div>
+  </div>
+  <div class="docs-homepage-row">
+    <div class="docs-homepage-promo-img">
+      <docs-svg-viewer src="../assets/img/homepage/versatile.svg" [scaleToContainer]="true"></docs-svg-viewer>
+    </div>
+    <div class="docs-homepage-promo-desc">
+      <h2>Versatile</h2>
+      <p>filter data and download only what you need using our powerful filtering tool  <br><a
+          [routerLink]="[ '/login']">Login to download</a></p>
+    </div>
+  </div>
+  <div class="docs-homepage-row docs-homepage-reverse-row">
+    <div class="docs-homepage-promo-img">
+      <docs-svg-viewer src="../assets/img/homepage/optimized.svg" [scaleToContainer]="true"></docs-svg-viewer>
+    </div>
+    <div class="docs-homepage-promo-desc">
+      <h2>Up-To-Date</h2>
+      <p>Get notification in app or per mail when new data arrive </p>
+    </div>
+  </div>
+  <div class="docs-homepage-bottom-start">
+    <a mat-raised-button class="docs-button" routerLink="/guide/getting-started" color="accent">
+      Get started
+    </a>
+  </div>
+</main>
