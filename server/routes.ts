@@ -94,14 +94,14 @@ export default function setRoutes(app) {
   // Submissions
   router.route('/submissions').get(submissionCtrl.getAll);
   router.route('/submissions/list').get(submissionCtrl.getSubmissionHead);
+  router.route('/submissions/download').get(submissionCtrl.downloadMultiple)
   router.route('/submissions/mine').get(authenticateJWT,submissionCtrl.mine);
   router.route('/submissions/stat').get(submissionCtrl.stat);
   router.route('/submission').post(authenticateJWT, multipleUpload, submissionCtrl.multipleUpload);
   router.route('/submission/:id').get(submissionCtrl.get);
   router.route('/submission/:id').put(authenticateJWT, submissionCtrl.update);
   router.route('/submission/:id').delete(authenticateJWT, submissionCtrl.delete);
-  router.route('/submissions/download').get(submissionCtrl.downloadMultiple)
-
+  router.route('/submission/:id/image').get(submissionCtrl.PreviewImage)
   //Metadata
   router.route('/tags').get(metadataCtrl.getTags);
   router.route('/affiliations').get(metadataCtrl.getAffiliations);

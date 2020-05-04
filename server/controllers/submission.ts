@@ -87,7 +87,7 @@ export default class SubmissionCtrl extends BaseCtrl {
     }
 
     if (req.query.annotated === 'false') {
-      match['annotation'] = "   ";
+      match['annotation'] = "";
     }
 
     if (req.query.created_at) {
@@ -199,6 +199,12 @@ export default class SubmissionCtrl extends BaseCtrl {
   multipleUpload = (req, res) => {
     const files = req.files;
     console.log(req.body);
+    if(!req.body.annotation){
+      req.body.annotation="";
+    }
+    if(!req.body.affiliation){
+      req.body.affiliation="";
+    }
     req.body.id_user = mongoose.Types.ObjectId(req.user._id);
     let s3bucket = new AWS.S3({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -222,6 +228,7 @@ export default class SubmissionCtrl extends BaseCtrl {
         description: req.body.description,
         disease_type: req.body.disease_type,
         annotation: req.body.annotation,
+        affiliation: req.body.affiliation,
         tags: req.body.tags,
         s3_path: "datasets/" + req.body.disease_type + "/" + uuid_name + path.extname(item.originalname),
         id_user: req.body.id_user,
@@ -246,18 +253,22 @@ export default class SubmissionCtrl extends BaseCtrl {
   }
 
   PreviewImage = (req, res) => {
-    let s3bucket = new AWS.S3({
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      region: process.env.AWS_REGION,
-      apiVersion: 'latest',
+
+    this.model.findOne({ _id: req.params.id }, (err, item) => {
+      let s3bucket = new AWS.S3({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: process.env.AWS_REGION,
+        apiVersion: 'latest',
+      });
+      var params = { Bucket: process.env.AWS_BUCKET_NAME, Key: item.path };
+      s3bucket.getObject(params, function (err, data) {
+        res.writeHead(200, { 'Content-Type': 'image/' + path.extname(item.path).substr(1) });
+        res.write(data.Body, 'binary');
+        res.end(null, 'binary');
+      });
     });
-    var params = { Bucket: process.env.AWS_BUCKET_NAME, Key: req.body.path };
-    s3bucket.getObject(params, function (err, data) {
-      res.writeHead(200, { 'Content-Type': 'image/' + path.extname(req.body.path).substr(1) });
-      res.write(data.Body, 'binary');
-      res.end(null, 'binary');
-    });
+    
   }
 
   mine = async (req, res) => {
