@@ -10,9 +10,7 @@ import { ProblemViewComponent } from './problem-view/problem-view.component';
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 // tslint:disable-next-line: max-line-length
-import { MatProgressBarModule, MatIconModule, MatMenuModule, MatButtonModule, MatRippleModule, MatSelectModule, MatButtonToggleModule, MatDatepickerModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
-import { ProfileComponent } from './profile/profile.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { MatProgressBarModule, MatIconModule, MatMenuModule, MatButtonModule, MatRippleModule, MatSelectModule, MatButtonToggleModule, MatDatepickerModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { TimeSpanPipe } from './problem-card/time-span.pipe';
 import { AiDiseasesPipe } from './problem-card/ai-diseases.pipe';
 import { MySolutionPipe } from './problem-card/my-solution.pipe';
@@ -21,7 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const materials =
   // tslint:disable-next-line: max-line-length
-  [MatSnackBarModule, MatProgressBarModule, MatIconModule, MatMenuModule, MatButtonModule, MatRippleModule, MatSelectModule, MatButtonToggleModule, MatDatepickerModule, MatCheckboxModule, MatDialogModule, MatMomentDateModule];
+  [MatInputModule, MatFormFieldModule, MatSnackBarModule, MatProgressBarModule, MatIconModule, MatMenuModule, MatButtonModule, MatRippleModule, MatSelectModule, MatButtonToggleModule, MatDatepickerModule, MatCheckboxModule, MatDialogModule, MatMomentDateModule];
 
 
 const routes: Routes = [
@@ -31,7 +29,7 @@ const routes: Routes = [
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
-  declarations: [LoadPipe, ExpertComponent, ProblemCardComponent, ProblemViewComponent, ProfileComponent, EditProfileComponent, TimeSpanPipe, AiDiseasesPipe, MySolutionPipe],
+  declarations: [LoadPipe, ExpertComponent, ProblemCardComponent, ProblemViewComponent, TimeSpanPipe, AiDiseasesPipe, MySolutionPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -39,6 +37,6 @@ const routes: Routes = [
     ...materials,
     RouterModule.forChild(routes)
   ],
-  entryComponents: [ProblemViewComponent, EditProfileComponent]
+  entryComponents: [ProblemViewComponent]
 })
 export class ExpertModule { }

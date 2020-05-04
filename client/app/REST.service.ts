@@ -67,12 +67,13 @@ export class RestService {
 
     return this.http.get(UserLink).toPromise();
   }
-  getAnomalies() {
+  getImages() {
     console.log('[GET HISTORY QUERY]');
 
     return this.http.get(AllData).pipe(map((v: any) => {
-      console.log(v);
 
+      v.createdAt = new Date(v.createdAt).getTime();
+      v.updatedAt = new Date(v.updatedAt).getTime();
       return v;
 
     }));
@@ -101,22 +102,6 @@ export class RestService {
   /////////////////////////
   // expert Rest service //
   /////////////////////////
-
-  getHistory() {
-    console.log('[GET ANOMALIES QUERY]');
-
-    return this.http.get(AllHistory).pipe(map((v: any) => {
-      console.log(v);
-
-      v.forEach(element => {
-        element.created = new Date(element.created).getTime();
-        element.updated = new Date(element.updated).getTime();
-      });
-      return v;
-
-    }));
-
-  }
 
   markAsSeen(id) {
 
