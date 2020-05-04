@@ -56,7 +56,6 @@ export default function setRoutes(app) {
   var singleUpload = upload.single('file');
   var multipleUpload = upload.array('files');
 
-
   // Users
   router.route('/login').post(userCtrl.login);
   router.route('/resetpasswrd').post(userCtrl.resetPassword);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProblemViewComponent } from './problem-view/problem-view.component';
 import { overlayViewComponent } from '../overlay-view/overlay-view.component';
@@ -8,7 +8,7 @@ import { debounceTime } from 'rxjs/operators';
 import * as moment from 'moment';
 import { MatSnackBar } from '@angular/material';
 import { RestService } from 'client/app/REST.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 
 @Component({
   selector: 'app-expert',
@@ -20,8 +20,8 @@ export class ExpertComponent implements OnInit {
   // form Objects
   form: FormGroup;
   searchObj = new FormControl('');
-  FromObj = new FormControl();
-  ToObj = new FormControl();
+  xRay = new FormControl(true);
+  ctScan = new FormControl(false);
   // data
   uiState = {
     loading: false,
@@ -44,8 +44,8 @@ export class ExpertComponent implements OnInit {
     /* form init */
     this.form = new FormGroup({
       search: this.searchObj,
-      xRay: this.FromObj,
-      ctScan: this.ToObj
+      xRay: this.xRay,
+      ctScan: this.ctScan
     });
     // filters init
     this.form.valueChanges.pipe(debounceTime(1700)).subscribe(form => {
@@ -57,6 +57,13 @@ export class ExpertComponent implements OnInit {
       this.filter = this.new;
       console.log(this.new);
     });
+  }
+
+  public XrayCount() {
+    return this.new.filter(v => v.data_type === 'x-ray').length;
+  }
+  public CtCount() {
+    return this.new.filter(v => v.data_type === 'ct').length;
   }
   private filterFunc(form: any) {
     try {
@@ -70,17 +77,16 @@ export class ExpertComponent implements OnInit {
     this.filter = data.filter(row => {
       let match = true;
       if (!!form.search && form.search !== '') {
-        match = (row.farmer.first_name + ' ' + row.farmer.last_name).toLowerCase().search(new RegExp(form.search.toLowerCase())) !== -1;
+        match = (row.affiliation).toLowerCase().search(new RegExp(form.search.toLowerCase())) !== -1;
       }
-      let from = true;
-      if (match && !!form.from && moment.isMoment(form.from)) {
-        from = form.from.valueOf() <= row.created;
-      }
-      let to = true;
-      if (from && !!form.to && moment.isMoment(form.to)) {
-        to = form.to.valueOf() >= row.created;
-      }
-      return match && from && to;
+
+      let x = row.data_type === 'x-ray';
+      let c = row.data_type === 'ct';
+
+      x = x === form.xRay;
+      c = c === form.ctScan;
+
+      return match && (x || c);
     });
     console.log(this.filter);
   }
@@ -169,6 +175,19 @@ export class ExpertComponent implements OnInit {
 
       }
     });
+  }
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll(event) {
+    //In chrome and some browser scroll is given to body tag
+    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight + 1;
+    let max = document.documentElement.scrollHeight;
+
+    // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
+    if (pos >= max) {
+
+      this.setLoad(this.uiState.end + 10);
+
+    }
   }
   logout() {
     this.auth.logout();

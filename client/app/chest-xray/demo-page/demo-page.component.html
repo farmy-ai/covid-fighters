@@ -33,7 +33,7 @@
       <span class="mat-h3 mt-3">{{result?.predictions[2].label}}</span>
     </div>
   </div>
-  <button mat-button class="tryAgain mt-3">
+  <button mat-button class="tryAgain mt-3" (click)="state = 'before'">
     <mat-icon>autorenew</mat-icon>
     Try again
   </button>
@@ -42,7 +42,7 @@
 <div class="result" *ngIf="state ==='error'">
   <img class="img" [src]="'../../../assets/svg/cancel.svg'" alt="">
   <div class="values mt-5"></div>
-  <button mat-button class="tryAgain mt-3">
+  <button mat-button class="tryAgain mt-3" (click)="state = 'before'">
     <mat-icon>autorenew</mat-icon>
     Try again
   </button>

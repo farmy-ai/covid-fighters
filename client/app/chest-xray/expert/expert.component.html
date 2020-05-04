@@ -19,12 +19,12 @@
                         <div class="status">
                             <div class="title">Status</div>
                             <div class="field">
-                                <mat-checkbox >X-ray</mat-checkbox>
-                                <div class="number">0</div>
+                                <mat-checkbox formControlName="xRay" [disabled]="XrayCount() === 0">X-ray</mat-checkbox>
+                                <div class="number">{{XrayCount()}}</div>
                             </div>
                             <div class="field">
-                                <mat-checkbox >Ct-scan</mat-checkbox>
-                                <div class="number">0</div>
+                                <mat-checkbox formControlName="ctScan" [disabled]="CtCount() === 0">Ct-scan</mat-checkbox>
+                                <div class="number">{{CtCount()}}</div>
                             </div>
                         </div>
                     </div>
@@ -50,9 +50,7 @@
                     </div>
 
                     <div class="pagination">
-                        <button mat-raised-button class="load" (click)="setLoad(uiState.end+10)"><i
-                                class=" material-icons">keyboard_arrow_down
-                            </i></button>
+
                     </div>
                 </div>
             </div>
