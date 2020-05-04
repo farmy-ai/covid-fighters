@@ -101,7 +101,7 @@ export default function setRoutes(app) {
   router.route('/submission/:id').get(submissionCtrl.get);
   router.route('/submission/:id').put(authenticateJWT, submissionCtrl.update);
   router.route('/submission/:id').delete(authenticateJWT, submissionCtrl.delete);
-  router.route('/submission/:id/image').get(submissionCtrl.PreviewImage)
+  //router.route('/submission/:id/image').get(submissionCtrl.PreviewImage)
   //Metadata
   router.route('/tags').get(metadataCtrl.getTags);
   router.route('/affiliations').get(metadataCtrl.getAffiliations);

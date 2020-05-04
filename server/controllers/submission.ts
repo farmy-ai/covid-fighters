@@ -106,7 +106,19 @@ export default class SubmissionCtrl extends BaseCtrl {
 
     this.model.find(match, null, options, (err, docs) => {
       if (err) { return console.error(err); }
-      res.status(200).json(docs);
+
+      if(docs.length==0){
+        return res.status(200).json(docs);
+      }
+      const newDocs=[];
+      docs.map((item)=>{
+        item.s3_path= "https://"+process.env.AWS_BUCKET_NAME+".s3."+process.env.AWS_REGION+".amazonaws.com/"+item.s3_path ;
+        newDocs.push(item);
+        if(docs.length == newDocs.length){
+          res.status(200).json(docs);
+        }
+      });
+      
     });
   }
 
