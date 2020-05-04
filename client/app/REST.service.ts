@@ -9,12 +9,11 @@ const signUpLink = `${ROOT}user`;
 const signInLink = `${ROOT}login`;
 const signOutLink = `${ROOT}auth/signout/`;
 const UserLink = `${ROOT}user/`;
-const AllData = `${ROOT}submission/`;
+const AllData = `${ROOT}submissions?annotated=false`;
 const addDataLink = `${ROOT}submission/`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
 const demoLink = `${ROOT}predict`;
 const statLink = `${ROOT}submissions/stat`;
-const AllHistory = ` `;
 const AddSolution = ` `;
 
 
@@ -72,8 +71,10 @@ export class RestService {
 
     return this.http.get(AllData).pipe(map((v: any) => {
 
-      v.createdAt = new Date(v.createdAt).getTime();
-      v.updatedAt = new Date(v.updatedAt).getTime();
+      v.forEach(element => {
+        element.createdAt = new Date(element.createdAt).getTime();
+        element.updated_at = new Date(element.updated_at).getTime();
+      });
       return v;
 
     }));

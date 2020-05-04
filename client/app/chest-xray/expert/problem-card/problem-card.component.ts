@@ -7,12 +7,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ProblemCardComponent implements OnInit {
 
-  @Input() set grid(val: boolean) {
-    this.isGrid = val;
-  }
-  @Input() set aiDiagnose(val: boolean) {
-    this.isArchive = val;
-  }
   @Input() set data(val: any) {
     this.metadata = val;
   }
@@ -20,7 +14,6 @@ export class ProblemCardComponent implements OnInit {
   @Output() diagnose = new EventEmitter<any>();
 
   isArchive = false;
-  isGrid: Boolean;
   metadata: any;
 
   constructor() { }
