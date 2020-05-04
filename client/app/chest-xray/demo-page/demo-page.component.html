@@ -1,4 +1,4 @@
-<input #input type="file" (change)="upload($event,image)" style="display: none;">
+<input #input type="file" (change)="upload($event)" style="display: none;">
 <div class="title mt-5" *ngIf="state === 'before'">
   <div class="mat-display-2 mb-2" style="color: #0061FF;">Covid Fighters</div>
   <div class="mat-headline mb-4" style="color: #A6A6A6;">complete platform for Data crowd-sourcing and prediction for
@@ -14,5 +14,36 @@
 </div>
 <!-- result -->
 <div class="result" *ngIf="state ==='result'">
-  <img #image src="" alt="">
+  <img class="img" [src]="imageSource || '../../../assets/svg/cancel.svg'" alt="">
+  <div class="values mt-5">
+    <div class="progress mr-5">
+      <span class="value">{{round(result?.predictions[0].probability) +'%'}}</span>
+      <mat-spinner [value]="round(result?.predictions[0].probability)" mode="Determinate">
+      </mat-spinner>
+      <span class="mat-h3 mt-3">{{result?.predictions[0].label}}</span>
+    </div>
+    <div class="progress mr-5">
+      <span class="value">{{round(result?.predictions[1].probability) +'%'}}</span>
+      <mat-spinner [value]="round(result?.predictions[1].probability)" mode="Determinate"></mat-spinner>
+      <span class="mat-h3 mt-3">{{result?.predictions[1].label}}</span>
+    </div>
+    <div class="progress">
+      <span class="value">{{round(result?.predictions[2].probability) +'%'}}</span>
+      <mat-spinner [value]="round(result?.predictions[2].probability)" mode="Determinate"></mat-spinner>
+      <span class="mat-h3 mt-3">{{result?.predictions[2].label}}</span>
+    </div>
+  </div>
+  <button mat-button class="tryAgain mt-3">
+    <mat-icon>autorenew</mat-icon>
+    Try again
+  </button>
+</div>
+<!-- Error -->
+<div class="result" *ngIf="state ==='error'">
+  <img class="img" [src]="'../../../assets/svg/cancel.svg'" alt="">
+  <div class="values mt-5"></div>
+  <button mat-button class="tryAgain mt-3">
+    <mat-icon>autorenew</mat-icon>
+    Try again
+  </button>
 </div>

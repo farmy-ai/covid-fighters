@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'client/environments/environment';
+import { Observable } from 'rxjs';
 
 const ROOT = environment.API_URL;
 const signUpLink = `${ROOT}user`;
@@ -12,8 +13,9 @@ const AllData = `${ROOT}submission/`;
 const addDataLink = `${ROOT}submission/`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
 const demoLink = `${ROOT}predict`;
-const AllHistory =` `;
-const AddSolution =` `;
+const statLink = `${ROOT}submissions/stat`;
+const AllHistory = ` `;
+const AddSolution = ` `;
 
 
 
@@ -25,16 +27,21 @@ export class RestService {
   constructor(private http: HttpClient) {
   }
 
+  getLists() {
+    return this.http.get(statLink);
+  }
+
   demo(file, user) {
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('tags', '');
     if (user) {
-      formData.append('id_user', user.id);
+      formData.append('id_user', user.id_user);
     }
     return this.http.post(demoLink, formData);
   }
 
-  register(user) {
+  register(user): Observable<any> {
     console.log(user);
 
     return this.http.post(signUpLink, user);

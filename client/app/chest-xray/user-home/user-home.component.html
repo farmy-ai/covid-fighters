@@ -23,43 +23,11 @@
     </mat-nav-list>
   </mat-sidenav>
   <div class="container">
-    <!-- <div class="filter" [formGroup]="form">
-      <button mat-icon-button class="search-icon search" (click)="searchInput.focus()">
-        <mat-icon aria-label="label">search</mat-icon>
-      </button>
-      <button mat-icon-button class="search-icon menu" (click)="sidenav.open()">
-        <mat-icon aria-label="label">menu</mat-icon>
-      </button>
-      <input #searchInput placeholder="Search..." type="text" class="mat-body-strong" formControlName="search">
-      <mat-select placeholder="Filter By" formControlName="filter">
-        <mat-option *ngFor="let item of filterList;let i = index;" [value]="i">
-          {{item}}
-        </mat-option>
-      </mat-select>
-      <button mat-icon-button class="settings" [matMenuTriggerFor]="rootMenu">
-        <mat-icon><i class="material-icons ">sort</i></mat-icon>
-      </button>
-    </div> -->
+
     <button mat-fab class="notif">
       <mat-icon>notifications</mat-icon>
     </button>
     <div class="content">
-      <!-- <div class="info">
-        <div class="text">
-          <span class="title">Dataset <button mat-icon-button color="warn">
-              <mat-icon>info_outline</mat-icon>
-            </button></span>
-        </div>
-        <div class="toggle">
-
-        </div>
-      </div> -->
-      <ng-container *ngIf="!loading; else elseTemplate">
-<!--         <div class="separation"></div>
- -->      </ng-container>
-      <ng-template #elseTemplate>
-        <mat-progress-bar [mode]="type" [value]="progress" style="width: 100%"></mat-progress-bar>
-      </ng-template>
 
       <div class="medicaments">
         <div [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card pt-5 pb-3 px-3">
@@ -67,79 +35,61 @@
           <span class="mat-display-3 mb-4">COVID</span>
 
           <div class="mat-caption">
-            <span class="mat-display-2 mb-4 ml-4">1263</span> / images
+            <span class="mat-display-2 mb-4 ml-4">{{covid || 0}}</span> / images
           </div>
 
-          <div class="selectable my-3">
-            <mat-slide-toggle>Confirmed</mat-slide-toggle>
-            <mat-slide-toggle>Labeled</mat-slide-toggle>
-            <mat-slide-toggle>X-ray</mat-slide-toggle>
-            <mat-slide-toggle>Dicom</mat-slide-toggle>
+          <div class="selectable my-5">
+            <mat-slide-toggle disabled>Confirmed</mat-slide-toggle>
+            <mat-slide-toggle disabled>Labeled</mat-slide-toggle>
+            <mat-slide-toggle disabled>X-ray</mat-slide-toggle>
+            <mat-slide-toggle disabled>Dicom</mat-slide-toggle>
           </div>
 
-          <button mat-button class="download my-4">download</button>
+          <button mat-button class="download my-4" (click)="download('covid')">download</button>
           <mat-divider class="mb-2" style="width: 100%;"></mat-divider>
-          <div class="mat-caption">last Update</div><span class="mat-body-2">22/10/1997</span>
+          <div class="mat-caption">last Update</div><span class="mat-body-2">today</span>
 
 
         </div>
         <div [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card pt-5 pb-3 px-3">
 
-          <span class="mat-display-3 mb-4">COVID</span>
+          <span class="mat-display-3 mb-4">Pneumonia</span>
 
           <div class="mat-caption">
-            <span class="mat-display-2 mb-4 ml-4">1263</span> / images
+            <span class="mat-display-2 mb-4 ml-4">{{pneumonia || 0}}</span> / images
           </div>
 
-          <div class="selectable my-3">
-            <mat-slide-toggle>Confirmed</mat-slide-toggle>
-            <mat-slide-toggle>Labeled</mat-slide-toggle>
-            <mat-slide-toggle>X-ray</mat-slide-toggle>
-            <mat-slide-toggle>Dicom</mat-slide-toggle>
+          <div class="selectable my-5">
+            <mat-slide-toggle disabled>Confirmed</mat-slide-toggle>
+            <mat-slide-toggle disabled>Labeled</mat-slide-toggle>
+            <mat-slide-toggle disabled>X-ray</mat-slide-toggle>
+            <mat-slide-toggle disabled>Dicom</mat-slide-toggle>
           </div>
 
-          <button mat-button class="download my-4">download</button>
+          <button mat-button class="download my-4" (click)="download('pneumonia')">download</button>
           <mat-divider class="mb-2" style="width: 100%;"></mat-divider>
-          <div class="mat-caption">last Update</div><span class="mat-body-2">22/10/1997</span>
-
+          <div class="mat-caption">last Update</div><span class="mat-body-2">today</span>
 
         </div>
         <div [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card pt-5 pb-3 px-3">
 
-          <span class="mat-display-3 mb-4">COVID</span>
+          <span class="mat-display-3 mb-4">Other</span>
 
           <div class="mat-caption">
-            <span class="mat-display-2 mb-4 ml-4">1263</span> / images
+            <span class="mat-display-2 mb-4 ml-4">{{other || 0}}</span> / images
           </div>
-
-          <div class="selectable my-3">
-            <mat-slide-toggle>Confirmed</mat-slide-toggle>
-            <mat-slide-toggle>Labeled</mat-slide-toggle>
-            <mat-slide-toggle>X-ray</mat-slide-toggle>
-            <mat-slide-toggle>Dicom</mat-slide-toggle>
+          <div class="selectable my-5">
+            <mat-slide-toggle disabled>Confirmed</mat-slide-toggle>
+            <mat-slide-toggle disabled>Labeled</mat-slide-toggle>
+            <mat-slide-toggle disabled>X-ray</mat-slide-toggle>
+            <mat-slide-toggle disabled>Dicom</mat-slide-toggle>
           </div>
-
-          <button mat-button class="download my-4">download</button>
+          <button mat-button class="download my-4" (click)="download('other')">download</button>
           <mat-divider class="mb-2" style="width: 100%;"></mat-divider>
-          <div class="mat-caption">last Update</div><span class="mat-body-2">22/10/1997</span>
-
-
+          <div class="mat-caption">last Update</div><span class="mat-body-2">today</span>
         </div>
 
       </div>
     </div>
   </div>
-  <mat-menu #rootMenu="matMenu">
-    <button mat-menu-item (click)="reverseSort(true)">
-      <mat-icon>arrow_upward</mat-icon>ascending
-    </button>
-    <button mat-menu-item (click)="reverseSort(false)">
-      <mat-icon>arrow_downward</mat-icon>Descending
-    </button>
-    <mat-divider></mat-divider>
-    <button mat-menu-item [matMenuTriggerFor]="subMenu">attribute</button>
-  </mat-menu>
-  <mat-menu #subMenu="matMenu" class="submenu">
-    <button *ngFor="let item of filterList; let i=index" mat-menu-item (click)="sortBy(i)">{{item}}</button>
-  </mat-menu>
 </mat-sidenav-container>

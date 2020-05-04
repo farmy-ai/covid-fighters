@@ -154,8 +154,8 @@ $primary: mat-palette($mat-indigo);
 
       .selectable {
         display: grid;
-        grid-template-columns: 100%;
-        grid-template-rows: 32px 32px 32px 32px;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 32px 32px;
 
         align-items: center;
         justify-content: space-between;
