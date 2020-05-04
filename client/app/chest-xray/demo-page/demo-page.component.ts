@@ -9,7 +9,7 @@ import { AuthManagerService } from 'client/app/auth-manager.service';
 })
 export class DemoPageComponent implements OnInit {
 
-  state = 'error';
+  state = 'before';
   imageSource = '';
   result: any = [];
   constructor(private http: RestService, private auth: AuthManagerService) { }

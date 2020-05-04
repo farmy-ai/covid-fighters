@@ -5,14 +5,14 @@
       <div class="navs">
         <ng-container *ngIf="auth.isLoggedIn(); else elseTemplate">
           <button mat-button [routerLink]="[ '/home' ]">Data</button>
-          <button mat-button [routerLink]="[ '/login' ]">Expert</button>
+          <button mat-button [routerLink]="[ '/expert' ]">Expert</button>
           <button mat-button [routerLink]="[ '/demo' ]">Demo</button>
           <button mat-raised-button color="accent" class="action" [routerLink]="[ '/upload']"> Upload</button>
         </ng-container>
         <ng-template #elseTemplate>
           <button mat-button [routerLink]="[ '/landing' ]">Landing</button>
           <button mat-button [routerLink]="[ '/home' ]">Data</button>
-          <button mat-button [routerLink]="[ '/Demo' ]">Demo</button>
+          <button mat-button [routerLink]="[ '/demo' ]">Demo</button>
           <button mat-raised-button color="accent" class="action" [routerLink]="[ '/register']">register</button>
         </ng-template>
 

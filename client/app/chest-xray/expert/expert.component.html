@@ -1,129 +1,29 @@
 <div class="app-container">
-    <mat-menu #PMenu="matMenu">
-        <button mat-menu-item style="color:#7dc40c" (click)="navigateToProfile(true)">
-            <mat-icon style="color:#7dc40c">account_circle</mat-icon><span>Profile</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>settings_outline</mat-icon><span>Settings</span>
-        </button>
-        <button mat-menu-item (click)="logout()">
-            <mat-icon>logout_variant</mat-icon><span>Log out</span>
-        </button>
-    </mat-menu>
-    <div class="toolbar">
-        <div class="toolbar-content-container">
-            <img class="logo" src="/assets/svg/v-logo.svg" alt="" (click)="navigateToProfile(false)">
-            <div matRipple class="profile" [matMenuTriggerFor]="PMenu">
-                <img src="/assets/images/logo.png" alt="">
-                <span>{{user?.first_name + ' ' + user?.last_name}}</span>
-                <i class="material-icons">arrow_drop_down</i>
-            </div>
-        </div>
-    </div>
+
     <div class="content">
         <div class="content-container">
-            <div *ngIf="!uiState.isProfile" class="stats-cards">
-                <div class="card">
-                    <span class="title">{{new?.length}}</span>
-                    <span class="description">Number of new anomalies</span>
-                    <img src="/assets/svg/plus.svg" alt="">
-                </div>
 
-                <div class="card">
-                    <span class="title">{{uiState.opened}}</span>
-                    <span class="description">Number of open anomalies</span>
-                    <img src="/assets/svg/menu.svg" alt="">
-                </div>
-
-                <div class="card">
-                    <span class="title">{{uiState.saved}}</span>
-                    <span class="description">Number of saved anomalies</span>
-                    <img src="/assets/svg/save.svg" alt="">
-                </div>
-
-                <div class="card">
-                    <span class="title">{{history?.length}}</span>
-                    <span class="description">Number of solved anomalies </span>
-                    <img src="/assets/svg/tick.svg" alt="">
-                </div>
-
-            </div>
             <div class="problems-container">
                 <div class="left-container">
-                    <div *ngIf="uiState.isProfile" class="profile">
-                        <div class="title-bar">
-                            <div class="title">Profile</div>
-                            <button mat-button class="edit" (click)="openEditProfile($event)">Edit</button>
-                        </div>
-                        <img src="/assets/svg/expert.svg" alt="" class="avatar">
-                        <div class="user-name">{{user?.first_name + ' ' + user?.last_name}}</div>
-                        <div class="Profession-title">{{user?.role}}</div>
-                        <div class="separation"></div>
-                        <div class="Expertise">Expertise</div>
-                        <div class="expertise-container">
-                            <div class="exp" *ngFor="let item of !user?.expertise?[]:user.expertise">{{item}}</div>
-                        </div>
-                        <div class="separation"></div>
-                        <div class="Account-details">Account details</div>
-                        <div class="info">
-                            <i class="icon material-icons">mail</i>
-                            <div class="text">{{user?.email}}</div>
-                        </div>
-                        <div class="info">
-                            <i class="icon material-icons">phone</i>
-                            <div class="text">{{user?.phone}}</div>
-                        </div>
-                        <div class="info">
-                            <i class="icon material-icons">my_location</i>
-                            <div class="text">{{user?.address}}</div>
-                        </div>
-                    </div>
                     <div class="filter" [formGroup]="form">
                         <span class="title">Filters</span>
                         <div class="field">
-                            <span class="name">Farmer</span>
-                            <div class="input">
-                                <div style="width: 40px;height: 40px;display: flex;justify-content: center;align-items: center;margin-left: 5px">
-                                    <i class="material-icons">person</i>
-                                </div>
-                                <input placeholder="Farmer name" type="text" formControlName="search">
-                                <button mat-icon-button><i class="material-icons">search</i></button>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <span class="name">Date</span>
-                            <div class="input">
-                                <button mat-icon-button (click)="From.open()"><i
-                                        class="material-icons">event</i></button>
-                                <input placeholder="From..." [matDatepicker]="From" formControlName="from">
-                                <button mat-icon-button (click)="From.open()"><i
-                                        class="material-icons">arrow_drop_down</i></button>
-                                <mat-datepicker #From></mat-datepicker>
-                            </div>
-                            <div class="to-separation">
-                                <div class="h-separation"></div>
-                                <div class="h-separation"></div>
-                            </div>
-                            <div class="input">
-                                <button mat-icon-button (click)="To.open()"><i class="material-icons">event</i></button>
-                                <input placeholder="To..." [matDatepicker]="To" formControlName="to">
-                                <button mat-icon-button (click)="To.open()"><i
-                                        class="material-icons">arrow_drop_down</i></button>
-                                <mat-datepicker #To></mat-datepicker>
-                            </div>
+
+                          <mat-form-field appearance="outline">
+                            <mat-label>Affiliation</mat-label>
+                            <input matInput placeholder="affiliation..." formControlName="search">
+                            <mat-icon matSuffix>flag</mat-icon>
+                          </mat-form-field>
+
                         </div>
                         <div class="status">
                             <div class="title">Status</div>
                             <div class="field">
-                                <mat-checkbox>Open</mat-checkbox>
+                                <mat-checkbox >X-ray</mat-checkbox>
                                 <div class="number">0</div>
                             </div>
                             <div class="field">
-                                <mat-checkbox>Sent</mat-checkbox>
-                                <div class="number">0</div>
-                            </div>
-                            <div class="field">
-                                <mat-checkbox>Saved</mat-checkbox>
+                                <mat-checkbox >Ct-scan</mat-checkbox>
                                 <div class="number">0</div>
                             </div>
                         </div>
@@ -133,17 +33,10 @@
                 <div class="problems-content">
                     <div class="info">
                         <div class="text">
-                            <span class="title">{{!uiState.isProfile?'Anomalies':'Your diagnosed anomalies'}}</span>
-                            <p class="description">A total of <span class="number">{{uiState.isProfile?history.length:new.length}}</span> Anomalies</p>
+                            <span class="title">Images</span>
+                            <p class="description">A total of <span class="number"> {{uiState.count}}</span> images</p>
                         </div>
-                        <div class="toggle">
-                            <div matRipple class="button" [ngClass]="{'selected': !uiState.grid}" (click)="uiState.grid = false">
-                                <i class="material-icons">border_all</i>
-                            </div>
-                            <div matRipple class="button" [ngClass]="{'selected': uiState.grid}" (click)="uiState.grid = true">
-                                <i class="material-icons">list</i>
-                            </div>
-                        </div>
+
                     </div>
                     <ng-container *ngIf="!uiState.loading; else elseTemplate">
                         <div class="separation"></div>
@@ -152,9 +45,10 @@
                         <mat-progress-bar class="loading" mode="indeterminate"></mat-progress-bar>
                     </ng-template>
 
-                    <div class="problems" [ngClass]="{'grid': uiState.grid,'list':!uiState.grid}">
-                        <app-problem-card [aiDiagnose]="uiState.isProfile" *ngFor="let item of filter | load : uiState.end ; trackBy:tracbyfn;let i = index;" [grid]="uiState.grid" [data]="item" (diagnose)="openDialog($event)"></app-problem-card>
+                    <div class="problems grid">
+                        <app-problem-card *ngFor="let item of filter | load : uiState.end ; trackBy:tracbyfn;let i = index;" [data]="item" (diagnose)="openDialog($event)"></app-problem-card>
                     </div>
+
                     <div class="pagination">
                         <button mat-raised-button class="load" (click)="setLoad(uiState.end+10)"><i
                                 class=" material-icons">keyboard_arrow_down
