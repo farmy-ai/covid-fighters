@@ -2,7 +2,7 @@
   <div class="tags">
     <div *ngFor="let tag of metadata.tags" class="tag"><i class="material-icons">send</i>send</div>
   </div>
-  <img class="problem-img" [src]="''" alt="">
+  <img class="problem-img" [src]="metadata.s3_path" alt="">
   <div class="content">
     <div class="description">{{metadata.description}}</div>
     <div class="info-container">
