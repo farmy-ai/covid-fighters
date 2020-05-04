@@ -9,17 +9,28 @@ import { AuthManagerService } from 'client/app/auth-manager.service';
 })
 export class DemoPageComponent implements OnInit {
 
+  state = 'before';
+
   constructor(private http: RestService, private auth: AuthManagerService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
 
-  }
+  upload(event, img) {
 
-  upload(event) {
+    // FileReader support
+    if (FileReader && event.target.files && event.target.files[0]) {
+      var fr = new FileReader();
+      fr.onload = function () {
+        img.src = fr.result;
+      }
+      fr.readAsDataURL(event.target.files[0]);
+    }
+
     this.http.demo(event.target.files[0], this.auth.user()).subscribe(v => {
       console.log(v);
     });
   }
+
 }
 
 
