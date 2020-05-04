@@ -26,7 +26,6 @@ export class ExpertComponent implements OnInit {
   uiState = {
     loading: false,
     end: 10,
-    count: 0,
     rest: 0,
   };
   // data
@@ -133,9 +132,6 @@ export class ExpertComponent implements OnInit {
       console.log(error);
 
     }
-  }
-  openEditProfile(event: any): void {
-
   }
   modificationDialogue() {
     const confirmationDiag = this.dialog.open(overlayViewComponent, {

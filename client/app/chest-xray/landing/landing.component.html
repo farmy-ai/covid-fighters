@@ -33,7 +33,7 @@
   </div>
   <div class="docs-homepage-row">
     <div class="docs-homepage-promo-img">
-      <docs-svg-viewer src="../assets/img/homepage/versatile.svg" [scaleToContainer]="true"></docs-svg-viewer>
+      <docs-svg-viewer src="../assets/svg/versatile.svg" [scaleToContainer]="true"></docs-svg-viewer>
     </div>
     <div class="docs-homepage-promo-desc">
       <h2>Versatile</h2>
@@ -51,8 +51,8 @@
     </div>
   </div>
   <div class="docs-homepage-bottom-start">
-    <a mat-raised-button class="docs-button" routerLink="/guide/getting-started" color="accent">
-      Get started
+    <a mat-raised-button class="docs-button" [routerLink]="[ '/register' ]" color="accent">
+      Upload dataset
     </a>
   </div>
 </main>

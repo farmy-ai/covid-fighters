@@ -24,9 +24,9 @@ export const fade = trigger('fade', [
 })
 export class UserHomeComponent implements OnInit {
 
-  other: Number;
-  pneumonia: Number;
-  covid: Number;
+  other : any= {} ;
+  pneumonia : any= {};
+  covid : any= {};
 
   constructor(public dialog: MatDialog, private http: RestService) {
     /* form init */
@@ -38,9 +38,41 @@ export class UserHomeComponent implements OnInit {
 
     let result: Array<any> = (await this.http.getLists().toPromise()) as Array<any>;
 
-    this.other = result.filter((v => v._id.disease_type === 'other')).reduce((p, v) => { return { imagesCount: p.imagesCount + v.imagesCount } }).imagesCount;
-    this.covid = result.filter((v => v._id.disease_type === 'covid')).reduce((p, v) => { return { imagesCount: p.imagesCount + v.imagesCount } }).imagesCount;
-    this.pneumonia = result.filter((v => v._id.disease_type === 'pneumonia')).reduce((p, v) => { return { imagesCount: p.imagesCount + v.imagesCount } }).imagesCount;
+    console.log(result);
+
+    const otherList = result.filter((v => v._id.disease_type === 'other'));
+    const covidList = result.filter((v => v._id.disease_type === 'covid'));
+    const pneumoniaList = result.filter((v => v._id.disease_type === 'pneumonia'));
+
+    this.other.count = otherList.length > 0 ? otherList.reduce((p, v) => { return { imagesCount: p.imagesCount + v.imagesCount } }).imagesCount : 0;
+    this.covid.count = covidList.length > 0 ? covidList.reduce((p, v) => { return { imagesCount: p.imagesCount + v.imagesCount } }).imagesCount : 0;
+    this.pneumonia.count = pneumoniaList.length > 0 ? pneumoniaList.reduce((p, v) => { return { imagesCount: p.imagesCount + v.imagesCount } }).imagesCount : 0;
+
+    this.other.update = otherList.length > 0 ? otherList.reduce((p, v) => {
+      const ps = new Date(p.createdAt).getTime();
+      const vs = new Date(v.createdAt).getTime();
+      return { lastUpdate: ps > vs ? ps : vs };
+    }).lastUpdate : 0;
+    this.covid.update = covidList.length > 0 ? covidList.reduce((p, v) => {
+      const ps = new Date(p.createdAt).getTime();
+      const vs = new Date(v.createdAt).getTime();
+      return { lastUpdate: ps > vs ? ps : vs };
+    }).lastUpdate : 0;
+    this.pneumonia.update = pneumoniaList.length > 0 ? pneumoniaList.reduce((p, v) => {
+      const ps = new Date(p.createdAt).getTime();
+      const vs = new Date(v.createdAt).getTime();
+      return { lastUpdate: ps > vs ? ps : vs };
+    }).lastUpdate : 0;
+
+    console.log(this.covid);
+    console.log(this.other);
+    console.log(this.pneumonia);
+
+    this.other.update = this.other.update === 0 ? 'New' : new Date(this.other.update).toLocaleDateString();
+    this.covid.update = this.covid.update === 0 ? 'New' : new Date(this.covid.update).toLocaleDateString();
+    this.pneumonia.update = this.pneumonia.update === 0 ? 'New' : new Date(this.pneumonia.update).toLocaleDateString();
+
+
 
   }
 
