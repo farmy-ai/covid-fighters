@@ -40,6 +40,7 @@ export default class SubmissionCtrl extends BaseCtrl {
     if (req.query.id_user) {
       match['id_user'] = req.query.id_user;
     }
+    
     if (req.query.created_at) {
       match['created_at'] = req.query.created_at;
     }
@@ -83,6 +84,10 @@ export default class SubmissionCtrl extends BaseCtrl {
     }
     if (req.query.id_user) {
       match['affiliation'] = req.query.id_user;
+    }
+
+    if (req.query.annotated === 'false') {
+      match['annotation'] = "   ";
     }
 
     if (req.query.created_at) {
@@ -178,7 +183,8 @@ export default class SubmissionCtrl extends BaseCtrl {
             disease_type: "$disease_type",
             data_type: "$data_type"
           },
-          imagesCount: { $sum: 1 }
+          imagesCount: { $sum: 1 },
+          lastUpdate: { $max: "$createdAt" }
         }
       }
     ]

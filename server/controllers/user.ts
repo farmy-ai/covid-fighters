@@ -85,15 +85,16 @@ export default class UserCtrl extends BaseCtrl {
 
   }
 
-  getMyInfo=(req,res)=>{
+  getMyInfo = (req, res) => {
 
-    User.findOne({ _id: req.user.id },  //checking if the email address sent by client is present in the db(valid)
+    User.findOne({ _id: req.user._id },  //checking if the email address sent by client is present in the db(valid)
       (error, user) => {
 
-        if(error){
+        if (error) {
           return res.status(403);
+        } else {
+          res.sendStatus(200).json(user);
         }
-        res.sendStatus(200).json(user);
       });
   }
 

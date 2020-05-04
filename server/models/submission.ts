@@ -9,7 +9,7 @@ const submisionSchema = new mongoose.Schema({
   s3_path: String,
   annotation: mongoose.Schema.Types.Mixed,
   tags: [String],
-  created_at: Number,
+  created_at: Date,
   id_user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
 }, { timestamps: { updatedAt: 'updated_at' } });
 
