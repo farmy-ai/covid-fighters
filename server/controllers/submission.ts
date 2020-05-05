@@ -353,12 +353,15 @@ export default class SubmissionCtrl extends BaseCtrl {
             return res.status(500);
           }
           const zipFile = dir + ".zip";
+
           zipFolder.zipFolder(dir, zipFile, function (err) {
             if (err) {
               console.log('Something went wrong!', err);
             }
-
-            res.attachment("dataset.zip");
+            const time=new Date().toISOString().
+            replace(/T/, '_').      // replace T with a space
+            replace(/\..+/, '');
+            res.attachment(req.query.disease_type+"_"+time+"_dataset.zip");
             var stream = fs.createReadStream(zipFile);
             stream.pipe(res).once("close", function () {
               stream.destroy(); // makesure stream closed, not close if download aborted.

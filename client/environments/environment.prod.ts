@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   API_KEY: " ",
-  API_URL: "https://covidfighterapp.herokuapp.com/api/",
+  API_URL: "https://covideep.herokuapp.com/api/",
   ONESIGNAL_KEY: " "
 };
 
