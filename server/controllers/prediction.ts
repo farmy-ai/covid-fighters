@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 
-import Prediction from '../models/Prediction'
+import Prediction from '../models/prediction'
 import BaseCtrl from './base';
 import * as AWS from 'aws-sdk';
 import * as path from 'path';
