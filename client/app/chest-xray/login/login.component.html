@@ -5,8 +5,8 @@
     <span class=" mb-0">or &nbsp;<a [routerLink]="[ '/register']">create account</a></span>
   </div>
   <mat-form-field appearance="outline" class="form-field">
-    <mat-label>email</mat-label>
-    <input matInput placeholder="your email..." formControlName="email">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Your email..." formControlName="email">
     <mat-icon matSuffix>alternate_email</mat-icon>
     <mat-hint *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.touched" style="color: red;">use
       valid email</mat-hint>
