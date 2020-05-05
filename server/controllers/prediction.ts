@@ -13,12 +13,16 @@ import { Duplex } from 'stream';
 export default class PredictionCtrl {
   getPrediction = (req, res) => {
     const file = req.file
-    const stageFilePath = path.join("./tmp",uuidv4()+path.extname(file.originalname));
+    const temp_dir = "./tmp";
+    if (!fs.existsSync(temp_dir)) {
+      fs.mkdirSync(temp_dir);
+    }
+    const stageFilePath = path.join("./tmp", uuidv4() + path.extname(file.originalname));
     if (!req.body.id_user) {
       req.body.id_user = 0;
     }
-    
-    fs.writeFileSync(stageFilePath,file.buffer)
+
+    fs.writeFileSync(stageFilePath, file.buffer)
 
     var options = {
       'method': 'POST',
@@ -27,7 +31,7 @@ export default class PredictionCtrl {
         'key': 'T\\xcaf\\xbe\\x95\\xdd3\\xf6\\x19,\\x83\\xa6\\xf2\\xb0;=\\x0b\\x19\\xec7|\\xbd\\x87\\x86'
       },
       formData: {
-        'image':  {
+        'image': {
           'value': fs.createReadStream(stageFilePath),
           'options': {
             'filename': file.originalname,
@@ -56,7 +60,7 @@ export default class PredictionCtrl {
         ACL: 'public-read'
       };
       console.log(response.body);
-      response.body=JSON.parse(response.body);
+      response.body = JSON.parse(response.body);
       const PredictionData = {
         tags: req.body.tags,
         upload_name: file.originalname,
