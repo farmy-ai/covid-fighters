@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_KEY: '',
-  API_URL: "https://covidfighterapp.herokuapp.com/api/"
+  API_URL: "http://localhost:4200/api/"
 };
 
 /*
