@@ -2,10 +2,12 @@
   <div class="docs-header-section">
     <div class="docs-header-headline">
       <h1 class="mat-h1">Covid Fighters</h1>
-      <h2>complete platform for Data crowd-sourcing and prediction for Covid-19 disease</h2>
+      <h2>We deeply believe that machine learning will help us to fight against COVID-19. To succeed, machine learning
+        engineers need reliable training data.
+      </h2>
     </div>
     <div class="docs-header-start">
-      <a mat-raised-button class="docs-button" [routerLink]="[ '/demo' ]">Try Demo</a>
+      <a mat-raised-button class="docs-button" [routerLink]="[ '/demo' ]">Try COVIDEEP</a>
     </div>
   </div>
 </header>
@@ -16,9 +18,8 @@
       <docs-svg-viewer src="../assets/svg/undraw_open_source.svg" [scaleToContainer]="true"></docs-svg-viewer>
     </div>
     <div class="docs-homepage-promo-desc">
-      <h2>Free and open</h2>
-      <p>we provide an open and free platform for anyone who want to download , upload or help annotate data to fight
-        covid-19 <br> <a [routerLink]="[ '/register']">do you want dataset ?</a></p>
+      <h2>Collaborative</h2>
+      <p>Help the community by uploading X-ray and CT-scans of positive COVID-19 patients.  <br> <a [routerLink]="[ '/register']">do you want dataset ?</a></p>
     </div>
   </div>
   <div class="docs-homepage-row docs-homepage-reverse-row">
@@ -26,8 +27,8 @@
       <docs-svg-viewer src="../assets/svg/undraw_agree.svg" [scaleToContainer]="true"></docs-svg-viewer>
     </div>
     <div class="docs-homepage-promo-desc">
-      <h2>Quality ensured</h2>
-      <p>all data uploaded in our app must go throw an expert to validate it. <br> <a href="expert.farmy.ai">Help
+      <h2>High-Quality Data</h2>
+      <p>Data are annotated by highly skilled radiologists.<br> <a href="expert.farmy.ai">Help
           annotating data</a></p>
     </div>
   </div>
@@ -37,7 +38,7 @@
     </div>
     <div class="docs-homepage-promo-desc">
       <h2>Versatile</h2>
-      <p>filter data and download only what you need using our powerful filtering tool  <br><a
+      <p>filter data and download only what you need using our powerful filtering tool <br><a
           [routerLink]="[ '/login']">Login to download</a></p>
     </div>
   </div>
@@ -50,9 +51,11 @@
       <p>Get notification in app or per mail when new data arrive </p>
     </div>
   </div>
-  <div class="docs-homepage-bottom-start">
-    <a mat-raised-button class="docs-button" [routerLink]="[ '/register' ]" color="accent">
-      Upload data
-    </a>
+  <div class="docs-homepage-row docs-homepage-reverse-row">
+    <div class="d-flex flex-column justify-content-center align-items-center mat-elevation-z2 p-5 contactUs" style="width: 900px;border-radius: 24px;">
+      <span class="mat-display-2">Join our radiologist team</span>
+      <docs-svg-viewer src="../assets/svg/undraw_radio.svg" class="mb-5" [scaleToContainer]="true"></docs-svg-viewer>
+      <button mat-raised-button color="accent">Contact Us</button>
+    </div>
   </div>
 </main>

@@ -9,6 +9,11 @@ $margin-promotion-sections: 60px;
 $margin-promotion-sections-small: 15px;
 $primary: mat-palette($mat-indigo);
 
+.contactUs{
+  background-color: mat-color($primary);
+  color: white;
+}
+
 .docs-header-background {
   overflow: hidden;
 
