@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_KEY: '',
-  API_URL: process.env.CLIENT_URL
+  API_URL: "https://covidfighterapp.herokuapp.com/"
 };
 
 /*
