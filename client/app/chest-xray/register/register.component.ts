@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthManagerService } from 'client/app/auth-manager.service';
 import { MatDialog } from '@angular/material';
 import { overlayViewComponent } from '../overlay-view/overlay-view.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, private auth: AuthManagerService, private dialog: MatDialog) { }
+  constructor(private router:Router,private _formBuilder: FormBuilder, private auth: AuthManagerService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.registerForm = this._formBuilder.group({
@@ -28,7 +29,8 @@ export class RegisterComponent implements OnInit {
   async register() {
 
     let result = await this.auth.signUpUser(this.registerForm.value).toPromise();
-    console.log(result);
+
+    this.router.navigate(['login']);
   }
   waiting() {
     const dialog = this.dialog.open(overlayViewComponent, {
