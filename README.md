@@ -1,11 +1,11 @@
 # COVID FIGHTERS
 
-Data collection and annotation tool for Covid-19 disease chest x-ray scans [Project website](https://covidfighterapp.herokuapp.com/)
+Data collection and label tool for COVID-19 disease chest scans [Project website](https://covidfighterapp.herokuapp.com/)
 
 ## Why this project
 
-in the end of 2019 a new virus arrived to our world as many people get sick and sometimes die from that novel virus that was named lately COVID-19,to detect this virus There is a test called PCR ,but this test is hard to perform in a large amount of population , so in emergency cases like in italy ,doctors uses clinical and radiological signs to classify patients but the overwhelming charge on the Health care systems make it hard for doctors to fast & objectify detect those signs so a need risen to help them using modern technologies like Data science & deep learning ,but those methods such those need a big amount of data so to collect and broadcast data we created this project as an attempt to help collecting information's about this virus and broadcast it to the public ,hoping that this will help fighting this virus.
-Therefor using supervised learning is know as the fastest and the most reliable way to implement a deep learning model so we needed to created a pipe helping fast data collection and expert fast annotation , for that we used the following web technologies that we saw the most effective for this particular case :
+In the end of 2019 a new virus arrived to our world and many people get sick and sometimes die from it ,to detect this virus we use PCR ,but this test is hard to perform in a large amount of patients , so in emergency cases like in italy ,doctors use clinical and radiological signs to classify patients but the overwhelming charge on the Health care systems make it hard for doctors to fast & objectify detect those signs so a need risen to help them using modern technologies like machine & deep learning ,but they need a big amount of data ,so a need risen for a better data collection and broadcast tools to help organize crowd sourcing information's about this virus and broadcast it to the public ,hoping that will help fighting this virus.
+Therefor using supervised learning is know as the fastest and the most reliable way to implement a deep learning model so we needed to created a pipe helping fast data collection & expert annotation , for that we used the following web technologies that we saw the most effective for our chest scan crowd sourcing platform :
 - MEAN Stack
 - AWS S3
 - Heruko
