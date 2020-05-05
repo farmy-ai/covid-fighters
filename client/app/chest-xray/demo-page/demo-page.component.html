@@ -4,7 +4,7 @@
   <div class="mat-headline mb-4" style="color: #A6A6A6;max-width: 700px;text-align: center;">COVIDEEP AI Detection is developed using deep learning based on
     Chest X-ray images datasets available publicly</div>
 </div>
-<div class="button">
+<div class="button" *ngIf="state === 'before'">
   <span class="mat-h1 mb-5 ml-5">Choose a Chest X-ray image</span>
   <button mat-fab *ngIf="state === 'before'" color="primary" class="btn ml-4 mb-4 mt-4" (click)="input.click()">
     <mat-icon>add</mat-icon>

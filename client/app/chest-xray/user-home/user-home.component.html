@@ -29,7 +29,7 @@
       <div class="medicaments">
         <div [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card pt-5 pb-3 px-3">
 
-          <span class="mat-display-3 mb-4">COVID</span>
+          <span class="mat-display-3 mb-4">COVID-19</span>
 
           <div class="mat-caption">
             <span class="mat-display-2 mb-4 ml-4">{{covid.count || 0}}</span> / images
@@ -42,9 +42,9 @@
             <mat-slide-toggle disabled>Dicom</mat-slide-toggle>
           </div>
 
-          <button mat-button class="download my-4" (click)="download('covid')">download</button>
+          <button mat-button class="download my-4" (click)="download('covid')">Download</button>
           <mat-divider class="mb-2" style="width: 100%;"></mat-divider>
-          <div class="mat-caption">last Update</div><span class="mat-body-2">{{covid.update}}</span>
+          <div class="mat-caption">Last Update</div><span class="mat-body-2">{{covid.update}}</span>
 
 
         </div>
@@ -63,9 +63,9 @@
             <mat-slide-toggle disabled>Dicom</mat-slide-toggle>
           </div>
 
-          <button mat-button class="download my-4" (click)="download('pneumonia')">download</button>
+          <button mat-button class="download my-4" (click)="download('pneumonia')">Download</button>
           <mat-divider class="mb-2" style="width: 100%;"></mat-divider>
-          <div class="mat-caption">last Update</div><span class="mat-body-2">{{pneumonia.update}}</span>
+          <div class="mat-caption">Last Update</div><span class="mat-body-2">{{pneumonia.update}}</span>
 
         </div>
         <div [@fade]="{value: '*', params: { delay: (1*300)%2700}}" class="medic-card pt-5 pb-3 px-3">
@@ -81,9 +81,9 @@
             <mat-slide-toggle disabled>X-ray</mat-slide-toggle>
             <mat-slide-toggle disabled>Dicom</mat-slide-toggle>
           </div>
-          <button mat-button class="download my-4" (click)="download('other')">download</button>
+          <button mat-button class="download my-4" (click)="download('other')">Download</button>
           <mat-divider class="mb-2" style="width: 100%;"></mat-divider>
-          <div class="mat-caption">last Update</div><span class="mat-body-2">{{other.update}}</span>
+          <div class="mat-caption">Last Update</div><span class="mat-body-2">{{other.update}}</span>
         </div>
 
       </div>
