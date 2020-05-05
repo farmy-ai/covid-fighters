@@ -14,6 +14,14 @@ Therefor using supervised learning is know as the fastest and the most reliable 
 ## Goal
 Our main goal is make collect and label chest scan data easy ,accelerating the process toward having a reliable & good data to work with
 
+## Features
+
+ ### Dataset
+   Users can download gathered dataset and/or upload dataset
+ ### Expert
+   Radiologists can label chest xray scan to ensure the quality of dataset 
+ ### Demo
+  An up-to-date deep learning model trained using collected dataset 
 
 ### Prerequisites
 
