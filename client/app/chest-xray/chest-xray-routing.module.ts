@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'home', component: UserHomeComponent },
-      { path: 'landing', component: LandingComponent },
+      { path: '', component: LandingComponent },
       { path: 'demo', component: DemoPageComponent },
       { path: 'expert', loadChildren: () => import('./expert/expert.module').then(m => m.ExpertModule) }
     ]
