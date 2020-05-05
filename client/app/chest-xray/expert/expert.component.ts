@@ -114,20 +114,12 @@ export class ExpertComponent implements OnInit {
     });
     try {
       const result = await dialogRef.afterClosed().toPromise();
-      console.log(result);
-
 
       if (!!result) {
+        event.annotation = result;
+        const tempResultLog = await this.http.addAnnotation(event._id, event).toPromise();
 
-        const tempResultLog = await this.http.addSolution(result.id, result.data);
-        console.log(tempResultLog);
-
-        const index = this.new.findIndex((v) => v.id === result.id);
-
-        console.log(this.new[index]);
-
-        this.new[index].expert_solutions[0] = result.data;
-
+        const index = this.new.findIndex((v) => v._id === event._id);
         this.new.splice(index, 1);
         this.filter = [...this.new];
         this.setLoad(this.uiState.end + 1);
@@ -136,20 +128,7 @@ export class ExpertComponent implements OnInit {
       }
     } catch (error) {
       console.log(error);
-
     }
-  }
-  modificationDialogue() {
-    const confirmationDiag = this.dialog.open(overlayViewComponent, {
-      width: '450px',
-      panelClass: 'custom-dialog-container',
-      data: {
-        src: '/assets/svg/send.svg',
-        description: 'Solution modified successfully',
-        primary: { icon: 'open_in_browser', text: ' Ok' },
-        secondary: { icon: 'close', text: ' Close' },
-      }
-    });
   }
   confirmationDialog(index) {
     const confirmationDiag = this.dialog.open(overlayViewComponent, {
@@ -163,13 +142,13 @@ export class ExpertComponent implements OnInit {
       }
     });
     confirmationDiag.afterClosed().subscribe(result => {
-      console.log('length' + this.new.length);
+      console.log('length' + this.filter[index]);
       console.log('index' + index);
       if (result) {
-        if (this.new.length > index) {
-          this.openDialog(this.new[index]);
-        } else if (this.new.length === index && index !== 0) {
-          this.openDialog(this.new[index - 1]);
+        if (this.filter.length > index) {
+          this.openDialog(this.filter[index]);
+        } else if (this.filter.length === index && index !== 0) {
+          this.openDialog(this.filter[index - 1]);
         } else {
         }
 
@@ -188,10 +167,6 @@ export class ExpertComponent implements OnInit {
       this.setLoad(this.uiState.end + 10);
 
     }
-  }
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/']);
   }
 }
 

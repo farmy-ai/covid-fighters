@@ -1,5 +1,5 @@
 <input type="file" name="file" id="file" #fileInput (change)='add($event)' style="display: none;" multiple />
-<form *ngIf="state === 'before'" [formGroup]="uploadForm" class="content-card mat-elevation-z2 p-4">
+<form *ngIf="state === 'before'" [formGroup]="uploadForm" class="content-card py-0">
   <span class="mat-display-3 mb-4 mt-2">Upload</span>
 
   <mat-form-field class="mt-5">
@@ -34,13 +34,13 @@
 
 </form>
 
-<div *ngIf="state === 'sending'" class="content-card mat-elevation-z2 p-4">
+<div *ngIf="state === 'sending'" class="content-card p-4">
   <mat-spinner class="my-5" mode="indeterminate">
   </mat-spinner>
   <h1>{{progress}}</h1>
 </div>
 
-<div *ngIf="state === 'error'" class="content-card mat-elevation-z2 p-4">
+<div *ngIf="state === 'error'" class="content-card p-4">
   <div class="mat-display-3">Error</div>
   <docs-svg-viewer src="../assets/svg/cancel.svg" [scaleToContainer]="true"></docs-svg-viewer>
   <div class="d-flex justify-content-center mt-5" style="width: 95%;">
@@ -49,10 +49,10 @@
   </div>
 </div>
 
-<div *ngIf="state === 'success'" class="content-card mat-elevation-z2 p-4">
+<div *ngIf="state === 'success'" class="content-card">
   <div class="mat-display-3">Sent successfully</div>
   <docs-svg-viewer src="../assets/svg/send.svg" [scaleToContainer]="true"></docs-svg-viewer>
   <div class="d-flex justify-content-center mt-5" style="width: 95%;">
-    <button mat-raised-button color="primary" style="width: 30%;" class="mr-2" [routerLink]="[ '/home']">Back</button>
+    <button mat-raised-button color="primary" style="width: 30%;" class="mr-2" (click)="close()">Back</button>
   </div>
 </div>

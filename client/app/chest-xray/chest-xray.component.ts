@@ -3,6 +3,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthManagerService } from '../auth-manager.service';
+import { Router } from '@angular/router';
+import { UploadComponent } from './upload-overlay/upload-overlay.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-chest-xray',
@@ -19,7 +22,20 @@ export class ChestXrayComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,public auth:AuthManagerService) { }
+  constructor(public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, public auth: AuthManagerService) { }
+
+  openUpload() {
+    const dialogRef = this.dialog.open(UploadComponent, {
+      width: '800px',
+      height: '674px',
+      panelClass: 'custom-dialog-container',
+      data: event
+    });
+  }
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['landing']);
+  }
 
   ngOnInit() {
   }

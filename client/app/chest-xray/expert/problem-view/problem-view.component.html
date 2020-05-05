@@ -1,62 +1,40 @@
-1
 <div class="content-container">
-    <div class="image-container">
-        <img [src]="data.images[uiState.index].image.full_size" class="image">
-        <button (click)="change(1)" class="next" mat-button>
-            <i class="material-icons" style="font-size: 40px;font-weight: 700">keyboard_arrow_right</i>
-        </button>
-        <button (click)="change(-1)" class="back" mat-button>
-            <i class="material-icons" style="font-size: 40px;font-weight: 700">keyboard_arrow_left</i>
-        </button>
+  <div class="image-container">
+    <img [src]="data.s3_path" class="image">
+
+  </div>
+  <div class="content-container">
+    <div class="header py-3 px-4">
+      <i class="info-icon material-icons">access_time</i>
+      <span class="info-text">{{data.createdAt | timeSpan}}</span>
+      <div class="h-separation"></div>
+      <i class="info-icon material-icons">location_on</i>
+      <span class="info-text">{{data.affiliation}}</span>
     </div>
-    <div class="content-container">
-        <div class="header">
-            <img src="/assets/svg/farmer.svg" alt="" class="profile-img">
-            <div class="infos-container">
-                <span class="user-name">{{data.farmer.first_name + ' ' + data.farmer.last_name}}</span>
-                <div class="infos">
-                    <i class="info-icon material-icons">access_time</i>
-                    <span class="info-text">{{data.created | timeSpan}}</span>
-                    <div class="h-separation"></div>
-                    <i class="info-icon material-icons">location_on</i>
-                    <span class="info-text">{{data.farmer.address}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="separation"></div>
-        <div class="problem-container">
-            <span class="title">{{data.title}}</span>
-            <p class="description">{{data.description}}</p>
-        </div>
-        <div class="diagnose-container">
-            <span class="input-name">Disease</span>
-            <div class="disease-input-container">
-                <mat-select placeholder="Select the disease" [(ngModel)]="formValue.diag" name="item">
-                    <mat-option *ngFor="let item of uiState.diseases" [value]="item"> {{item}}</mat-option>
-                </mat-select>
-            </div>
-            <span class="input-name">Diagnosis</span>
-            <textarea class="form-control" [(ngModel)]="formValue.description" name="diagnose" id="" rows="3"></textarea>
-            <span class="input-name">Treatment</span>
-            <textarea class="form-control" [(ngModel)]="formValue.treatement" name="treatment" id="" rows="3"></textarea>
-            <div class="action-container">
-                <button [matMenuTriggerFor]="appMenu" class="more" disabled="true" mat-button><i class="material-icons">more_vert</i>
-                    More</button>
-                <mat-menu #appMenu="matMenu">
-                    <button mat-menu-item style="color:#0061FF">
-                        <mat-icon style="color:#0061FF">save</mat-icon><span>Save</span>
-                    </button>
-                    <button mat-menu-item>
-                        <mat-icon>collections</mat-icon><span>Detach</span>
-                    </button>
-                    <button mat-menu-item>
-                        <mat-icon>flag_outline</mat-icon><span>Report</span>
-                    </button>
-                </mat-menu>
-                <button mat-button class="cancel" (click)="dialogRef.close()"><i
-                        class="material-icons">close</i>Cancel</button>
-                <button [disabled]="formValue.description === '' || formValue.diag === '' || formValue.treatement === ''" mat-raised-button class="send" (click)="onSave()"><i class="material-icons">send</i>Send</button>
-            </div>
-        </div>
+    <div class="separation"></div>
+    <div class="problem-container">
+      <span class="title">{{data.disease_type}}</span>
+      <p class="description">{{data.description}}</p>
     </div>
+    <div class="diagnose-container">
+      <mat-form-field class="mb-3" appearance="outline">
+        <mat-label>Disease</mat-label>
+        <mat-select [(ngModel)]="formValue.disease_type">
+          <mat-option value="covid">Covid 19</mat-option>
+          <mat-option value="pneumonia">Pneumonia</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="if other please specify..." [(ngModel)]="formValue.description" name="diagnose"
+          id="" rows="3"></textarea>
+      </mat-form-field>
+      <div class="action-container">
+        <button mat-button class="cancel" (click)="dialogRef.close()"><i class="material-icons">close</i>Cancel</button>
+        <button [disabled]="formValue.disease_type === ''" mat-raised-button class="send" (click)="onSave()"><i
+            class="material-icons">send</i>Send</button>
+      </div>
+    </div>
+  </div>
 </div>

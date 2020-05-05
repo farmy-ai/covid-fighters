@@ -17,6 +17,8 @@ export class DemoPageComponent implements OnInit {
   ngOnInit() { }
 
   round(v) {
+    console.log(v*100);
+
     return Math.floor(v * 100);
   }
   upload(event) {
