@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatProgressSpinnerModule,MatProgressBarModule, MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule, MatTooltipModule } from '@angular/material/';
+import { MatProgressSpinnerModule,MatProgressBarModule, MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule, MatTooltipModule, MatBottomSheetModule } from '@angular/material/';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { LoadPipe } from './user-home/load.pipe';
@@ -25,9 +25,13 @@ import { LandingComponent } from './landing/landing.component';
 import { UploadComponent } from './upload-overlay/upload-overlay.component';
 import { SvgViewerModule } from './landing/svg-viewer/svg-viewer.component';
 import { DemoPageComponent } from './demo-page/demo-page.component';
+import { DisclamerComponent } from './demo-page/disclamer/disclamer.component';
 
 @NgModule({
-  declarations: [ChestXrayComponent, LoginComponent, RegisterComponent, UserHomeComponent, LoadPipe, LandingComponent, UploadComponent, DemoPageComponent],
+  declarations: [
+    ChestXrayComponent, LoginComponent, RegisterComponent,
+    UserHomeComponent, LoadPipe, LandingComponent,
+    UploadComponent, DemoPageComponent, DisclamerComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -55,10 +59,11 @@ import { DemoPageComponent } from './demo-page/demo-page.component';
     MatAutocompleteModule,
     MatMenuModule,
     MatProgressBarModule,
+    MatBottomSheetModule,
     SvgViewerModule,
 
   ],
   exports:[],
-  entryComponents: [UploadComponent]
+  entryComponents: [UploadComponent,DisclamerComponent]
 })
 export class ChestXrayModule { }

@@ -1,0 +1,12 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+  .actions{
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+  }
+}

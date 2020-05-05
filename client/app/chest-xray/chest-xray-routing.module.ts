@@ -5,8 +5,6 @@ import { ChestXrayComponent } from './chest-xray.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserHomeComponent } from './user-home/user-home.component';
-import { UploadComponent } from './upload-overlay/upload-overlay.component';
-import { UploadOverlayGuard } from './upload-overlay.guard';
 import { LandingComponent } from './landing/landing.component';
 import { DemoPageComponent } from './demo-page/demo-page.component';
 
