@@ -92,7 +92,7 @@ export default class UserCtrl extends BaseCtrl {
         if (error) {
           return res.status(403);
         } else {
-          res.sendStatus(200).json(user);
+          return res.status(200).json(user);
         }
       });
   }
