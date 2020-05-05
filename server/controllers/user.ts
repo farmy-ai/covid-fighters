@@ -41,27 +41,27 @@ export default class UserCtrl extends BaseCtrl {
         if (err) { return res.status(500).send({ msg: err.message }); }
 
         // Send the email
-        var mailOptions = {
+        /*var mailOptions = {
           from: 'covidfighter@tibyane.com',
           to: user.email,
           subject: 'Account Verification Token',
           text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n'
-        };
-        var mailgun = new NodeMailgun()
-        mailgun.apiKey = process.env.MAILGUN_API_KEY;
-        mailgun.domain = process.env.MAILGUN_DOMAIN;
-        mailgun.fromEmail = mailOptions.from;
-        mailgun.fromTitle = mailOptions.subject;
-        mailgun.init();
-        mailgun.send(mailOptions.to, mailOptions.subject, mailOptions.text).then((result) => {
+        };*/
+        //var mailgun = new NodeMailgun()
+        //mailgun.apiKey = process.env.MAILGUN_API_KEY;
+        //mailgun.domain = process.env.MAILGUN_DOMAIN;
+        //mailgun.fromEmail = mailOptions.from;
+        //mailgun.fromTitle = mailOptions.subject;
+        //mailgun.init();
+        //mailgun.send(mailOptions.to, mailOptions.subject, mailOptions.text).then((result) => {
 
           res.status(200).json(user);
           //res.status(200).send('A verification email has been sent to ' + user.email + '.');
           //return res.json({ success: true, message: 'Check your mail to reset your password.', result: result });
-        }).catch((error) => {
-          console.log(error);
-          res.status(500).json({ success: false, message: 'Unable to send confirmation mail.' });
-        });
+        //}).catch((error) => {
+        //  console.log(error);
+        //  res.status(500).json({ success: false, message: 'Unable to send confirmation mail.' });
+        //});
 
       });
 
