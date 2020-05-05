@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   API_KEY: $ENV.API_KEY,
-  API_URL: $ENV.API_URL,
+  API_URL: process.env.CLIENT_URL,
   ONESIGNAL_KEY: $ENV.ONESIGNAL_KEY
 };
 
