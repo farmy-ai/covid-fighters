@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
-  API_KEY: $ENV.API_KEY,
-  API_URL: $ENV.API_URL,
-  ONESIGNAL_KEY: $ENV.ONESIGNAL_KEY
+  API_KEY: " ",
+  API_URL: "https://covidfighterapp.herokuapp.com/api/",
+  ONESIGNAL_KEY: " "
 };
 
 declare var $ENV: ENV;

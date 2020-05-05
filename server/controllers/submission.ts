@@ -296,7 +296,12 @@ export default class SubmissionCtrl extends BaseCtrl {
 
   downloadMultiple = (req, res) => {
 
-    const dir = path.join("tmp", uuidv4());
+    const temp_dir = "./tmp";
+    if (!fs.existsSync(temp_dir)) {
+      fs.mkdirSync(temp_dir);
+    }
+
+    const dir = path.join("./tmp", uuidv4());
     var match = {}
 
     var match = {}
