@@ -40,7 +40,7 @@ export default class SubmissionCtrl extends BaseCtrl {
     if (req.query.id_user) {
       match['id_user'] = req.query.id_user;
     }
-    
+
     if (req.query.created_at) {
       match['created_at'] = req.query.created_at;
     }
@@ -118,7 +118,7 @@ export default class SubmissionCtrl extends BaseCtrl {
           res.status(200).json(docs);
         }
       });
-      
+
     });
   }
 
@@ -152,11 +152,11 @@ export default class SubmissionCtrl extends BaseCtrl {
         if (err) {
           return console.error(err);
         }
-        res.sendStatus(200);
+        res.send({});
       });
     }
     else {
-      return res.sendStatus(403);
+      return res.send({});
     }
   }
 
@@ -280,7 +280,7 @@ export default class SubmissionCtrl extends BaseCtrl {
         res.end(null, 'binary');
       });
     });
-    
+
   }
 
   mine = async (req, res) => {

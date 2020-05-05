@@ -22,6 +22,8 @@ export class ProblemCardComponent implements OnInit {
   }
 
   open() {
+    console.log(this.metadata);
+
     this.diagnose.emit(this.metadata);
   }
 

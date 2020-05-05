@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatProgressSpinnerModule,MatProgressBarModule, MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule } from '@angular/material/';
+import { MatProgressSpinnerModule,MatProgressBarModule, MatMenuModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatDividerModule, MatDatepickerModule, MatSelectModule, MatRadioModule, MatChipsModule, MatTooltipModule } from '@angular/material/';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { LoadPipe } from './user-home/load.pipe';
@@ -33,6 +33,7 @@ import { DemoPageComponent } from './demo-page/demo-page.component';
     HttpClientModule,
     ChestXrayRoutingModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -55,9 +56,9 @@ import { DemoPageComponent } from './demo-page/demo-page.component';
     MatMenuModule,
     MatProgressBarModule,
     SvgViewerModule,
-    
+
   ],
   exports:[],
-  entryComponents: []
+  entryComponents: [UploadComponent]
 })
 export class ChestXrayModule { }

@@ -18,18 +18,18 @@
   <div class="values mt-5">
     <div class="progress mr-5">
       <span class="value">{{round(result?.predictions[0].probability) +'%'}}</span>
-      <mat-spinner [value]="round(result?.predictions[0].probability)" mode="Determinate">
+      <mat-spinner [value]="round(result?.predictions[0].probability)" mode="determinate">
       </mat-spinner>
       <span class="mat-h3 mt-3">{{result?.predictions[0].label}}</span>
     </div>
     <div class="progress mr-5">
       <span class="value">{{round(result?.predictions[1].probability) +'%'}}</span>
-      <mat-spinner [value]="round(result?.predictions[1].probability)" mode="Determinate"></mat-spinner>
+      <mat-spinner [value]="round(result?.predictions[1].probability)" mode="determinate"></mat-spinner>
       <span class="mat-h3 mt-3">{{result?.predictions[1].label}}</span>
     </div>
     <div class="progress">
       <span class="value">{{round(result?.predictions[2].probability) +'%'}}</span>
-      <mat-spinner [value]="round(result?.predictions[2].probability)" mode="Determinate"></mat-spinner>
+      <mat-spinner [value]="round(result?.predictions[2].probability)" mode="determinate"></mat-spinner>
       <span class="mat-h3 mt-3">{{result?.predictions[2].label}}</span>
     </div>
   </div>

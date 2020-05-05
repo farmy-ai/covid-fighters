@@ -14,7 +14,7 @@ const addDataLink = `${ROOT}submission/`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
 const demoLink = `${ROOT}predict`;
 const statLink = `${ROOT}submissions/stat`;
-const AddSolution = ` `;
+const AddSolution = `${ROOT}submission/`;
 
 
 
@@ -111,11 +111,11 @@ export class RestService {
     return null;
   }
 
-  addSolution(id, data) {
+  addAnnotation(id, data) {
 
-    console.log('[ADDANOMALY QUERY]');
+    console.log('[ADD ANNOTATION QUERY]');
 
-    return this.http.post(AddSolution + id + '/solutions/', data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
+    return this.http.put(AddSolution + id, data);
   }
 }
 

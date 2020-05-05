@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   .content-card {
     display: flex;
     align-items: center;
@@ -12,10 +12,10 @@
     flex-direction: column;
     background-color: white;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
     @media (min-width: 960px) {
-      width: 50%;
-      min-height: 60vh;
+      width: 80%;
+      min-height: 100%;
       margin-top: 14px;
       margin-bottom: 14px;
     }

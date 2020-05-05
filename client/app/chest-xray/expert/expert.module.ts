@@ -10,7 +10,7 @@ import { ProblemViewComponent } from './problem-view/problem-view.component';
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 // tslint:disable-next-line: max-line-length
-import { MatProgressBarModule, MatIconModule, MatMenuModule, MatButtonModule, MatRippleModule, MatSelectModule, MatButtonToggleModule, MatDatepickerModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatProgressBarModule, MatIconModule, MatMenuModule, MatButtonModule, MatRippleModule, MatSelectModule, MatButtonToggleModule, MatDatepickerModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatInputModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { TimeSpanPipe } from './problem-card/time-span.pipe';
 import { AiDiseasesPipe } from './problem-card/ai-diseases.pipe';
 import { MySolutionPipe } from './problem-card/my-solution.pipe';
@@ -36,6 +36,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     ...materials,
     RouterModule.forChild(routes)
+  ],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
   ],
   entryComponents: [ProblemViewComponent]
 })

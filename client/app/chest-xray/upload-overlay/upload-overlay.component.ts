@@ -4,6 +4,8 @@ import { RestService } from 'client/app/REST.service';
 import { HttpEventType } from "@angular/common/http";
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-upload-overlay',
   templateUrl: './upload-overlay.component.html',
@@ -17,7 +19,8 @@ export class UploadComponent implements OnInit {
   files = [];
   public state = 'before';
   progress = '0%';
-  constructor(private _formBuilder: FormBuilder, private http: RestService) { }
+  constructor(private _formBuilder: FormBuilder, private http: RestService,private router:Router
+    ,public dialogRef: MatDialogRef<UploadComponent>,) { }
 
   ngOnInit() {
     this.uploadForm = this._formBuilder.group({
@@ -42,10 +45,14 @@ export class UploadComponent implements OnInit {
     this.http.addData(data).pipe(catchError(e => { this.state = 'error'; console.log(e); return of(e); })).subscribe(v => {
       if (v.type === HttpEventType.UploadProgress) {
         this.progress = Math.round(v.loaded / v.total * 100) + '%';
-      } else {
+      } else if(v.type === HttpEventType.Response) {
         this.state = 'success';
       }
     });
+  }
+  close(){
+    this.dialogRef.close();
+    this.router.navigate(['home']);
   }
 
 }
