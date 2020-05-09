@@ -3,14 +3,14 @@ import * as express from 'express';
 import UserCtrl from './controllers/user';
 import User from './models/user';
 
-import TaskCtrl from './controllers/task';
-import TAsk from './models/task';
+import MessageCtrl from './controllers/message';
 
 import DatasetCtrl from './controllers/dataset';
 import Dataset from './models/dataset';
 
 import InstanceCtrl from './controllers/instance';
 import SubmissionCtrl from './controllers/submission';
+
 
 import * as multer from 'multer';
 
@@ -42,7 +42,7 @@ export default function setRoutes(app) {
   const router = express.Router();
 
   const userCtrl = new UserCtrl();
-  const taskCtrl = new TaskCtrl();
+  const messageCtrl = new MessageCtrl();
   const datasetCtrl = new DatasetCtrl();
   const instanceCtrl = new InstanceCtrl();
   const submissionCtrl=new SubmissionCtrl();
@@ -106,6 +106,7 @@ export default function setRoutes(app) {
   router.route('/tags').get(metadataCtrl.getTags);
   router.route('/affiliations').get(metadataCtrl.getAffiliations);
 
+  router.route('/contactus').post(messageCtrl.insert);
   //prediction
   router.route('/predict').post(singleUpload, predictionCtrl.getPrediction);
   // Apply the routes to our application with the prefix /api
