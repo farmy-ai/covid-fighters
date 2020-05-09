@@ -25,6 +25,10 @@ export class ChestXrayComponent implements OnInit {
   constructor(public dialog: MatDialog, private router: Router, private breakpointObserver: BreakpointObserver, public auth: AuthManagerService) { }
 
   openUpload() {
+    if (!this.auth.isLoggedIn()) {
+      this.router.navigate(['register']);
+      return;
+    }
     const dialogRef = this.dialog.open(UploadComponent, {
       width: '800px',
       height: '674px',
@@ -32,6 +36,16 @@ export class ChestXrayComponent implements OnInit {
       data: event
     });
   }
+
+  expert() {
+    if (!this.auth.isLoggedIn()) {
+      this.router.navigate(['contact']);
+      return;
+    }
+    this.router.navigate(['expert']);
+
+  }
+
   logout() {
     this.auth.logout();
     this.router.navigate(['/']);

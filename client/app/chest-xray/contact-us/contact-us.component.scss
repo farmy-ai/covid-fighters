@@ -1,0 +1,33 @@
+:host {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 100vh;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  .content-card {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    @media (min-width: 960px) {
+      width: 100%;
+      min-height: 50vh;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+    .form-field {
+      width: 420px;
+    }
+  }
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}

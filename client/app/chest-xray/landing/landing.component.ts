@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthManagerService } from 'client/app/auth-manager.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth:AuthManagerService) { }
 
   ngOnInit() {
   }

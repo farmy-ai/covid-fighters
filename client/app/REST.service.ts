@@ -11,6 +11,7 @@ const signOutLink = `${ROOT}auth/signout/`;
 const UserLink = `${ROOT}user/`;
 const AllData = `${ROOT}submissions?annotated=false`;
 const addDataLink = `${ROOT}submission/`;
+const contactUsLink = `${ROOT}contactus`;
 const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
 const demoLink = `${ROOT}predict`;
 const statLink = `${ROOT}submissions/stat`;
@@ -44,6 +45,17 @@ export class RestService {
     console.log(user);
 
     return this.http.post(signUpLink, user);
+  }
+  contact(info): Observable<any> {
+
+    info = {
+      "name": info.name,
+      "email": info.email,
+      "phone_number": info.number,
+      "description": info.description
+  }
+
+    return this.http.post(contactUsLink, info);
   }
   login(email, password) {
     console.log('[LOGIN QUERY]');

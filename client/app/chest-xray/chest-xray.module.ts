@@ -26,12 +26,13 @@ import { UploadComponent } from './upload-overlay/upload-overlay.component';
 import { SvgViewerModule } from './landing/svg-viewer/svg-viewer.component';
 import { DemoPageComponent } from './demo-page/demo-page.component';
 import { DisclamerComponent } from './demo-page/disclamer/disclamer.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
     ChestXrayComponent, LoginComponent, RegisterComponent,
     UserHomeComponent, LoadPipe, LandingComponent,
-    UploadComponent, DemoPageComponent, DisclamerComponent],
+    UploadComponent, DemoPageComponent, DisclamerComponent, ContactUsComponent],
   imports: [
     CommonModule,
     HttpClientModule,

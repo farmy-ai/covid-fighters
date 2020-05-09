@@ -1,7 +1,7 @@
 <form [formGroup]="registerForm" class="content-card">
 
-  <span class="mat-h1 mb-3" style="width: 420px;text-align: start;">Register</span>
-
+  <span class="mat-h1 mb-1" style="width: 420px;text-align: start;">Register</span>
+  <span class="mat-body mb-4" style="width: 420px;text-align: start;">Register so you can upload data</span>
   <mat-form-field appearance="outline" class="form-field">
     <mat-label>First name</mat-label>
     <input matInput placeholder="your last name..." formControlName="first_name">
@@ -21,7 +21,7 @@
     <input matInput placeholder="Your email..." formControlName="email">
     <mat-icon matSuffix>alternate_email</mat-icon>
     <mat-hint *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.touched" style="color: red;">use
-      valid email</mat-hint>
+      validb email</mat-hint>
   </mat-form-field>
   <mat-form-field appearance="outline" class="form-field d-none">
     <mat-label>Affiliation</mat-label>
