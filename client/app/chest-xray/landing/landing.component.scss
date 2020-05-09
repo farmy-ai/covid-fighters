@@ -1,6 +1,6 @@
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 
-:host{
+:host {
   width: 100%;
 }
 
@@ -9,16 +9,71 @@ $margin-promotion-sections: 60px;
 $margin-promotion-sections-small: 15px;
 $primary: mat-palette($mat-indigo);
 
-.contactUs{
+.contactUs {
   background-color: mat-color($primary);
   color: white;
 }
 
 .docs-header-background {
-  overflow: hidden;
+  display: grid;
 
+  grid-template-columns: 10vw 35vw 55vw;
+  grid-template-rows: 30vh 37vh 23vh;
   background-color: mat-color($primary);
   color: white;
+
+  .title {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    align-self: flex-end;
+    justify-content: center;
+    font-weight: 300;
+    margin-bottom: 20px;
+    font-size: 50px;
+    line-height: 60px;
+    letter-spacing: -2px;
+    text-align: left;
+  }
+  .description {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    align-self: flex-start;
+    justify-self: center;
+    box-sizing: border-box;
+    margin-top: 0;
+    opacity: 0.9;
+    color: #ddd;
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 300;
+    text-align: left;
+  }
+  .button {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    align-self: flex-start;
+    justify-self: flex-start;
+    width: 124px;
+    margin-left: 29px;
+    margin-top: 14px;
+    transform: scale(1.46);
+  }
+  .logo {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    align-self: center;
+    justify-content: center;
+    width:640px;
+    margin-left: 62px;
+  }
 }
 
 .docs-header-section {
@@ -64,14 +119,13 @@ $primary: mat-palette($mat-indigo);
   }
 }
 
-
 .docs-homepage-row {
   display: flex;
   max-width: 920px;
   margin: $margin-promotion-sections 0;
 }
 
-.docs-homepage-row .docs-svg-image{
+.docs-homepage-row .docs-svg-image {
   max-width: 90%;
 }
 
@@ -100,7 +154,6 @@ $primary: mat-palette($mat-indigo);
   flex-direction: column;
   justify-content: center;
 }
-
 
 /**
   * Rules for when the device is detected to be a small screen.
