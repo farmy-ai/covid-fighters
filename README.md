@@ -1,6 +1,6 @@
 # COVID FIGHTERS
 
-Data collection and label tool for COVID-19 disease chest scans [Project website](https://covidfighterapp.herokuapp.com/)
+Data collection and label tool for COVID-19 disease chest scans [covideep](http://www.covideep.net/)
 
 ## Why this project
 
