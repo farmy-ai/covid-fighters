@@ -8,14 +8,14 @@
           <button mat-button [routerLink]="[ '/home' ]">Download</button>
           <button mat-button (click)="openUpload()">Upload</button>
           <button mat-button (click)="expert()">Annotation</button>
-          <button mat-raised-button color="accent" class="action" >Contact Us</button>
+          <button mat-raised-button color="accent" class="action" [routerLink]="[ '/contact' ]">Contact Us</button>
         </ng-container>
         <ng-template #elseTemplate>
           <button mat-button [routerLink]="[ '/demo' ]">Demo</button>
           <button mat-button [routerLink]="[ '/home' ]">Download</button>
           <button mat-button (click)="openUpload()">Upload</button>
           <button mat-button (click)="expert()">Annotation</button>
-          <button mat-raised-button color="accent" class="action" >Contact Us</button>
+          <button mat-raised-button color="accent" class="action" [routerLink]="[ '/contact' ]">Contact Us</button>
         </ng-template>
 
       </div>

@@ -39,7 +39,7 @@ export class ChestXrayComponent implements OnInit {
 
   expert() {
     if (!this.auth.isLoggedIn()) {
-      this.router.navigate(['contact']);
+      this.router.navigate(['register']);
       return;
     }
     this.router.navigate(['expert']);
