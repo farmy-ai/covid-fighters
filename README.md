@@ -9,7 +9,7 @@ Therefor using supervised learning is know as the fastest and the most reliable 
 - MEAN Stack
 - AWS S3
 - Heruko
-- Pytorch
+- Tensorflow
 
 ## Goal
 Our main goal is make collect and label chest scan data easy ,accelerating the process toward having a reliable & good data to work with
