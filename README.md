@@ -71,9 +71,9 @@ We still in BETA version.
 
 * **Ahmed GHENABZIA** - *Initial work* - [Ahmad](https://github.com/ahmed3991)
 * **Ilies BOUROUH** - *Initial work* - [Ilyes brh](https://github.com/ilyesbrh)
-* **Tarik ZEZADI** 
+* **Tarik ZEDAZI** 
 * **Mohamed BRAHIMI** 
-* **BILEL ZEZADI**
+* **BILEL ZEDAZI**
 
 ## License
 
