@@ -2,18 +2,6 @@
 
 Data collection and label tool for COVID-19 disease chest scans [covideep](http://www.covideep.net/)
 
-## Why this project
-
-In the end of 2019 a new virus arrived to our world and many people get sick and sometimes die from it ,to detect this virus we use PCR ,but this test is hard to perform in a large amount of patients , so in emergency cases like in italy ,doctors use clinical and radiological signs to classify patients but the overwhelming charge on the Health care systems make it hard for doctors to fast & objectify detect those signs so a need risen to help them using modern technologies like machine & deep learning ,but they need a big amount of data ,so a need risen for a better data collection and broadcast tools to help organize crowd sourcing information's about this virus and broadcast it to the public ,hoping that will help fighting this virus.
-Therefor using supervised learning is know as the fastest and the most reliable way to implement a deep learning model so we needed to created a pipe helping fast data collection & expert annotation , for that we used the following web technologies that we saw the most effective for our chest scan crowd sourcing platform :
-- MEAN Stack
-- AWS S3
-- Heruko
-- Tensorflow
-
-## Goal
-Our main goal is make collect and label chest scan data easy ,accelerating the process toward having a reliable & good data to work with
-
 ## Features
 
  ### Dataset
