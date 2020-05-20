@@ -57,7 +57,7 @@ We still in BETA version.
 
 ## Authors
 
-* **Ahmed GHENABZIA** - *Initial work* - [Ahmad](https://github.com/ahmed3991)
+* **Ahmed GHENABZIA** - *Initial work* - [Ahmed](https://github.com/ahmed3991)
 * **Ilies BOUROUH** - *Initial work* - [Ilyes brh](https://github.com/ilyesbrh)
 * **Tarik ZEDAZI** 
 * **Mohamed BRAHIMI** 
